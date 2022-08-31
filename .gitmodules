@@ -1,0 +1,4 @@
+[submodule "course"]
+	path = course
+	url = https://github.com/alexey-malov/ood
+	ignore = dirty
