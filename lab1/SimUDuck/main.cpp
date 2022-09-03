@@ -1,7 +1,11 @@
+#include "Ducks/CMallardDuck.h"
 #include <iostream>
 
 int main()
 {
-	std::cout << "Hello\n";
+	CMallardDuck mallard;
+	mallard.PerformQuack();
+	mallard.PerformFly();
+
 	return EXIT_SUCCESS;
 }

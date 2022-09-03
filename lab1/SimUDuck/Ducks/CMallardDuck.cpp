@@ -1,0 +1,1 @@
+#include "CMallardDuck.h"

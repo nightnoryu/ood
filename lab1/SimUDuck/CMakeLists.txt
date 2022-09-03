@@ -1,1 +1,12 @@
-add_executable(SimUDuck main.cpp)
+add_executable(SimUDuck
+               FlyBehaviors/IFlyBehavior.h
+               FlyBehaviors/CFlyWithWings.h
+               FlyBehaviors/CFlyWithWings.cpp
+               QuackBehaviors/IQuackBehavior.h
+               QuackBehaviors/CQuack.h
+               QuackBehaviors/CQuack.cpp
+               Ducks/CDuck.h
+               Ducks/CDuck.cpp
+               Ducks/CMallardDuck.h
+               Ducks/CMallardDuck.cpp
+               main.cpp)
