@@ -5,5 +5,5 @@
 class CQuack : public IQuackBehavior
 {
 public:
-	void Quack() final;
+	void Quack() override;
 };

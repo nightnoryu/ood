@@ -5,8 +5,15 @@ add_executable(SimUDuck
                QuackBehaviors/IQuackBehavior.h
                QuackBehaviors/CQuack.h
                QuackBehaviors/CQuack.cpp
+               DanceBehaviors/IDanceBehavior.h
+               DanceBehaviors/CDanceWaltz.h
+               DanceBehaviors/CDanceWaltz.cpp
+               DanceBehaviors/CDanceMinuet.h
+               DanceBehaviors/CDanceMinuet.cpp
                Ducks/CDuck.h
                Ducks/CDuck.cpp
                Ducks/CMallardDuck.h
                Ducks/CMallardDuck.cpp
+               Ducks/CRedHeadDuck.h
+               Ducks/CRedHeadDuck.cpp
                main.cpp)

@@ -5,5 +5,5 @@
 class CFlyWithWings : public IFlyBehavior
 {
 public:
-	void Fly() final;
+	void Fly() override;
 };
