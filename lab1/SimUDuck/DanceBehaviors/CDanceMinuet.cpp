@@ -3,5 +3,5 @@
 
 void CDanceMinuet::Dance()
 {
-	std::cout << "I'm dancing minuet!\n";
+	std::cout << "I'm dancing minuet!" << std::endl;
 }
