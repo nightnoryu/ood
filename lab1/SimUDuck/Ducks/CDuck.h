@@ -8,13 +8,20 @@
 class CDuck
 {
 public:
-	void PerformQuack();
+	CDuck(
+		std::unique_ptr<IQuackBehavior>&& quackBehavior,
+		std::unique_ptr<IFlyBehavior>&& flyBehavior,
+		std::unique_ptr<IDanceBehavior>&& danceBehavior);
 
-	void PerformFly();
+	void Quack();
+	void Fly();
+	void Dance();
 
-	void PerformDance();
+	virtual void Display() const = 0;
 
-protected:
+	virtual ~CDuck() = default;
+
+private:
 	std::unique_ptr<IQuackBehavior> m_quackBehavior;
 	std::unique_ptr<IFlyBehavior> m_flyBehavior;
 	std::unique_ptr<IDanceBehavior> m_danceBehavior;

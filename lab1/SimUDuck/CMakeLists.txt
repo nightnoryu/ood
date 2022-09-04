@@ -2,9 +2,15 @@ add_executable(SimUDuck
                FlyBehaviors/IFlyBehavior.h
                FlyBehaviors/CFlyWithWings.h
                FlyBehaviors/CFlyWithWings.cpp
+               FlyBehaviors/CFlyNoWay.h
+               FlyBehaviors/CFlyNoWay.cpp
                QuackBehaviors/IQuackBehavior.h
                QuackBehaviors/CQuack.h
                QuackBehaviors/CQuack.cpp
+               QuackBehaviors/CSqueak.h
+               QuackBehaviors/CSqueak.cpp
+               QuackBehaviors/CMuteQuack.h
+               QuackBehaviors/CMuteQuack.cpp
                DanceBehaviors/IDanceBehavior.h
                DanceBehaviors/CDanceWaltz.h
                DanceBehaviors/CDanceWaltz.cpp
@@ -14,6 +20,8 @@ add_executable(SimUDuck
                Ducks/CDuck.cpp
                Ducks/CMallardDuck.h
                Ducks/CMallardDuck.cpp
-               Ducks/CRedHeadDuck.h
-               Ducks/CRedHeadDuck.cpp
+               Ducks/CRedheadDuck.h
+               Ducks/CRedheadDuck.cpp
+               Ducks/CDecoyDuck.h
+               Ducks/CDecoyDuck.cpp
                main.cpp)

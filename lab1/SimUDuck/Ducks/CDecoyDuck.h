@@ -2,10 +2,10 @@
 
 #include "CDuck.h"
 
-class CMallardDuck : public CDuck
+class CDecoyDuck : public CDuck
 {
 public:
-	CMallardDuck();
+	CDecoyDuck();
 
 	void Display() const override;
 };

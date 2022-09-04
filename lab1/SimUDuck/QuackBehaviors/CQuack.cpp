@@ -3,5 +3,5 @@
 
 void CQuack::Quack()
 {
-	std::cout << "Quack!\n";
+	std::cout << "Quack Quack!!!" << std::endl;
 }

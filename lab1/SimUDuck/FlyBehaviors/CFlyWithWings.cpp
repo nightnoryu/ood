@@ -3,5 +3,5 @@
 
 void CFlyWithWings::Fly()
 {
-	std::cout << "I'm flying with wings!\n";
+	std::cout << "I'm flying with wings!!" << std::endl;
 }
