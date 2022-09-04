@@ -1,1 +1,2 @@
 add_subdirectory(SimUDuck)
+add_subdirectory(SimUDuckFunctional)
