@@ -1,12 +1,12 @@
 #include "CRubberDuck.h"
 #include "../DanceBehaviors/CDanceNoWay.h"
 #include "../FlyBehaviors/CFlyNoWay.h"
-#include "../QuackBehaviors/CMuteQuack.h"
+#include "../QuackBehaviors/CSqueak.h"
 #include <iostream>
 
 CRubberDuck::CRubberDuck()
 	: CDuck(
-		std::make_unique<CMuteQuack>(),
+		std::make_unique<CSqueak>(),
 		std::make_unique<CFlyNoWay>(),
 		std::make_unique<CDanceNoWay>())
 {
