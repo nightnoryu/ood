@@ -41,5 +41,6 @@ void PlayWithDuck(CDuck& duck)
 	duck.Quack();
 	duck.Fly();
 	duck.Dance();
+	duck.Fly();
 	std::cout << std::endl;
 }
