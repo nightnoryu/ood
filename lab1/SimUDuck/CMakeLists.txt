@@ -16,6 +16,8 @@ add_executable(SimUDuck
                DanceBehaviors/CDanceWaltz.cpp
                DanceBehaviors/CDanceMinuet.h
                DanceBehaviors/CDanceMinuet.cpp
+               DanceBehaviors/CDanceNoWay.h
+               DanceBehaviors/CDanceNoWay.cpp
                Ducks/CDuck.h
                Ducks/CDuck.cpp
                Ducks/CMallardDuck.h
