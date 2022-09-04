@@ -1,2 +1,12 @@
 add_executable(SimUDuckFunctional
+               Behaviors/QuackBehaviors.h
+               Behaviors/QuackBehaviors.cpp
+               Behaviors/FlyBehaviors.h
+               Behaviors/FlyBehaviors.cpp
+               Behaviors/DanceBehaviors.h
+               Behaviors/DanceBehaviors.cpp
+               Ducks/CDuck.h
+               Ducks/CDuck.cpp
+               Ducks/CMallardDuck.h
+               Ducks/CMallardDuck.cpp
                main.cpp)
