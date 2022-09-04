@@ -1,5 +1,9 @@
+#include "Ducks/CDecoyDuck.h"
 #include "Ducks/CDuck.h"
 #include "Ducks/CMallardDuck.h"
+#include "Ducks/CModelDuck.h"
+#include "Ducks/CRedheadDuck.h"
+#include "Ducks/CRubberDuck.h"
 #include <iostream>
 
 void PlayWithDuck(CDuck& duck);
@@ -9,19 +13,19 @@ int main()
 	CMallardDuck mallardDuck;
 	PlayWithDuck(mallardDuck);
 
-	// CRedheadDuck redheadDuck;
-	// PlayWithDuck(redheadDuck);
-	//
-	// CRubberDuck rubberDuck;
-	// PlayWithDuck(rubberDuck);
-	//
-	// CDecoyDuck decoyDuck;
-	// PlayWithDuck(decoyDuck);
-	//
-	// CModelDuck modelDuck;
-	// PlayWithDuck(modelDuck);
-	// modelDuck.SetFlyBehavior(std::make_unique<CFlyWithWings>());
-	// PlayWithDuck(modelDuck);
+	CRedheadDuck redheadDuck;
+	PlayWithDuck(redheadDuck);
+
+	CRubberDuck rubberDuck;
+	PlayWithDuck(rubberDuck);
+
+	CDecoyDuck decoyDuck;
+	PlayWithDuck(decoyDuck);
+
+	CModelDuck modelDuck;
+	PlayWithDuck(modelDuck);
+	modelDuck.SetFlyBehavior(FlyWithWings{});
+	PlayWithDuck(modelDuck);
 
 	return EXIT_SUCCESS;
 }

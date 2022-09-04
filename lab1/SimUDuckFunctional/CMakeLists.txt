@@ -9,4 +9,12 @@ add_executable(SimUDuckFunctional
                Ducks/CDuck.cpp
                Ducks/CMallardDuck.h
                Ducks/CMallardDuck.cpp
+               Ducks/CRedheadDuck.h
+               Ducks/CRedheadDuck.cpp
+               Ducks/CRubberDuck.h
+               Ducks/CRubberDuck.cpp
+               Ducks/CDecoyDuck.h
+               Ducks/CDecoyDuck.cpp
+               Ducks/CModelDuck.h
+               Ducks/CModelDuck.cpp
                main.cpp)
