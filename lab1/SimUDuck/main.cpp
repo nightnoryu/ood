@@ -3,6 +3,7 @@
 #include "Ducks/CModelDuck.h"
 #include "Ducks/CRedheadDuck.h"
 #include "Ducks/CRubberDuck.h"
+#include "FlyBehaviors/CFlyWithWings.h"
 #include <iostream>
 
 void PlayWithDuck(CDuck& duck);
@@ -22,6 +23,8 @@ int main()
 	PlayWithDuck(decoyDuck);
 
 	CModelDuck modelDuck;
+	PlayWithDuck(modelDuck);
+	modelDuck.SetFlyBehavior(std::make_unique<CFlyWithWings>());
 	PlayWithDuck(modelDuck);
 
 	return EXIT_SUCCESS;

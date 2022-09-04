@@ -24,3 +24,8 @@ void CDuck::Dance()
 {
 	m_danceBehavior->Dance();
 }
+
+void CDuck::SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior)
+{
+	m_flyBehavior = std::move(flyBehavior);
+}

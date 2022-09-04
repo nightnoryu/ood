@@ -17,6 +17,8 @@ public:
 	void Fly();
 	void Dance();
 
+	void SetFlyBehavior(std::unique_ptr<IFlyBehavior>&& flyBehavior);
+
 	virtual void Display() const = 0;
 
 	virtual ~CDuck() = default;
