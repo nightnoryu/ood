@@ -22,6 +22,8 @@ add_executable(SimUDuck
                Ducks/CMallardDuck.cpp
                Ducks/CRedheadDuck.h
                Ducks/CRedheadDuck.cpp
+               Ducks/CRubberDuck.h
+               Ducks/CRubberDuck.cpp
                Ducks/CDecoyDuck.h
                Ducks/CDecoyDuck.cpp
                main.cpp)

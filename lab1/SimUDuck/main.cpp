@@ -1,6 +1,7 @@
 #include "Ducks/CDecoyDuck.h"
 #include "Ducks/CMallardDuck.h"
 #include "Ducks/CRedheadDuck.h"
+#include "Ducks/CRubberDuck.h"
 #include <iostream>
 
 void PlayWithDuck(CDuck& duck);
@@ -12,6 +13,9 @@ int main()
 
 	CRedheadDuck redheadDuck;
 	PlayWithDuck(redheadDuck);
+
+	CRubberDuck rubberDuck;
+	PlayWithDuck(rubberDuck);
 
 	CDecoyDuck decoyDuck;
 	PlayWithDuck(decoyDuck);
