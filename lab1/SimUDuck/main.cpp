@@ -1,5 +1,6 @@
 #include "Ducks/CDecoyDuck.h"
 #include "Ducks/CMallardDuck.h"
+#include "Ducks/CModelDuck.h"
 #include "Ducks/CRedheadDuck.h"
 #include "Ducks/CRubberDuck.h"
 #include <iostream>
@@ -19,6 +20,9 @@ int main()
 
 	CDecoyDuck decoyDuck;
 	PlayWithDuck(decoyDuck);
+
+	CModelDuck modelDuck;
+	PlayWithDuck(modelDuck);
 
 	return EXIT_SUCCESS;
 }
