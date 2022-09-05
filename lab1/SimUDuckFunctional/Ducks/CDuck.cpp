@@ -9,6 +9,9 @@ CDuck::CDuck(
 	, m_flyBehavior(std::move(flyBehavior))
 	, m_danceBehavior(std::move(danceBehavior))
 {
+	assert(m_quackBehavior);
+	assert(m_flyBehavior);
+	assert(m_danceBehavior);
 }
 
 void CDuck::Quack()
@@ -28,5 +31,6 @@ void CDuck::Dance()
 
 void CDuck::SetFlyBehavior(FlyBehavior && flyBehavior)
 {
+	assert(flyBehavior);
 	m_flyBehavior = std::move(flyBehavior);
 }
