@@ -17,7 +17,9 @@ public:
 	void NotifyObservers() override
 	{
 		auto data = GetChangedData();
-		for (auto& observer : m_observers)
+		auto observers = m_observers;
+
+		for (auto& observer : observers)
 		{
 			observer->Update(data);
 		}
