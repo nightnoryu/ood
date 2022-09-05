@@ -3,7 +3,7 @@
 CRedheadDuck::CRedheadDuck()
 	: CDuck(
 		QuackQuack,
-		FlyWithWings{},
+		CreateFlyWithWingsBehavior(),
 		DanceMinuet)
 {
 }

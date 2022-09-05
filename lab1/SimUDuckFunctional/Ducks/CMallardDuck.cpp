@@ -3,7 +3,7 @@
 CMallardDuck::CMallardDuck()
 	: CDuck(
 		QuackQuack,
-		FlyWithWings{},
+		CreateFlyWithWingsBehavior(),
 		DanceWaltz)
 {
 }

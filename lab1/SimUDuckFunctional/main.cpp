@@ -24,7 +24,7 @@ int main()
 
 	CModelDuck modelDuck;
 	PlayWithDuck(modelDuck);
-	modelDuck.SetFlyBehavior(FlyWithWings{});
+	modelDuck.SetFlyBehavior(CreateFlyWithWingsBehavior());
 	PlayWithDuck(modelDuck);
 
 	return EXIT_SUCCESS;
