@@ -4,8 +4,8 @@ add_executable(WeatherStation
                Observer/CObservable.hpp
                Weather/CWeatherData.h
                Weather/CWeatherData.cpp
-               Displays/CDisplay.h
-               Displays/CDisplay.cpp
-               Displays/CStatsDisplay.h
-               Displays/CStatsDisplay.cpp
-               main.cpp)
+               Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.h
+               Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.cpp
+               Displays/StatsDisplay/CStatsDisplay.h
+               Displays/StatsDisplay/CStatsDisplay.cpp
+               main.cpp Displays/StatsDisplay/StatsCalculator/CStatsMonitor.cpp Displays/StatsDisplay/StatsCalculator/CStatsMonitor.h)

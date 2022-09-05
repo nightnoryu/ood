@@ -1,7 +1,7 @@
-#include "CDisplay.h"
+#include "CCurrentConditionsDisplay.h"
 #include <iostream>
 
-void CDisplay::Update(WeatherInfo const& data)
+void CCurrentConditionsDisplay::Update(WeatherInfo const& data)
 {
 	std::cout << "Current Temp " << data.temperature << "\n"
 			  << "Current Hum " << data.humidity << "\n"

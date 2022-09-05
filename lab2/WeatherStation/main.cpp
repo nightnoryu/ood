@@ -1,12 +1,12 @@
-#include "Displays/CDisplay.h"
-#include "Displays/CStatsDisplay.h"
+#include "Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.h"
+#include "Displays/StatsDisplay/CStatsDisplay.h"
 #include "Weather/CWeatherData.h"
 
 int main()
 {
 	CWeatherData wd;
 
-	CDisplay display;
+	CCurrentConditionsDisplay display;
 	wd.RegisterObserver(display);
 
 	CStatsDisplay statsDisplay;
