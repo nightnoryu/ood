@@ -1,6 +1,6 @@
 #include "Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.h"
 #include "Displays/StatsDisplay/CStatsDisplay.h"
-#include "Weather/CWeatherData.h"
+#include "WeatherData/CWeatherData.h"
 
 int main()
 {

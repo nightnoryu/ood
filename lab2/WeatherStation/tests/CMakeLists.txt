@@ -2,8 +2,8 @@ add_executable(WeatherStationTest
                ../Observer/IObserver.h
                ../Observer/IObservable.h
                ../Observer/CObservable.hpp
-               ../Weather/CWeatherData.h
-               ../Weather/CWeatherData.cpp
+               ../WeatherData/CWeatherData.h
+               ../WeatherData/CWeatherData.cpp
                WeatherStation.test.cpp)
 
 target_link_libraries(WeatherStationTest PUBLIC catch2)

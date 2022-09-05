@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Weather/CWeatherData.h"
+#include "../../WeatherData/CWeatherData.h"
 
 class CCurrentConditionsDisplay : public IObserver<WeatherInfo>
 {

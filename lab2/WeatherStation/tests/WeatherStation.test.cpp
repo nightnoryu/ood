@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include "../Weather/CWeatherData.h"
+#include "../WeatherData/CWeatherData.h"
 #include "catch.hpp"
 #include <sstream>
 
