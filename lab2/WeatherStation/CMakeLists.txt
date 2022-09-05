@@ -1,1 +1,11 @@
-add_executable(WeatherStation main.cpp)
+add_executable(WeatherStation
+               Observer/IObserver.h
+               Observer/IObservable.h
+               Observer/CObservable.hpp
+               Weather/CWeatherData.h
+               Weather/CWeatherData.cpp
+               Displays/CDisplay.h
+               Displays/CDisplay.cpp
+               Displays/CStatsDisplay.h
+               Displays/CStatsDisplay.cpp
+               main.cpp)
