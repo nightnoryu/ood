@@ -3,7 +3,7 @@
 ## Клонирование репозитория
 
 Для файлов курса используется система Git [Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). Чтобы
-клонировать репозиторий со всеми материалами курса [ООП](https://github.com/alexey-malov/oop), следует использовать
+клонировать репозиторий со всеми материалами курса [OOD](https://github.com/alexey-malov/oop), следует использовать
 команду:
 
 ```shell
