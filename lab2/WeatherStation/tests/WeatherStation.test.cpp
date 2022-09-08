@@ -5,7 +5,7 @@
 
 TEST_CASE("safe observer deletion")
 {
-	GIVEN("an observable weather station")
+	GIVEN("an observable")
 	{
 		CWeatherData observable;
 
@@ -21,7 +21,7 @@ TEST_CASE("safe observer deletion")
 				}
 
 			private:
-				void Update(const WeatherInfo& data) override
+				void Update(const WeatherInfo& /* data */) override
 				{
 					m_observable.RemoveObserver(*this);
 					m_out << "I was called and survived!";
@@ -39,7 +39,7 @@ TEST_CASE("safe observer deletion")
 			{
 				observable.NotifyObservers();
 
-				THEN("it doesn't crash and produces output")
+				THEN("it doesn't crash and produces correct output")
 				{
 					REQUIRE(out.str() == "I was called and survived!");
 				}
@@ -50,5 +50,58 @@ TEST_CASE("safe observer deletion")
 
 TEST_CASE("observers with priority")
 {
-	// TODO
+	GIVEN("an observable")
+	{
+		CWeatherData observable;
+
+		AND_GIVEN("observers #1 and #2")
+		{
+			class CObserver : public IObserver<WeatherInfo>
+			{
+			public:
+				CObserver(std::ostream& out, int number)
+					: m_out(out)
+					, m_number(number)
+				{
+				}
+
+			private:
+				void Update(const WeatherInfo& /* data */) override
+				{
+					m_out << "Observer #" << m_number << "\n";
+				}
+
+				std::ostream& m_out;
+				int m_number;
+			};
+
+			std::ostringstream out;
+			CObserver observer1(out, 1);
+			CObserver observer2(out, 2);
+
+			WHEN("adding #1 with priority 1 and #2 with priority 2 and notifying them")
+			{
+				observable.RegisterObserver(observer1, 1);
+				observable.RegisterObserver(observer2, 2);
+				observable.NotifyObservers();
+
+				THEN("#1 gets called first, then #2")
+				{
+					REQUIRE(out.str() == "Observer #1\nObserver #2\n");
+				}
+			}
+
+			WHEN("adding #1 with priority 5 and #2 with priority 1 and notifying them")
+			{
+				observable.RegisterObserver(observer1, 5);
+				observable.RegisterObserver(observer2, 1);
+				observable.NotifyObservers();
+
+				THEN("#2 gets called first, then #1")
+				{
+					REQUIRE(out.str() == "Observer #2\nObserver #1\n");
+				}
+			}
+		}
+	}
 }
