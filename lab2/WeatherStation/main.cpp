@@ -7,10 +7,10 @@ int main()
 	CWeatherData wd;
 
 	CCurrentConditionsDisplay display;
-	wd.RegisterObserver(display);
+	wd.RegisterObserver(display, 0);
 
 	CStatsDisplay statsDisplay;
-	wd.RegisterObserver(statsDisplay);
+	wd.RegisterObserver(statsDisplay, 1);
 
 	wd.SetMeasurements(3, 0.7, 760);
 	wd.SetMeasurements(4, 0.8, 761);

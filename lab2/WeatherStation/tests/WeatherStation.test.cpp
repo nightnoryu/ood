@@ -33,7 +33,7 @@ TEST_CASE("safe observer deletion")
 
 			std::ostringstream out;
 			CSuicidalObserver observer(observable, out);
-			observable.RegisterObserver(observer);
+			observable.RegisterObserver(observer, 0);
 
 			WHEN("notifying observers")
 			{
@@ -46,4 +46,9 @@ TEST_CASE("safe observer deletion")
 			}
 		}
 	}
+}
+
+TEST_CASE("observers with priority")
+{
+	// TODO
 }
