@@ -75,6 +75,8 @@ TEST_CASE("observers with priority")
 				int m_number;
 			};
 
+			// TODO: same priority observers, order guarantee - ?
+
 			std::ostringstream out;
 			CObserver observer1(out, 1);
 			CObserver observer2(out, 2);

@@ -30,6 +30,7 @@ public:
 
 	void RemoveObserver(ObserverType& observer) override
 	{
+		// TODO: improve complexity
 		typename std::set<PriorityObserver>::iterator it;
 		for (it = m_observers.begin(); it != m_observers.end(); ++it)
 		{
