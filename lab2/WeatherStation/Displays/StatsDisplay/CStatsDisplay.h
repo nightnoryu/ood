@@ -2,6 +2,7 @@
 
 #include "../../WeatherData/CWeatherData.h"
 #include "StatsCalculator/CStatsMonitor.h"
+#include <string>
 
 class CStatsDisplay : public IObserver<WeatherInfo>
 {
