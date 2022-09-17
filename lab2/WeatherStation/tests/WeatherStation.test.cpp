@@ -21,7 +21,7 @@ TEST_CASE("safe observer deletion")
 				}
 
 			private:
-				void Update(const WeatherInfo& /* data */) override
+				void Update(WeatherInfo const& /* data */) override
 				{
 					m_observable.RemoveObserver(*this);
 					m_out << "I was called and survived!";
@@ -35,13 +35,31 @@ TEST_CASE("safe observer deletion")
 			CSuicidalObserver observer(observable, out);
 			observable.RegisterObserver(observer, 0);
 
-			WHEN("notifying observers")
+			AND_GIVEN("a few dummy observers")
 			{
-				observable.NotifyObservers();
-
-				THEN("it doesn't crash and produces correct output")
+				class CDummyObserver : public IObserver<WeatherInfo>
 				{
-					REQUIRE(out.str() == "I was called and survived!");
+				private:
+					void Update(WeatherInfo const& /* data */) override
+					{
+					}
+				};
+
+				// NOTE: removing an element invalidates iterators, thus iterating with removing will cause UB
+				// https://en.cppreference.com/w/cpp/container/set/erase
+				CDummyObserver dummyObserver1;
+				CDummyObserver dummyObserver2;
+				observable.RegisterObserver(dummyObserver1, 1);
+				observable.RegisterObserver(dummyObserver2, 2);
+
+				WHEN("notifying observers")
+				{
+					observable.NotifyObservers();
+
+					THEN("it doesn't crash and produces correct output")
+					{
+						REQUIRE(out.str() == "I was called and survived!");
+					}
 				}
 			}
 		}
@@ -75,8 +93,6 @@ TEST_CASE("observers with priority")
 				int m_number;
 			};
 
-			// TODO: same priority observers, order guarantee - ?
-
 			std::ostringstream out;
 			CObserver observer1(out, 1);
 			CObserver observer2(out, 2);
@@ -104,6 +120,8 @@ TEST_CASE("observers with priority")
 					REQUIRE(out.str() == "Observer #2\nObserver #1\n");
 				}
 			}
+
+			// TODO: observers with the same priority
 		}
 	}
 }
