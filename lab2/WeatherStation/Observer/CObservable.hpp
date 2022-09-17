@@ -21,10 +21,7 @@ public:
 
 		for (auto& observer : observersCopy)
 		{
-			if (observer.second != nullptr)
-			{
-				observer.second->Update(data);
-			}
+			observer.second->Update(data);
 		}
 	}
 
