@@ -9,6 +9,7 @@ public:
 	using Observable = IObservable<WeatherInfo>;
 
 	void SetObservableName(Observable& observable, std::string const& name) override;
+	void RemoveObservable(Observable & observable) override;
 
 private:
 	void Update(Observable& observable, WeatherInfo const& data) override;

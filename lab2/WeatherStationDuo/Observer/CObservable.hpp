@@ -28,6 +28,7 @@ public:
 	void RemoveObserver(ObserverType& observer) override
 	{
 		m_observers.erase(&observer);
+		observer.RemoveObservable(*this);
 	}
 
 protected:

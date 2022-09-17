@@ -16,6 +16,11 @@ void CCurrentConditionsDisplay::SetObservableName(Observable& observable, std::s
 	m_observableNames[&observable] = name;
 }
 
+void CCurrentConditionsDisplay::RemoveObservable(Observable& observable)
+{
+	m_observableNames.erase(&observable);
+}
+
 void CCurrentConditionsDisplay::PrintHeader(Observable& observable) const
 {
 	std::cout << "Conditions from ";

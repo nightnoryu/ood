@@ -3,17 +3,26 @@
 
 void CStatsDisplay::Update(Observable& observable, const WeatherInfo& data)
 {
-	m_temperatureMonitor.Update(data.temperature);
-	m_humidityMonitor.Update(data.humidity);
-	m_pressureMonitor.Update(data.pressure);
+	auto& observableData = m_observablesData[&observable];
 
-	PrintStats("Temperature", m_temperatureMonitor.GetStats());
-	PrintStats("Humidity", m_humidityMonitor.GetStats());
-	PrintStats("Pressure", m_pressureMonitor.GetStats());
+	observableData.temperatureMonitor.Update(data.temperature);
+	observableData.humidityMonitor.Update(data.humidity);
+	observableData.pressureMonitor.Update(data.pressure);
+
+	PrintHeader(observable);
+	PrintStats("Temperature", observableData.temperatureMonitor.GetStats());
+	PrintStats("Humidity", observableData.humidityMonitor.GetStats());
+	PrintStats("Pressure", observableData.pressureMonitor.GetStats());
 }
 
-void CStatsDisplay::SetObservableName(CStatsDisplay::Observable& observable, const std::string& name)
+void CStatsDisplay::SetObservableName(Observable& observable, const std::string& name)
 {
+	m_observablesData[&observable].name = name;
+}
+
+void CStatsDisplay::RemoveObservable(Observable& observable)
+{
+	m_observablesData.erase(&observable);
 }
 
 void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) const
@@ -23,4 +32,21 @@ void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) co
 			  << "Min " << stats.min << "\n"
 			  << "Average " << stats.average << "\n"
 			  << "----------------" << std::endl;
+}
+
+void CStatsDisplay::PrintHeader(Observable& observable) const
+{
+	std::cout << "Stats from ";
+
+	auto observableData = m_observablesData.find(&observable);
+	if (observableData != m_observablesData.end())
+	{
+		std::cout << observableData->second.name;
+	}
+	else
+	{
+		std::cout << "unknown";
+	}
+
+	std::cout << " source\n";
 }

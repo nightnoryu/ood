@@ -15,6 +15,14 @@ int main()
 	wdOut.RegisterObserver(display);
 	display.SetObservableName(wdOut, "out");
 
+	CStatsDisplay statsDisplay;
+
+	wdIn.RegisterObserver(statsDisplay);
+	statsDisplay.SetObservableName(wdIn, "in");
+
+	wdOut.RegisterObserver(statsDisplay);
+	statsDisplay.SetObservableName(wdOut, "out");
+
 	wdIn.SetMeasurements(22, 0.8, 760);
 	wdOut.SetMeasurements(15, 0.7, 765);
 
