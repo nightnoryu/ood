@@ -11,3 +11,5 @@ add_executable(WeatherStationDuo
                Displays/StatsDisplay/StatsMonitor/CStatsMonitor.h
                Displays/StatsDisplay/StatsMonitor/CStatsMonitor.cpp
                main.cpp)
+
+add_subdirectory(tests)
