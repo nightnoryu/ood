@@ -1,0 +1,19 @@
+#pragma once
+
+#include "../../WeatherData/CWeatherData.h"
+#include <map>
+
+class CCurrentConditionsDisplay : public IObserver<WeatherInfo>
+{
+public:
+	using Observable = IObservable<WeatherInfo>;
+
+	void SetObservableName(Observable& observable, std::string const& name) override;
+
+private:
+	void Update(Observable& observable, WeatherInfo const& data) override;
+
+	void PrintHeader(Observable& observable) const;
+
+	std::map<Observable*, std::string> m_observableNames;
+};
