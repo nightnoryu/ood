@@ -7,10 +7,9 @@ template <typename T>
 class CObservable : public IObservable<T>
 {
 public:
-	using Priority = unsigned;
 	using ObserverType = IObserver<T>;
 
-	void RegisterObserver(ObserverType& observer, Priority priority) override
+	void RegisterObserver(ObserverType& observer, unsigned priority) override
 	{
 		m_observers.emplace(priority, &observer);
 	}
@@ -31,7 +30,7 @@ public:
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		typename std::multimap<Priority, ObserverType*>::iterator it;
+		typename std::multimap<unsigned, ObserverType*>::iterator it;
 		for (it = m_observers.begin(); it != m_observers.end(); ++it)
 		{
 			if (it->second == &observer)
@@ -50,5 +49,5 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::multimap<Priority, ObserverType*> m_observers;
+	std::multimap<unsigned, ObserverType*> m_observers;
 };
