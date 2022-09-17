@@ -121,7 +121,29 @@ TEST_CASE("observers with priority")
 				}
 			}
 
-			// TODO: observers with the same priority
+			WHEN("adding both observers with the same priority (#1 first) and notifying them")
+			{
+				observable.RegisterObserver(observer1, 1);
+				observable.RegisterObserver(observer2, 1);
+				observable.NotifyObservers();
+
+				THEN("they are called in the order of registering: #1 gets called first, then #2")
+				{
+					REQUIRE(out.str() == "Observer #1\nObserver #2\n");
+				}
+			}
+
+			WHEN("adding both observers with the same priority (#2 first) and notifying them")
+			{
+				observable.RegisterObserver(observer2, 1);
+				observable.RegisterObserver(observer1, 1);
+				observable.NotifyObservers();
+
+				THEN("they are called in the order of registering: #2 gets called first, then #1")
+				{
+					REQUIRE(out.str() == "Observer #2\nObserver #1\n");
+				}
+			}
 		}
 	}
 }

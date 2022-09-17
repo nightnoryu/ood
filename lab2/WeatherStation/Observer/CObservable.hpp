@@ -1,20 +1,18 @@
 #pragma once
 
 #include "IObservable.h"
-#include <set>
+#include <map>
 
 template <typename T>
 class CObservable : public IObservable<T>
 {
 public:
+	using Priority = unsigned;
 	using ObserverType = IObserver<T>;
 
-	void RegisterObserver(ObserverType& observer, unsigned priority) override
+	void RegisterObserver(ObserverType& observer, Priority priority) override
 	{
-		m_observers.insert({
-			.observer = &observer,
-			.priority = priority,
-		});
+		m_observers.emplace(priority, &observer);
 	}
 
 	void NotifyObservers() override
@@ -22,19 +20,21 @@ public:
 		auto data = GetChangedData();
 		auto observersCopy = m_observers;
 
-		for (auto& priorityObserver : observersCopy)
+		for (auto& observer : observersCopy)
 		{
-			priorityObserver.observer->Update(data);
+			if (observer.second != nullptr)
+			{
+				observer.second->Update(data);
+			}
 		}
 	}
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		// TODO: improve complexity
-		typename std::set<PriorityObserver>::iterator it;
+		typename std::multimap<Priority, ObserverType*>::iterator it;
 		for (it = m_observers.begin(); it != m_observers.end(); ++it)
 		{
-			if (it->observer == &observer)
+			if (it->second == &observer)
 			{
 				break;
 			}
@@ -50,16 +50,5 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	struct PriorityObserver
-	{
-		ObserverType* observer;
-		unsigned priority;
-
-		bool operator<(PriorityObserver const& other) const
-		{
-			return priority < other.priority;
-		}
-	};
-
-	std::set<PriorityObserver> m_observers;
+	std::multimap<Priority, ObserverType*> m_observers;
 };
