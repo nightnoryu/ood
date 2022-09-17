@@ -8,8 +8,8 @@ add_executable(WeatherStation
                Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.cpp
                Displays/StatsDisplay/CStatsDisplay.h
                Displays/StatsDisplay/CStatsDisplay.cpp
-               Displays/StatsDisplay/StatsCalculator/CStatsMonitor.h
-               Displays/StatsDisplay/StatsCalculator/CStatsMonitor.cpp
+               Displays/StatsDisplay/StatsMonitor/CStatsMonitor.h
+               Displays/StatsDisplay/StatsMonitor/CStatsMonitor.cpp
                main.cpp)
 
 add_subdirectory(tests)
