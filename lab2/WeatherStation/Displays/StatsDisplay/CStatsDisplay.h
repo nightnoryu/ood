@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../WeatherData/CWeatherData.h"
-#include "StatsCalculator/CStatsMonitor.h"
+#include "StatsMonitor/CStatsMonitor.h"
 #include <string>
 
 class CStatsDisplay : public IObserver<WeatherInfo>
