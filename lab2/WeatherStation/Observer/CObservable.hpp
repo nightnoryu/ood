@@ -27,18 +27,13 @@ public:
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		typename std::multimap<unsigned, ObserverType*>::iterator it;
-		for (it = m_observers.begin(); it != m_observers.end(); ++it)
+		for (auto it = m_observers.begin(); it != m_observers.end(); ++it)
 		{
 			if (it->second == &observer)
 			{
+				m_observers.erase(it);
 				break;
 			}
-		}
-
-		if (it != m_observers.end())
-		{
-			m_observers.erase(it);
 		}
 	}
 
