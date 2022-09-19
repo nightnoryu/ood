@@ -1,10 +1,5 @@
 #include "CStatsMonitor.h"
 
-CStatsMonitor::CStatsMonitor(std::unique_ptr<IAverageCalculator>&& averageCalculator)
-	: m_averageCalculator(std::move(averageCalculator))
-{
-}
-
 void CStatsMonitor::Update(double value)
 {
 	if (value < m_min)
@@ -17,7 +12,8 @@ void CStatsMonitor::Update(double value)
 		m_max = value;
 	}
 
-	m_averageCalculator->Update(value);
+	m_accumulated += value;
+	++m_accumulatedCount;
 }
 
 Stats CStatsMonitor::GetStats() const
@@ -25,6 +21,6 @@ Stats CStatsMonitor::GetStats() const
 	return {
 		.max = m_max,
 		.min = m_min,
-		.average = m_averageCalculator->GetAverage(),
+		.average = m_accumulated / m_accumulatedCount,
 	};
 }

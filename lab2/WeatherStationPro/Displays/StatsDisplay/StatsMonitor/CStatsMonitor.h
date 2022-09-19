@@ -1,6 +1,5 @@
 #pragma once
 
-#include "AverageCalculatorStrategy/IAverageCalculator.h"
 #include <numeric>
 #include <memory>
 
@@ -14,14 +13,12 @@ struct Stats
 class CStatsMonitor
 {
 public:
-	CStatsMonitor(std::unique_ptr<IAverageCalculator>&& averageCalculator);
-
 	void Update(double value);
 	Stats GetStats() const;
 
 private:
 	double m_min = std::numeric_limits<double>::infinity();
 	double m_max = -std::numeric_limits<double>::infinity();
-
-	std::unique_ptr<IAverageCalculator> m_averageCalculator;
+	double m_accumulated = 0;
+	unsigned m_accumulatedCount = 0;
 };

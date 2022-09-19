@@ -10,9 +10,6 @@ add_executable(WeatherStationPro
                Displays/StatsDisplay/CStatsDisplay.cpp
                Displays/StatsDisplay/StatsMonitor/CStatsMonitor.h
                Displays/StatsDisplay/StatsMonitor/CStatsMonitor.cpp
-               Displays/StatsDisplay/StatsMonitor/AverageCalculatorStrategy/IAverageCalculator.h
-               Displays/StatsDisplay/StatsMonitor/AverageCalculatorStrategy/CScalarAverageCalculator.h
-               Displays/StatsDisplay/StatsMonitor/AverageCalculatorStrategy/CScalarAverageCalculator.cpp
-               Displays/StatsDisplay/StatsMonitor/AverageCalculatorStrategy/CAngleAverageCalculator.h
-               Displays/StatsDisplay/StatsMonitor/AverageCalculatorStrategy/CAngleAverageCalculator.cpp
+               Displays/StatsDisplay/StatsMonitor/CAngleStatsMonitor.h
+               Displays/StatsDisplay/StatsMonitor/CAngleStatsMonitor.cpp
                main.cpp)
