@@ -6,12 +6,11 @@ void CAngleAverageCalculator::Update(double value)
 	auto angle = DegreesToRadians(value);
 	m_sineSum += std::sin(angle);
 	m_cosineSum += std::cos(angle);
-	++m_accumulatedCount;
 }
 
 double CAngleAverageCalculator::GetAverage() const
 {
-	return RadiansToDegrees(std::atan2(m_sineSum / m_accumulatedCount, m_cosineSum / m_accumulatedCount));
+	return RadiansToDegrees(std::atan2(m_sineSum, m_cosineSum));
 }
 
 double CAngleAverageCalculator::DegreesToRadians(double value)

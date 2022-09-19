@@ -15,5 +15,4 @@ private:
 
 	double m_sineSum = 0;
 	double m_cosineSum = 0;
-	unsigned m_accumulatedCount = 0;
-};
+`};
