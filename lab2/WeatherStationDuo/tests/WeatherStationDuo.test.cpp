@@ -20,12 +20,12 @@ TEST_CASE("several observables in the same observers")
 				{
 				}
 
-				void SetObservableName(IObservable<WeatherInfo>& observable, std::string const& name) override
+				void SetObservableName(IObservable<WeatherInfo>& observable, std::string const& name)
 				{
 					m_observableNames[&observable] = name;
 				}
 
-				void RemoveObservable(IObservable<WeatherInfo>& observable) override
+				void RemoveObservable(IObservable<WeatherInfo>& observable)
 				{
 					m_observableNames.erase(&observable);
 				}

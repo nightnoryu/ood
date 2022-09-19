@@ -10,8 +10,8 @@ class CStatsDisplay : public IObserver<WeatherInfo>
 public:
 	using Observable = IObservable<WeatherInfo>;
 
-	void SetObservableName(Observable& observable, std::string const& name) override;
-	void RemoveObservable(Observable & observable) override;
+	void SetObservableName(Observable& observable, std::string const& name);
+	void RemoveObservable(Observable & observable);
 
 private:
 	void Update(Observable& observable, WeatherInfo const& data) override;
