@@ -1,7 +1,7 @@
 #include "CStatsDisplay.h"
 #include <iostream>
 
-void CStatsDisplay::Update(Observable& observable, const WeatherInfo& data)
+void CStatsDisplay::Update(Observable& observable, WeatherInfo const& data)
 {
 	auto& observableData = m_observablesData[&observable];
 
@@ -15,7 +15,7 @@ void CStatsDisplay::Update(Observable& observable, const WeatherInfo& data)
 	PrintStats("Pressure", observableData.pressureMonitor.GetStats());
 }
 
-void CStatsDisplay::SetObservableName(Observable& observable, const std::string& name)
+void CStatsDisplay::SetObservableName(Observable& observable, std::string const& name)
 {
 	m_observablesData[&observable].name = name;
 }

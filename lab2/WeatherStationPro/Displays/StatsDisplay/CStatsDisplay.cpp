@@ -1,7 +1,7 @@
 #include "CStatsDisplay.h"
 #include <iostream>
 
-void CStatsDisplay::Update(const WeatherInfo& data)
+void CStatsDisplay::Update(WeatherInfo const& data)
 {
 	m_temperatureMonitor.Update(data.temperature);
 	m_humidityMonitor.Update(data.humidity);
@@ -25,7 +25,7 @@ void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 			  << "----------------" << std::endl;
 }
 
-void CStatsDisplay::PrintAngleStats(const std::string& header, const AngleStats& stats)
+void CStatsDisplay::PrintAngleStats(std::string const& header, AngleStats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Average " << stats.average << "\n"

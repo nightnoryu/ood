@@ -1,7 +1,7 @@
 #include "CStatsDisplay.h"
 #include <iostream>
 
-void CStatsDisplay::Update(Observable& observable, const WeatherInfo& data)
+void CStatsDisplay::Update(Observable& observable, WeatherInfo const& data)
 {
 	auto& observableData = m_observablesData[&observable];
 
@@ -23,7 +23,7 @@ void CStatsDisplay::Update(Observable& observable, const WeatherInfo& data)
 	}
 }
 
-void CStatsDisplay::SetObservableName(Observable& observable, const std::string& name)
+void CStatsDisplay::SetObservableName(Observable& observable, std::string const& name)
 {
 	m_observablesData[&observable].name = name;
 }
@@ -42,7 +42,7 @@ void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 			  << "----------------" << std::endl;
 }
 
-void CStatsDisplay::PrintAngleStats(const std::string& header, const AngleStats& stats)
+void CStatsDisplay::PrintAngleStats(std::string const& header, AngleStats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Average " << stats.average << "\n"

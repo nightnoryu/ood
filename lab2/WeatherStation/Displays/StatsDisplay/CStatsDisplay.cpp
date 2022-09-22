@@ -1,7 +1,7 @@
 #include "CStatsDisplay.h"
 #include <iostream>
 
-void CStatsDisplay::Update(const WeatherInfo& data)
+void CStatsDisplay::Update(WeatherInfo const& data)
 {
 	m_temperatureMonitor.Update(data.temperature);
 	m_humidityMonitor.Update(data.humidity);

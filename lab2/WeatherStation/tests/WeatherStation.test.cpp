@@ -84,7 +84,7 @@ TEST_CASE("observers with priority")
 				}
 
 			private:
-				void Update(const WeatherInfo& /* data */) override
+				void Update(WeatherInfo const& /* data */) override
 				{
 					m_out << "Observer #" << m_number << "\n";
 				}
