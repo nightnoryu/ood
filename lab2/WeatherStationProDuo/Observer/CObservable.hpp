@@ -21,7 +21,7 @@ public:
 
 		for (auto& observer : observersCopy)
 		{
-			observer->Update(data);
+			observer->Update(*this, data);
 		}
 	}
 
