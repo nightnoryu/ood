@@ -16,7 +16,7 @@ public:
 private:
 	void Update(Observable& observable, WeatherInfo const& data) override;
 
-	void PrintStats(std::string const& header, Stats const& stats) const;
+	static void PrintStats(std::string const& header, Stats const& stats);
 	void PrintHeader(Observable& observable) const;
 
 	struct ObservableInfo

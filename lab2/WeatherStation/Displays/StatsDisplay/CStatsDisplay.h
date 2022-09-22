@@ -9,7 +9,7 @@ class CStatsDisplay : public IObserver<WeatherInfo>
 private:
 	void Update(WeatherInfo const& data) override;
 
-	void PrintStats(std::string const& header, Stats const& stats) const;
+	static void PrintStats(std::string const& header, Stats const& stats);
 
 	CStatsMonitor m_temperatureMonitor;
 	CStatsMonitor m_humidityMonitor;

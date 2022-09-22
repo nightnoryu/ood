@@ -12,7 +12,7 @@ void CStatsDisplay::Update(const WeatherInfo& data)
 	PrintStats("Pressure", m_pressureMonitor.GetStats());
 }
 
-void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) const
+void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Max " << stats.max << "\n"

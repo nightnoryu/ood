@@ -16,7 +16,7 @@ void CStatsDisplay::Update(const WeatherInfo& data)
 	PrintAngleStats("Wind direction", m_windDirectionMonitor.GetStats());
 }
 
-void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) const
+void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Max " << stats.max << "\n"
@@ -25,7 +25,7 @@ void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) co
 			  << "----------------" << std::endl;
 }
 
-void CStatsDisplay::PrintAngleStats(const std::string& header, const AngleStats& stats) const
+void CStatsDisplay::PrintAngleStats(const std::string& header, const AngleStats& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Average " << stats.average << "\n"

@@ -25,7 +25,7 @@ void CStatsDisplay::RemoveObservable(Observable& observable)
 	m_observablesData.erase(&observable);
 }
 
-void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) const
+void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Max " << stats.max << "\n"
