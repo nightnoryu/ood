@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Beverages/IBeverage.h"
+#include <memory>
 
 class CCondimentDecorator : public IBeverage
 {
@@ -20,3 +21,17 @@ protected:
 private:
 	IBeveragePtr m_beverage;
 };
+
+template <typename Condiment, typename... Args>
+auto MakeCondiment(Args const&... args)
+{
+	return [=](auto&& b) {
+		return std::make_unique<Condiment>(std::forward<decltype(b)>(b), args...);
+	};
+}
+
+template <typename Component, typename Decorator>
+auto operator<<(Component&& component, Decorator const& decorate)
+{
+	return decorate(std::forward<Component>(component));
+}
