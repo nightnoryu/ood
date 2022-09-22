@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../IBeverage.h"
+#include "IBeverage.h"
 
 class CBeverage : public IBeverage
 {

@@ -2,7 +2,12 @@
 #include "Beverages/Latte/CLatte.h"
 #include "Beverages/Milkshake/CMilkshake.h"
 #include "Beverages/Tea/CTea.h"
-#include "Condiments.h"
+#include "Condiments/ChocolateCrumbs/CChocolateCrumbs.h"
+#include "Condiments/Cinnamon/CCinnamon.h"
+#include "Condiments/CoconutFlakes/CCoconutFlakes.h"
+#include "Condiments/IceCubes/CIceCubes.h"
+#include "Condiments/Lemon/CLemon.h"
+#include "Condiments/Syrup/CSyrup.h"
 
 #include <functional>
 #include <iostream>
@@ -10,20 +15,21 @@
 
 using namespace std;
 
-
 /*
 Функциональный объект, создающий лимонную добавку
 */
 struct MakeLemon
 {
-	MakeLemon(unsigned quantity)
-		:m_quantity(quantity)
-	{}
-
-	auto operator()(IBeveragePtr && beverage)const
+	explicit MakeLemon(unsigned quantity)
+		: m_quantity(quantity)
 	{
-		return make_unique<CLemon>(move(beverage), m_quantity);
 	}
+
+	auto operator()(IBeveragePtr&& beverage) const
+	{
+		return make_unique<CLemon>(std::move(beverage), m_quantity);
+	}
+
 private:
 	unsigned m_quantity;
 };
@@ -31,10 +37,10 @@ private:
 /*
 Функция, возвращающая функцию, создающую коричную добавку
 */
-function<IBeveragePtr(IBeveragePtr &&)> MakeCinnamon()
+function<IBeveragePtr(IBeveragePtr&&)> MakeCinnamon()
 {
-	return [] (IBeveragePtr && b) {
-		return make_unique<CCinnamon>(move(b));
+	return [](IBeveragePtr&& b) {
+		return make_unique<CCinnamon>(std::move(b));
 	};
 }
 
@@ -47,14 +53,14 @@ function<IBeveragePtr(IBeveragePtr &&)> MakeCinnamon()
 	Args - список типов прочих параметров конструктора (возможно, пустой)
 */
 template <typename Condiment, typename... Args>
-auto MakeCondiment(const Args&...args)
+auto MakeCondiment(const Args&... args)
 {
 	// Возвращаем функцию, декорирующую напиток, переданный ей в качестве аргумента
 	// Дополнительные аргументы декоратора, захваченные лямбда-функцией, передаются
 	// конструктору декоратора через make_unique
-	return [=](auto && b) {
+	return [=](auto&& b) {
 		// Функции make_unique передаем b вместе со списком аргументов внешней функции
-		return make_unique<Condiment>(forward<decltype(b)>(b), args...);
+		return make_unique<Condiment>(std::forward<decltype(b)>(b), args...);
 	};
 }
 
@@ -106,9 +112,9 @@ unique_ptr<CCinnamon> operator << (IBeveragePtr && lhs, const MakeCinnamon & fac
 }
 */
 template <typename Component, typename Decorator>
-auto operator << (Component && component, const Decorator & decorate)
+auto operator<<(Component&& component, const Decorator& decorate)
 {
-	return decorate(forward<Component>(component));
+	return decorate(std::forward<Component>(component));
 }
 
 void DialogWithUser()
@@ -140,13 +146,13 @@ void DialogWithUser()
 
 		if (condimentChoice == 1)
 		{
-			//beverage = make_unique<CLemon>(move(beverage));
-			beverage = move(beverage) << MakeCondiment<CLemon>(2);
+			// beverage = make_unique<CLemon>(move(beverage));
+			beverage = std::move(beverage) << MakeCondiment<CLemon>(2);
 		}
 		else if (condimentChoice == 2)
 		{
-			//beverage = make_unique<CCinnamon>(move(beverage));
-			beverage = move(beverage) << MakeCondiment<CCinnamon>();
+			// beverage = make_unique<CCinnamon>(move(beverage));
+			beverage = std::move(beverage) << MakeCondiment<CCinnamon>();
 		}
 		else if (condimentChoice == 0)
 		{
@@ -158,11 +164,8 @@ void DialogWithUser()
 		}
 	}
 
-
-
 	cout << beverage->GetDescription() << ", cost: " << beverage->GetCost() << endl;
 }
-
 
 int main()
 {
@@ -172,28 +175,27 @@ int main()
 		// Наливаем чашечку латте
 		auto latte = make_unique<CLatte>();
 		// добавляем корицы
-		auto cinnamon = make_unique<CCinnamon>(move(latte));
+		auto cinnamon = make_unique<CCinnamon>(std::move(latte));
 		// добавляем пару долек лимона
-		auto lemon = make_unique<CLemon>(move(cinnamon), 2);
+		auto lemon = make_unique<CLemon>(std::move(cinnamon), 2);
 		// добавляем пару кубиков льда
-		auto iceCubes = make_unique<CIceCubes>(move(lemon), 2, IceCubeType::Dry);
+		auto iceCubes = make_unique<CIceCubes>(std::move(lemon), 2, IceCubeType::DRY);
 		// добавляем 2 грамма шоколадной крошки
-		auto beverage = make_unique<CChocolateCrumbs>(move(iceCubes), 2);
+		auto beverage = make_unique<CChocolateCrumbs>(std::move(iceCubes), 2);
 
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
 	}
 
 	{
-		auto beverage =
-			make_unique<CChocolateCrumbs>(			// Внешний слой: шоколадная крошка
-				make_unique<CIceCubes>(				// | под нею - кубики льда
-					make_unique<CLemon>(			// | | еще ниже лимон
-						make_unique<CCinnamon>(		// | | | слоем ниже - корица
-							make_unique<CLatte>()),	// | | |   в самом сердце - Латте
-						2),							// | | 2 дольки лимона
-					2, IceCubeType::Dry),			// | 2 кубика сухого льда
-				2);									// 2 грамма шоколадной крошки
+		auto beverage = make_unique<CChocolateCrumbs>( // Внешний слой: шоколадная крошка
+			make_unique<CIceCubes>( // | под нею - кубики льда
+				make_unique<CLemon>( // | | еще ниже лимон
+					make_unique<CCinnamon>( // | | | слоем ниже - корица
+						make_unique<CLatte>()), // | | |   в самом сердце - Латте
+					2), // | | 2 дольки лимона
+				2, IceCubeType::DRY), // | 2 кубика сухого льда
+			2); // 2 грамма шоколадной крошки
 
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
@@ -204,12 +206,12 @@ int main()
 		// lemon - функция, добавляющая "2 дольки лимона" к любому напитку
 		auto lemon2 = MakeCondiment<CLemon>(2);
 		// iceCubes - функция, добавляющая "3 кусочка льда" к любому напитку
-		auto iceCubes3 = MakeCondiment<CIceCubes>(3, IceCubeType::Water);
+		auto iceCubes3 = MakeCondiment<CIceCubes>(3, IceCubeType::WATER);
 
 		auto tea = make_unique<CTea>();
 
 		// декорируем чай двумя дольками лимона и тремя кусочками льда
-		auto lemonIceTea = iceCubes3(lemon2(move(tea)));
+		auto lemonIceTea = iceCubes3(lemon2(std::move(tea)));
 		/* Предыдущая строка выполняет те же действия, что и следующий код:
 		auto lemonIceTea =
 			make_unique<CIceCubes>(
@@ -219,10 +221,9 @@ int main()
 				2, IceCubeType::Water);
 		*/
 
-		auto oneMoreLemonIceTea =
-			make_unique<CTea>()	// Берем чай
-			<< MakeCondiment<CLemon>(2)	// добавляем пару долек лимона
-			<< MakeCondiment<CIceCubes>(3, IceCubeType::Water); // и 3 кубика льда
+		auto oneMoreLemonIceTea = make_unique<CTea>() // Берем чай
+			<< MakeCondiment<CLemon>(2) // добавляем пару долек лимона
+			<< MakeCondiment<CIceCubes>(3, IceCubeType::WATER); // и 3 кубика льда
 		/*
 		Предыдущая конструкция делает то же самое, что и следующая:
 		auto oneMoreLemonIceTea =
@@ -235,22 +236,20 @@ int main()
 	// Аналог предыдущего решения с добавкой синтаксического сахара
 	// обеспечиваемого операторами << и функцией MakeCondiment
 	{
-		auto beverage =
-			make_unique<CLatte>()							// Наливаем чашечку латте,
-			<< MakeCondiment<CCinnamon>()					// оборачиваем корицей,
-			<< MakeCondiment<CLemon>(2)						// добавляем пару долек лимона
-			<< MakeCondiment<CIceCubes>(2, IceCubeType::Dry)// брасаем пару кубиков сухого льда
-			<< MakeCondiment<CChocolateCrumbs>(2);			// посыпаем шоколадной крошкой
+		auto beverage = make_unique<CLatte>() // Наливаем чашечку латте,
+			<< MakeCondiment<CCinnamon>() // оборачиваем корицей,
+			<< MakeCondiment<CLemon>(2) // добавляем пару долек лимона
+			<< MakeCondiment<CIceCubes>(2, IceCubeType::DRY) // бросаем пару кубиков сухого льда
+			<< MakeCondiment<CChocolateCrumbs>(2); // посыпаем шоколадной крошкой
 
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
 	}
 
 	{
-		auto beverage =
-			make_unique<CMilkshake>()					// Наливаем молочный коктейль
-			<< MakeCondiment<CSyrup>(SyrupType::Maple)	// заливаем кленовым сиропом
-			<< MakeCondiment<CCoconutFlakes>(8);		// посыпаем кокосовой стружкой
+		auto beverage = make_unique<CMilkshake>() // Наливаем молочный коктейль
+			<< MakeCondiment<CSyrup>(SyrupType::MAPLE) // заливаем кленовым сиропом
+			<< MakeCondiment<CCoconutFlakes>(8); // посыпаем кокосовой стружкой
 
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Beverage/CBeverage.h"
+#include "../CBeverage.h"
 
 class CCoffee : public CBeverage
 {
