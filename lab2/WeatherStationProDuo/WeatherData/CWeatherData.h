@@ -2,11 +2,18 @@
 
 #include "../Observer/CObservable.hpp"
 
+struct WindInfo
+{
+	double speed = 0;
+	double direction = 0;
+};
+
 struct WeatherInfo
 {
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
+	std::optional<WindInfo> windInfo;
 };
 
 class CWeatherData : public CObservable<WeatherInfo>

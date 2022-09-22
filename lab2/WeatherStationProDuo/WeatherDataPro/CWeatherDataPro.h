@@ -1,16 +1,7 @@
 #pragma once
 
 #include "../Observer/CObservable.hpp"
-
-struct WeatherInfo
-{
-	double temperature = 0;
-	double humidity = 0;
-	double pressure = 0;
-
-	double windSpeed = 0;
-	double windDirection = 0;
-};
+#include "../WeatherData/CWeatherData.h"
 
 class CWeatherDataPro : public CObservable<WeatherInfo>
 {

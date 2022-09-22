@@ -47,7 +47,9 @@ WeatherInfo CWeatherDataPro::GetChangedData() const
 		.temperature = GetTemperature(),
 		.humidity = GetHumidity(),
 		.pressure = GetPressure(),
-		.windSpeed = GetWindSpeed(),
-		.windDirection = GetWindDirection(),
+		.windInfo = { {
+			.speed = GetWindSpeed(),
+			.direction = GetWindDirection(),
+		} },
 	};
 }

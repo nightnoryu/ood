@@ -2,6 +2,16 @@ add_executable(WeatherStationProDuo
                Observer/IObservable.h
                Observer/CObservable.hpp
                Observer/IObserver.h
+               WeatherData/CWeatherData.h
+               WeatherData/CWeatherData.cpp
                WeatherDataPro/CWeatherDataPro.h
                WeatherDataPro/CWeatherDataPro.cpp
+               Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.h
+               Displays/CurrentConditionsDisplay/CCurrentConditionsDisplay.cpp
+               Displays/StatsDisplay/CStatsDisplay.h
+               Displays/StatsDisplay/CStatsDisplay.cpp
+               Displays/StatsDisplay/StatsMonitor/CStatsMonitor.h
+               Displays/StatsDisplay/StatsMonitor/CStatsMonitor.cpp
+               Displays/StatsDisplay/StatsMonitor/CAngleStatsMonitor.h
+               Displays/StatsDisplay/StatsMonitor/CAngleStatsMonitor.cpp
                main.cpp)
