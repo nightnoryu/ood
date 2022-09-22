@@ -1,5 +1,16 @@
 add_executable(Coffee
-               IBeverage.h
+               Beverages/IBeverage.h
+               Beverages/Beverage/CBeverage.h
+               Beverages/Beverage/CBeverage.cpp
+               Beverages/Coffee/CCoffee.h
+               Beverages/Coffee/CCoffee.cpp
+               Beverages/Cappuccino/CCappuccino.h
+               Beverages/Cappuccino/CCappuccino.cpp
+               Beverages/Latte/CLatte.h
+               Beverages/Latte/CLatte.cpp
+               Beverages/Tea/CTea.h
+               Beverages/Tea/CTea.cpp
+               Beverages/Milkshake/CMilkshake.h
+               Beverages/Milkshake/CMilkshake.cpp
                Condiments.h
-               Beverages.h
                main.cpp)

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "IBeverage.h"
+#include "Beverages/IBeverage.h"
 
 // Базовый декоратор "Добавка к напитку". Также является напитком
 class CCondimentDecorator : public IBeverage
@@ -34,8 +34,8 @@ private:
 class CCinnamon : public CCondimentDecorator
 {
 public:
-	CCinnamon(IBeveragePtr && beverage) 
-		: CCondimentDecorator(move(beverage)) 
+	CCinnamon(IBeveragePtr && beverage)
+		: CCondimentDecorator(move(beverage))
 	{}
 protected:
 	double GetCondimentCost()const override
@@ -81,7 +81,7 @@ enum class IceCubeType
 // и описание
 class CIceCubes : public CCondimentDecorator
 {
-public:	
+public:
 	CIceCubes(IBeveragePtr && beverage, unsigned quantity, IceCubeType type = IceCubeType::Water)
 		: CCondimentDecorator(move(beverage))
 		, m_quantity(quantity)
@@ -96,7 +96,7 @@ protected:
 	}
 	std::string GetCondimentDescription()const override
 	{
-		return std::string(m_type == IceCubeType::Dry ? "Dry" : "Water") 
+		return std::string(m_type == IceCubeType::Dry ? "Dry" : "Water")
 			+ " ice cubes x " + std::to_string(m_quantity);
 	}
 private:
@@ -126,7 +126,7 @@ protected:
 	}
 	std::string GetCondimentDescription()const override
 	{
-		return std::string(m_syrupType == SyrupType::Chocolate ? "Chocolate" : "Maple") 
+		return std::string(m_syrupType == SyrupType::Chocolate ? "Chocolate" : "Maple")
 			+ " syrup";
 	}
 private:
