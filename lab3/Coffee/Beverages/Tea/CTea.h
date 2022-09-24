@@ -5,18 +5,21 @@
 enum class TeaType
 {
 	Black,
+	Green,
 	Thyme,
 	Karkade,
-	Green,
 };
 
 class CTea : public CBeverage
 {
 public:
-	CTea()
-		: CBeverage("Tea")
-	{
-	}
+	explicit CTea(TeaType type = TeaType::Black);
 
+	std::string GetDescription() const override;
 	double GetCost() const override;
+
+private:
+	std::string GetTypeDescription() const;
+
+	TeaType m_type;
 };
