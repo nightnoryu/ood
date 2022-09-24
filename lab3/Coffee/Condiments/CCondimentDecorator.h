@@ -13,10 +13,7 @@ public:
 	virtual double GetCondimentCost() const = 0;
 
 protected:
-	explicit CCondimentDecorator(IBeveragePtr&& beverage)
-		: m_beverage(std::move(beverage))
-	{
-	}
+	explicit CCondimentDecorator(IBeveragePtr&& beverage);
 
 private:
 	IBeveragePtr m_beverage;

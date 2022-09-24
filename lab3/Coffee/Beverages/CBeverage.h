@@ -5,10 +5,7 @@
 class CBeverage : public IBeverage
 {
 public:
-	explicit CBeverage(std::string const& description)
-		: m_description(description)
-	{
-	}
+	explicit CBeverage(std::string const& description);
 
 	std::string GetDescription() const override;
 
