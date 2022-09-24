@@ -27,7 +27,7 @@ int main()
 		// добавляем пару долек лимона
 		auto lemon = std::make_unique<CLemon>(std::move(cinnamon), 2);
 		// добавляем пару кубиков льда
-		auto iceCubes = std::make_unique<CIceCubes>(std::move(lemon), 2, IceCubeType::DRY);
+		auto iceCubes = std::make_unique<CIceCubes>(std::move(lemon), 2, IceCubeType::Dry);
 		// добавляем 2 грамма шоколадной крошки
 		auto beverage = std::make_unique<CChocolateCrumbs>(std::move(iceCubes), 2);
 
@@ -42,7 +42,7 @@ int main()
 					std::make_unique<CCinnamon>( // | | | слоем ниже - корица
 						std::make_unique<CLatte>()), // | | |   в самом сердце - Латте
 					2), // | | 2 дольки лимона
-				2, IceCubeType::DRY), // | 2 кубика сухого льда
+				2, IceCubeType::Dry), // | 2 кубика сухого льда
 			2); // 2 грамма шоколадной крошки
 
 		// Выписываем счет покупателю
@@ -54,7 +54,7 @@ int main()
 		// lemon - функция, добавляющая "2 дольки лимона" к любому напитку
 		auto lemon2 = MakeCondiment<CLemon>(2);
 		// iceCubes - функция, добавляющая "3 кусочка льда" к любому напитку
-		auto iceCubes3 = MakeCondiment<CIceCubes>(3, IceCubeType::WATER);
+		auto iceCubes3 = MakeCondiment<CIceCubes>(3, IceCubeType::Water);
 
 		auto tea = std::make_unique<CTea>();
 
@@ -71,7 +71,7 @@ int main()
 
 		auto oneMoreLemonIceTea = std::make_unique<CTea>() // Берем чай
 			<< MakeCondiment<CLemon>(2) // добавляем пару долек лимона
-			<< MakeCondiment<CIceCubes>(3, IceCubeType::WATER); // и 3 кубика льда
+			<< MakeCondiment<CIceCubes>(3, IceCubeType::Water); // и 3 кубика льда
 		/*
 		Предыдущая конструкция делает то же самое, что и следующая:
 		auto oneMoreLemonIceTea =
@@ -87,7 +87,7 @@ int main()
 		auto beverage = std::make_unique<CLatte>() // Наливаем чашечку латте,
 			<< MakeCondiment<CCinnamon>() // оборачиваем корицей,
 			<< MakeCondiment<CLemon>(2) // добавляем пару долек лимона
-			<< MakeCondiment<CIceCubes>(2, IceCubeType::DRY) // бросаем пару кубиков сухого льда
+			<< MakeCondiment<CIceCubes>(2, IceCubeType::Dry) // бросаем пару кубиков сухого льда
 			<< MakeCondiment<CChocolateCrumbs>(2); // посыпаем шоколадной крошкой
 
 		// Выписываем счет покупателю
@@ -96,7 +96,7 @@ int main()
 
 	{
 		auto beverage = std::make_unique<CMilkshake>() // Наливаем молочный коктейль
-			<< MakeCondiment<CSyrup>(SyrupType::MAPLE) // заливаем кленовым сиропом
+			<< MakeCondiment<CSyrup>(SyrupType::Maple) // заливаем кленовым сиропом
 			<< MakeCondiment<CCoconutFlakes>(8); // посыпаем кокосовой стружкой
 
 		// Выписываем счет покупателю

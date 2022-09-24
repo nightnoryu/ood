@@ -4,8 +4,8 @@
 
 enum class SyrupType
 {
-	CHOCOLATE,
-	MAPLE,
+	Chocolate,
+	Maple,
 };
 
 class CSyrup : public CCondimentDecorator

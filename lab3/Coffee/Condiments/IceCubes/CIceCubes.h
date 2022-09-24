@@ -4,14 +4,14 @@
 
 enum class IceCubeType
 {
-	DRY,
-	WATER,
+	Dry,
+	Water,
 };
 
 class CIceCubes : public CCondimentDecorator
 {
 public:
-	CIceCubes(IBeveragePtr&& beverage, unsigned quantity, IceCubeType type = IceCubeType::WATER);
+	CIceCubes(IBeveragePtr&& beverage, unsigned quantity, IceCubeType type = IceCubeType::Water);
 
 protected:
 	std::string GetCondimentDescription() const override;

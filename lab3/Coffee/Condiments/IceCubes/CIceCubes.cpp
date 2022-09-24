@@ -9,12 +9,12 @@ CIceCubes::CIceCubes(IBeveragePtr&& beverage, unsigned quantity, IceCubeType typ
 
 std::string CIceCubes::GetCondimentDescription() const
 {
-	return std::string(m_type == IceCubeType::DRY ? "Dry" : "Water")
+	return std::string(m_type == IceCubeType::Dry ? "Dry" : "Water")
 		+ " ice cubes x "
 		+ std::to_string(m_quantity);
 }
 
 double CIceCubes::GetCondimentCost() const
 {
-	return (m_type == IceCubeType::DRY ? 10 : 5) * m_quantity;
+	return (m_type == IceCubeType::Dry ? 10 : 5) * m_quantity;
 }

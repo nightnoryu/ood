@@ -8,7 +8,7 @@ CSyrup::CSyrup(IBeveragePtr&& beverage, SyrupType syrupType)
 
 std::string CSyrup::GetCondimentDescription() const
 {
-	return std::string(m_syrupType == SyrupType::CHOCOLATE ? "Chocolate" : "Maple")
+	return std::string(m_syrupType == SyrupType::Chocolate ? "Chocolate" : "Maple")
 		+ " syrup";
 }
 

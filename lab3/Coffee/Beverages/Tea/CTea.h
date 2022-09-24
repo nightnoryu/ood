@@ -4,10 +4,10 @@
 
 enum class TeaType
 {
-	BLACK,
-	THYME,
-	KARKADE,
-	GREEN,
+	Black,
+	Thyme,
+	Karkade,
+	Green,
 };
 
 class CTea : public CBeverage
