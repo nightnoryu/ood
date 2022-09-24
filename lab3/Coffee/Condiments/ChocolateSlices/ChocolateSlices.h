@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CCondimentDecorator.h"
+#include "../CCondimentDecorator.h"
 #include <stdexcept>
 
 class ChocolateSlices : public CCondimentDecorator
