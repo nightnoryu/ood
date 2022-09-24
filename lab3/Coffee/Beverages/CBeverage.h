@@ -10,7 +10,7 @@ public:
 	{
 	}
 
-	std::string GetDescription() const final;
+	std::string GetDescription() const override;
 
 private:
 	std::string m_description;

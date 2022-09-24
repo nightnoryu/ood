@@ -1,6 +1,19 @@
 #include "CLatte.h"
 
+CLatte::CLatte(CoffeePortion portion)
+	: CPortionedCoffee("Latte", portion)
+{
+}
+
 double CLatte::GetCost() const
 {
-	return 90;
+	switch (GetPortion())
+	{
+	case CoffeePortion::Standard:
+		return 90;
+	case CoffeePortion::Double:
+		return 130;
+	default:
+		return 0;
+	}
 }

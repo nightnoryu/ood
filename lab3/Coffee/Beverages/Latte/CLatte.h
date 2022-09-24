@@ -1,14 +1,11 @@
 #pragma once
 
-#include "../Coffee/CCoffee.h"
+#include "../Coffee/CPortionedCoffee.h"
 
-class CLatte : public CCoffee
+class CLatte : public CPortionedCoffee
 {
 public:
-	CLatte()
-		: CCoffee("Latte")
-	{
-	}
+	explicit CLatte(CoffeePortion portion = CoffeePortion::Standard);
 
 	double GetCost() const override;
 };
