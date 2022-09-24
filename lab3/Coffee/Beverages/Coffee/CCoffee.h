@@ -5,10 +5,7 @@
 class CCoffee : public CBeverage
 {
 public:
-	explicit CCoffee(std::string const& description = "Coffee")
-		: CBeverage(description)
-	{
-	}
+	explicit CCoffee(std::string const& description = "Coffee");
 
 	double GetCost() const override;
 };

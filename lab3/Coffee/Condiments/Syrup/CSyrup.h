@@ -11,7 +11,7 @@ enum class SyrupType
 class CSyrup : public CCondimentDecorator
 {
 public:
-	explicit CSyrup(IBeveragePtr&& beverage, SyrupType syrupType);
+	explicit CSyrup(IBeveragePtr&& beverage, SyrupType syrupType = SyrupType::Chocolate);
 
 protected:
 	std::string GetCondimentDescription() const override;

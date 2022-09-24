@@ -11,7 +11,7 @@ enum class CoffeePortion
 class CPortionedCoffee : public CCoffee
 {
 public:
-	CPortionedCoffee(std::string const&description, CoffeePortion portion);
+	explicit CPortionedCoffee(std::string const&description, CoffeePortion portion = CoffeePortion::Standard);
 
 	std::string GetDescription() const override;
 
