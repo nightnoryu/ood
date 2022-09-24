@@ -25,6 +25,6 @@ std::string CPortionedCoffee::GetPortionDescription() const
 	case CoffeePortion::Double:
 		return "Double";
 	default:
-		return "";
+		return {};
 	}
 }

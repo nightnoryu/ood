@@ -29,6 +29,6 @@ std::string CTea::GetTypeDescription() const
 	case TeaType::Green:
 		return "Green";
 	default:
-		return "";
+		return {};
 	}
 }

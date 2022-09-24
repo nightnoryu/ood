@@ -37,6 +37,6 @@ std::string CMilkshake::GetPortionDescription() const
 	case MilkshakePortion::Grand:
 		return "Grand";
 	default:
-		return "";
+		return {};
 	}
 }
