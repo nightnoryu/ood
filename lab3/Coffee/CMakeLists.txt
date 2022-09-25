@@ -12,8 +12,10 @@ add_executable(Coffee
                Beverages/Tea/CTea.cpp
                Beverages/Milkshake/CMilkshake.h
                Beverages/Milkshake/CMilkshake.cpp
+               Beverages/Coffee/CPortionedCoffee.h
+               Beverages/Coffee/CPortionedCoffee.cpp
                Condiments/CCondimentDecorator.h
-               main.cpp Condiments/CCondimentDecorator.cpp
+               Condiments/CCondimentDecorator.cpp
                Condiments/Cinnamon/CCinnamon.h
                Condiments/Cinnamon/CCinnamon.cpp
                Condiments/Lemon/CLemon.h
@@ -26,11 +28,10 @@ add_executable(Coffee
                Condiments/ChocolateCrumbs/CChocolateCrumbs.cpp
                Condiments/CoconutFlakes/CCoconutFlakes.h
                Condiments/CoconutFlakes/CCoconutFlakes.cpp
-               Beverages/Coffee/CPortionedCoffee.h
-               Beverages/Coffee/CPortionedCoffee.cpp
                Condiments/Cream/CCream.h
                Condiments/Cream/CCream.cpp
                Condiments/ChocolateSlices/ChocolateSlices.h
                Condiments/ChocolateSlices/ChocolateSlices.cpp
                Condiments/Liqueur/CLiqueur.h
-               Condiments/Liqueur/CLiqueur.cpp)
+               Condiments/Liqueur/CLiqueur.cpp
+               main.cpp)
