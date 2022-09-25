@@ -2,7 +2,7 @@
 
 #include "../CCondimentDecorator.h"
 
-class CCream : CCondimentDecorator
+class CCream : public CCondimentDecorator
 {
 public:
 	explicit CCream(IBeveragePtr&& beverage);

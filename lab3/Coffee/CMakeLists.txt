@@ -34,4 +34,6 @@ add_executable(Coffee
                Condiments/ChocolateSlices/ChocolateSlices.cpp
                Condiments/Liqueur/CLiqueur.h
                Condiments/Liqueur/CLiqueur.cpp
+               CCoffeeShop.h
+               CCoffeeShop.cpp
                main.cpp)
