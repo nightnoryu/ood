@@ -36,8 +36,10 @@ protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	using SignalType = boost::signals2::signal<void(IObservable<T>&, T const&)>;
+	using Signal = boost::signals2::signal<void(IObservable<T>&, T const&)>;
+	using Connection = boost::signals2::connection;
+	using ObserverConnections = std::unordered_map<ObserverType*, Connection>;
 
-	SignalType m_signal;
-	std::unordered_map<ObserverType*, boost::signals2::connection> m_connections;
+	Signal m_signal;
+	ObserverConnections m_connections;
 };
