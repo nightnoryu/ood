@@ -7,7 +7,7 @@ void CCurrentConditionsDisplay::Update(Observable& observable, WeatherInfo const
 
 	std::cout << "Current Temp " << data.temperature << "\n"
 			  << "Current Hum " << data.humidity << "\n"
-			  << "Current Pressure " << data.humidity << "\n"
+			  << "Current Pressure " << data.pressure << "\n"
 			  << "----------------" << std::endl;
 }
 
