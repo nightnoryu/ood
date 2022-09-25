@@ -28,7 +28,18 @@ void CCoffeeShop::Start()
 				 "We have a wide variety of different condiments, feel free to pick anything you like\n";
 	for (;;)
 	{
-		if (SelectCondiment())
+		bool result;
+		try
+		{
+			result = SelectCondiment();
+		}
+		catch (std::exception&)
+		{
+			std::cout << "I didn't quite get that..\n";
+			return;
+		}
+
+		if (result)
 		{
 			std::cout << "And.. done! Anything else?\n";
 		}
