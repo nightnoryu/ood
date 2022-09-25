@@ -1,6 +1,6 @@
-#include "ChocolateSlices.h"
+#include "CChocolateSlices.h"
 
-ChocolateSlices::ChocolateSlices(IBeveragePtr&& beverage, unsigned quantity)
+CChocolateSlices::CChocolateSlices(IBeveragePtr&& beverage, unsigned quantity)
 	: CCondimentDecorator(std::move(beverage))
 	, m_quantity(quantity)
 {
@@ -10,12 +10,12 @@ ChocolateSlices::ChocolateSlices(IBeveragePtr&& beverage, unsigned quantity)
 	}
 }
 
-std::string ChocolateSlices::GetCondimentDescription() const
+std::string CChocolateSlices::GetCondimentDescription() const
 {
 	return "Chocolate slices x " + std::to_string(m_quantity);
 }
 
-double ChocolateSlices::GetCondimentCost() const
+double CChocolateSlices::GetCondimentCost() const
 {
 	return 10 * m_quantity;
 }

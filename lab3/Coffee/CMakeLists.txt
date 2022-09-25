@@ -30,8 +30,8 @@ add_executable(Coffee
                Condiments/CoconutFlakes/CCoconutFlakes.cpp
                Condiments/Cream/CCream.h
                Condiments/Cream/CCream.cpp
-               Condiments/ChocolateSlices/ChocolateSlices.h
-               Condiments/ChocolateSlices/ChocolateSlices.cpp
+               Condiments/ChocolateSlices/CChocolateSlices.h
+               Condiments/ChocolateSlices/CChocolateSlices.cpp
                Condiments/Liqueur/CLiqueur.h
                Condiments/Liqueur/CLiqueur.cpp
                CCoffeeShop.h

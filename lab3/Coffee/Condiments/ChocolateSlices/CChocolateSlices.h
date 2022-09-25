@@ -3,10 +3,10 @@
 #include "../CCondimentDecorator.h"
 #include <stdexcept>
 
-class ChocolateSlices : public CCondimentDecorator
+class CChocolateSlices : public CCondimentDecorator
 {
 public:
-	ChocolateSlices(IBeveragePtr&& beverage, unsigned quantity);
+	CChocolateSlices(IBeveragePtr&& beverage, unsigned quantity);
 
 protected:
 	std::string GetCondimentDescription() const override;

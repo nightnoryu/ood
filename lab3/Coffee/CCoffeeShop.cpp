@@ -4,9 +4,14 @@
 #include "Beverages/Milkshake/CMilkshake.h"
 #include "Beverages/Tea/CTea.h"
 #include "Condiments/ChocolateCrumbs/CChocolateCrumbs.h"
+#include "Condiments/ChocolateSlices/CChocolateSlices.h"
 #include "Condiments/Cinnamon/CCinnamon.h"
+#include "Condiments/CoconutFlakes/CCoconutFlakes.h"
 #include "Condiments/Cream/CCream.h"
+#include "Condiments/IceCubes/CIceCubes.h"
 #include "Condiments/Lemon/CLemon.h"
+#include "Condiments/Liqueur/CLiqueur.h"
+#include "Condiments/Syrup/CSyrup.h"
 #include <iostream>
 
 void CCoffeeShop::Start()
@@ -34,8 +39,7 @@ void CCoffeeShop::Start()
 	}
 
 	std::cout << "I guess that's all for now. Here's your beverage, enjoy!\n"
-			  << m_beverage->GetDescription()
-			  << "\nThat'll will be " << m_beverage->GetCost() << " rubles\n"
+			  << m_beverage->GetDescription() << ", cost: " << m_beverage->GetCost() << "RUB\n"
 			  << "Visit us again!" << std::endl;
 }
 
@@ -188,35 +192,152 @@ bool CCoffeeShop::SelectCondiment()
 
 bool CCoffeeShop::AddChocolateCrumbs()
 {
-	return false;
+	unsigned mass;
+
+	std::cout << "How many grams?\n> ";
+	std::cin >> mass;
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CChocolateCrumbs>(mass);
+	return true;
 }
 
 bool CCoffeeShop::AddChocolateSlices()
 {
-	return false;
+	unsigned quantity;
+
+	std::cout << "How many slices?\n> ";
+	std::cin >> quantity;
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CChocolateSlices>(quantity);
+	return true;
 }
 
 bool CCoffeeShop::AddCoconutFlakes()
 {
-	return false;
+	unsigned mass;
+
+	std::cout << "How many grams?\n> ";
+	std::cin >> mass;
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CCoconutFlakes>(mass);
+	return true;
 }
 
 bool CCoffeeShop::AddIceCubes()
 {
-	return false;
+	int typeChoice;
+	unsigned quantity;
+	IceCubeType type;
+
+	std::cout << "1 - Dry, 2 - Water\n> ";
+	std::cin >> typeChoice;
+	switch (typeChoice)
+	{
+	case 1:
+		type = IceCubeType::Dry;
+		break;
+	case 2:
+		type = IceCubeType::Water;
+		break;
+	default:
+		return false;
+	}
+
+	std::cout << "How many cubes?\n> ";
+	std::cin >> quantity;
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CIceCubes>(quantity, type);
+	return true;
 }
 
 bool CCoffeeShop::AddLemon()
 {
-	return false;
+	unsigned quantity;
+
+	std::cout << "How many slices?\n> ";
+	std::cin >> quantity;
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CLemon>(quantity);
+	return true;
 }
 
 bool CCoffeeShop::AddLiqueur()
 {
-	return false;
+	int typeChoice;
+	LiqueurType type;
+
+	std::cout << "1 - Nut, 2 - Chocolate\n> ";
+	std::cin >> typeChoice;
+	switch (typeChoice)
+	{
+	case 1:
+		type = LiqueurType::Nut;
+		break;
+	case 2:
+		type = LiqueurType::Chocolate;
+		break;
+	default:
+		return false;
+	}
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CLiqueur>(type);
+	return true;
 }
 
 bool CCoffeeShop::AddSyrup()
 {
-	return false;
+	int typeChoice;
+	SyrupType type;
+
+	std::cout << "1 - Chocolate, 2 - Maple\n> ";
+	std::cin >> typeChoice;
+	switch (typeChoice)
+	{
+	case 1:
+		type = SyrupType::Chocolate;
+		break;
+	case 2:
+		type = SyrupType::Maple;
+		break;
+	default:
+		return false;
+	}
+
+	if (std::cin.bad())
+	{
+		return false;
+	}
+
+	m_beverage = std::move(m_beverage) << MakeCondiment<CSyrup>(type);
+	return true;
 }
