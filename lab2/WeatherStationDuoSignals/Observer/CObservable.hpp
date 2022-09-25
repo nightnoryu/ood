@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IObservable.h"
-#include <set>
+#include <boost/signals2.hpp>
 
 template <typename T>
 class CObservable : public IObservable<T>
@@ -11,28 +11,25 @@ public:
 
 	void RegisterObserver(ObserverType& observer) override
 	{
-		m_observers.emplace(&observer);
+		m_signal.connect(boost::bind(&ObserverType::Update, &observer, _1, _2));
 	}
 
 	void NotifyObservers() override
 	{
 		auto data = GetChangedData();
-		auto observersCopy = m_observers;
-
-		for (auto& observer : observersCopy)
-		{
-			observer->Update(*this, data);
-		}
+		m_signal(*this, data);
 	}
 
 	void RemoveObserver(ObserverType& observer) override
 	{
-		m_observers.erase(&observer);
+		// TODO
 	}
 
 protected:
 	virtual T GetChangedData() const = 0;
 
 private:
-	std::set<ObserverType*> m_observers;
+	using SignalType = boost::signals2::signal<void(IObservable<T>&, T const&)>;
+
+	SignalType m_signal;
 };
