@@ -13,26 +13,57 @@ struct WeatherInfo
 	double temperature = 0;
 	double humidity = 0;
 	double pressure = 0;
+
 	std::optional<WindInfo> windInfo;
 };
 
-// TODO: extract base class for all weather data classes
-class CWeatherData : public CObservable<WeatherInfo>
+template <typename Base>
+class CBaseWeatherData : public Base
 {
 public:
-	double GetTemperature() const;
-	double GetHumidity() const;
-	double GetPressure() const;
+	double GetTemperature() const
+	{
+		return m_temperature;
+	}
 
-	void MeasurementsChanged();
+	double GetHumidity() const
+	{
+		return m_humidity;
+	}
 
-	void SetMeasurements(double temperature, double humidity, double pressure);
+	double GetPressure() const
+	{
+		return m_pressure;
+	}
+
+	void MeasurementsChanged()
+	{
+		Base::NotifyObservers();
+	}
+
+	void SetMeasurements(double temperature, double humidity, double pressure)
+	{
+		m_temperature = temperature;
+		m_humidity = humidity;
+		m_pressure = pressure;
+
+		MeasurementsChanged();
+	}
 
 protected:
-	WeatherInfo GetChangedData() const override;
+	WeatherInfo GetChangedData() const override
+	{
+		return {
+			.temperature = GetTemperature(),
+			.humidity = GetHumidity(),
+			.pressure = GetPressure(),
+		};
+	}
 
 private:
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;
 	double m_pressure = 760.0;
 };
+
+using CWeatherData = CBaseWeatherData<CObservable<WeatherInfo>>;

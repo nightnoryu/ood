@@ -3,17 +3,11 @@
 #include "../Observer/CObservable.hpp"
 #include "../WeatherData/CWeatherData.h"
 
-class CWeatherDataPro : public CObservable<WeatherInfo>
+class CWeatherDataPro : public CBaseWeatherData<CObservable<WeatherInfo>>
 {
 public:
-	double GetTemperature() const;
-	double GetHumidity() const;
-	double GetPressure() const;
-
 	double GetWindSpeed() const;
 	double GetWindDirection() const;
-
-	void MeasurementsChanged();
 
 	void SetMeasurements(double temperature, double humidity, double pressure, double windSpeed, double windDirection);
 
