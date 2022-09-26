@@ -16,6 +16,7 @@ struct WeatherInfo
 	std::optional<WindInfo> windInfo;
 };
 
+// TODO: extract base class for all weather data classes
 class CWeatherData : public CObservable<WeatherInfo>
 {
 public:

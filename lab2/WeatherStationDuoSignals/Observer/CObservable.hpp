@@ -9,10 +9,9 @@ class CObservable : public IObservable<T>
 public:
 	using ObserverType = IObserver<T>;
 
+	// TODO: show one more time for more info
 	void RegisterObserver(ObserverType& observer) override
 	{
-		// TODO prioritize observers with groups
-		// https://www.boost.org/doc/libs/1_80_0/doc/html/signals2/tutorial.html#id-1.3.35.4.4.3
 		auto connection = m_signal.connect(boost::bind(&ObserverType::Update, &observer, _1, _2));
 		m_connections.emplace(&observer, connection);
 	}

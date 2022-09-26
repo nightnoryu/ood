@@ -22,6 +22,7 @@ public:
 		auto observersCopy = m_observers;
 		std::set<ObserverType*> updatedObservers;
 
+		// TODO: send only changed parameters
 		for (auto& [event, observer] : observersCopy)
 		{
 			if (events.contains(event) && !updatedObservers.contains(observer))
