@@ -53,8 +53,8 @@ TEST_CASE("several observables in the same observers")
 			std::ostringstream out;
 			CDummyObserver observer(out);
 
-			observable1.RegisterObserver(observer);
-			observable2.RegisterObserver(observer);
+			observable1.RegisterObserver(observer, 0);
+			observable2.RegisterObserver(observer, 0);
 
 			WHEN("notifying from both observables")
 			{
@@ -97,6 +97,88 @@ TEST_CASE("several observables in the same observers")
 							REQUIRE(out.str() == "unknown\n2\n");
 						}
 					}
+				}
+			}
+		}
+	}
+}
+
+TEST_CASE("observers with priority")
+{
+	GIVEN("an observable")
+	{
+		CWeatherData observable;
+
+		AND_GIVEN("observers #1 and #2")
+		{
+			class CObserver : public IObserver<WeatherInfo>
+			{
+			public:
+				CObserver(std::ostream& out, int number)
+					: m_out(out)
+					, m_number(number)
+				{
+				}
+
+			private:
+				void Update(IObservable<WeatherInfo>& /* observable */, WeatherInfo const& /* data */) override
+				{
+					m_out << "Observer #" << m_number << "\n";
+				}
+
+				std::ostream& m_out;
+				int m_number;
+			};
+
+			std::ostringstream out;
+			CObserver observer1(out, 1);
+			CObserver observer2(out, 2);
+
+			WHEN("adding #1 with priority 1 and #2 with priority 2 and notifying them")
+			{
+				observable.RegisterObserver(observer1, 1);
+				observable.RegisterObserver(observer2, 2);
+				observable.NotifyObservers();
+
+				THEN("#1 gets called first, then #2")
+				{
+					REQUIRE(out.str() == "Observer #1\nObserver #2\n");
+				}
+			}
+
+			WHEN("adding #1 with priority 5 and #2 with priority 1 and notifying them")
+			{
+				observable.RegisterObserver(observer1, 5);
+				observable.RegisterObserver(observer2, 1);
+				observable.NotifyObservers();
+
+				THEN("#2 gets called first, then #1")
+				{
+					REQUIRE(out.str() == "Observer #2\nObserver #1\n");
+				}
+			}
+
+			WHEN("adding both observers with the same priority (#1 first) and notifying them")
+			{
+				observable.RegisterObserver(observer1, 1);
+				observable.RegisterObserver(observer2, 1);
+				observable.NotifyObservers();
+
+				THEN("they are called in the order of registering: #1 gets called first, then #2")
+				{
+					REQUIRE(out.str() == "Observer #1\nObserver #2\n");
+				}
+			}
+
+			WHEN("adding both observers with the same priority (#2 first) and notifying them")
+			{
+				observable.RegisterObserver(observer2, 1);
+				observable.RegisterObserver(observer1, 1);
+				observable.NotifyObservers();
+
+				THEN("they are called in the order of registering: #2 gets called first, then #1")
+				{
+					REQUIRE(out.str() == "Observer #2\nObserver #1\n");
 				}
 			}
 		}

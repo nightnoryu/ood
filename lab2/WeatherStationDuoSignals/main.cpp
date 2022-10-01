@@ -9,18 +9,18 @@ int main()
 
 	CCurrentConditionsDisplay display;
 
-	wdIn.RegisterObserver(display);
+	wdIn.RegisterObserver(display, 0);
 	display.SetObservableName(wdIn, "in");
 
-	wdOut.RegisterObserver(display);
+	wdOut.RegisterObserver(display, 0);
 	display.SetObservableName(wdOut, "out");
 
 	CStatsDisplay statsDisplay;
 
-	wdIn.RegisterObserver(statsDisplay);
+	wdIn.RegisterObserver(statsDisplay, 1);
 	statsDisplay.SetObservableName(wdIn, "in");
 
-	wdOut.RegisterObserver(statsDisplay);
+	wdOut.RegisterObserver(statsDisplay, 1);
 	statsDisplay.SetObservableName(wdOut, "out");
 
 	wdIn.SetMeasurements(22, 0.8, 760);

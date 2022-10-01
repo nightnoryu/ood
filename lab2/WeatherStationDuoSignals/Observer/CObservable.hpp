@@ -9,10 +9,9 @@ class CObservable : public IObservable<T>
 public:
 	using ObserverType = IObserver<T>;
 
-	// TODO: show one more time for more info
-	void RegisterObserver(ObserverType& observer) override
+	void RegisterObserver(ObserverType& observer, unsigned priority) override
 	{
-		auto connection = m_signal.connect(boost::bind(&ObserverType::Update, &observer, _1, _2));
+		auto connection = m_signal.connect(priority, boost::bind(&ObserverType::Update, &observer, _1, _2));
 		m_connections.emplace(&observer, connection);
 	}
 
