@@ -1,12 +1,22 @@
-#include "OutputDataStream/FileOutputStream/CFileOutputStream.h"
+#include "CArgumentParser.h"
+#include <iostream>
+#include <iterator>
 
-int main()
+int main(int argc, char const** argv)
 {
-	CFileOutputStream stream("test.txt");
-	stream.WriteByte('S');
+	CArgumentParser parser(argc, argv);
+	auto const args = parser.Parse();
 
-	std::string block = "uck my balls, bitchezzz\n";
-	stream.WriteBlock(block.c_str(), static_cast<std::streamsize>(block.length()));
+	std::copy(args.encryptionKeys.begin(), args.encryptionKeys.end(), std::ostream_iterator<int>(std::cout, ", "));
+	std::cout << std::endl;
+	std::copy(args.decryptionKeys.begin(), args.decryptionKeys.end(), std::ostream_iterator<int>(std::cout, ", "));
+	std::cout << std::endl;
+
+	std::cout << args.compress << std::endl;
+	std::cout << args.decompress << std::endl;
+
+	std::cout << args.inputFilename << std::endl;
+	std::cout << args.outputFilename << std::endl;
 
 	return EXIT_SUCCESS;
 }

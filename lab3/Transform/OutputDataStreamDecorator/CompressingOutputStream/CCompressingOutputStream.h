@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../../../OutputDataStream/IOutputDataStream.h"
+#include "../../OutputDataStream/IOutputDataStream.h"
 #include <memory>
 
-class CDecompressingOutputStream : public IOutputDataStream
+class CCompressingOutputStream : IOutputDataStream
 {
 public:
-	explicit CDecompressingOutputStream(std::unique_ptr<IOutputDataStream>&& stream);
+	explicit CCompressingOutputStream(std::unique_ptr<IOutputDataStream>&& stream);
 
 	void WriteByte(std::uint8_t data) override;
 	void WriteBlock(const void* srcData, std::streamsize size) override;
