@@ -5,7 +5,16 @@
 int main(int argc, char const** argv)
 {
 	CArgumentParser parser(argc, argv);
-	auto const args = parser.Parse();
+
+	Args args;
+	try
+	{
+		args = parser.Parse();
+	}
+	catch (std::exception const& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 
 	std::copy(args.encryptionKeys.begin(), args.encryptionKeys.end(), std::ostream_iterator<int>(std::cout, ", "));
 	std::cout << std::endl;
