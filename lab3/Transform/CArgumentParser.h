@@ -11,8 +11,8 @@ struct Args
 	std::vector<int> encryptionKeys;
 	std::vector<int> decryptionKeys;
 
-	bool compress;
-	bool decompress;
+	bool compress = false;
+	bool decompress = false;
 };
 
 class CArgumentParser
