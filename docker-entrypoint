@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd /app/build
+
+cmake ../src
+cmake --build . --target $1

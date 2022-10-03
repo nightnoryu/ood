@@ -1,10 +1,14 @@
-# /bin/sh
-
-docker build -t ood-builder .
+#!/usr/bin/env bash
 
 mkdir -p cmake-build
 
+USER_ID=$(id -u)
+
 docker run -t -i \
+  --user "$USER_ID" \
+  -v /etc/passwd:/etc/passwd:ro \
+  -v /etc/group:/etc/group:ro \
   -v ${PWD}:/app/src \
   -v ${PWD}/cmake-build:/app/build \
-  ood-builder
+  ood-builder \
+  $1

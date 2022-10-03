@@ -5,4 +5,6 @@ RUN apt-get update && \
       libboost-dev libboost-program-options-dev \
       cmake
 
-WORKDIR /app/build
+COPY docker-entrypoint docker-entrypoint
+
+ENTRYPOINT ["./docker-entrypoint"]
