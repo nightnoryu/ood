@@ -1,13 +1,8 @@
 #include "CDecryptingInputStream.h"
 
-CDecryptingInputStream::CDecryptingInputStream(std::unique_ptr<IInputDataStream>&& stream)
-	: m_stream(std::move(stream))
+CDecryptingInputStream::CDecryptingInputStream(IInputDataStreamPtr&& stream)
+	: CInputDataStreamDecorator(std::move(stream))
 {
-}
-
-bool CDecryptingInputStream::IsEOF() const
-{
-	return m_stream->IsEOF();
 }
 
 uint8_t CDecryptingInputStream::ReadByte()

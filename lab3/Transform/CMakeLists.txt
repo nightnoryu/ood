@@ -2,6 +2,7 @@ add_executable(Transform
                main.cpp
                CArgumentParser.cpp
                CArgumentParser.h
+               utils.hpp
                OutputDataStream/IOutputDataStream.h
                OutputDataStream/FileOutputStream/CFileOutputStream.cpp
                OutputDataStream/FileOutputStream/CFileOutputStream.h
@@ -12,6 +13,8 @@ add_executable(Transform
                OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h
                OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
                OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h
+               InputDataStreamDecorator/CInputDataStreamDecorator.cpp
+               InputDataStreamDecorator/CInputDataStreamDecorator.h
                InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.cpp
                InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h
                InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.cpp

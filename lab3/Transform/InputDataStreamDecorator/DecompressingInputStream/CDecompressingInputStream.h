@@ -1,17 +1,14 @@
 #pragma once
 
 #include "../../InputDataStream/IInputDataStream.h"
+#include "../CInputDataStreamDecorator.h"
 #include <memory>
 
-class CDecompressingInputStream : public IInputDataStream
+class CDecompressingInputStream : public CInputDataStreamDecorator
 {
 public:
-	explicit CDecompressingInputStream(std::unique_ptr<IInputDataStream>&& stream);
+	explicit CDecompressingInputStream(IInputDataStreamPtr&& stream);
 
-	bool IsEOF() const override;
 	uint8_t ReadByte() override;
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
-
-private:
-	std::unique_ptr<IInputDataStream> m_stream;
 };
