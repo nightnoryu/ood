@@ -8,6 +8,8 @@ add_executable(Transform
                OutputDataStream/MemoryOutputStream/CMemoryOutputStream.cpp
                OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h
                InputDataStream/IInputDataStream.h
+               OutputDataStreamDecorator/COutputDataStreamDecorator.cpp
+               OutputDataStreamDecorator/COutputDataStreamDecorator.h
                OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.cpp
                OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h
                OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
