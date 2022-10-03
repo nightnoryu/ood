@@ -10,3 +10,4 @@ target_include_directories(catch2 INTERFACE libs/catch2/)
 
 add_subdirectory(lab1)
 add_subdirectory(lab2)
+add_subdirectory(lab3)

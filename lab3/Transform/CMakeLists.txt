@@ -1,0 +1,18 @@
+add_executable(Transform
+               main.cpp
+               CArgumentParser.cpp
+               CArgumentParser.h
+               OutputDataStream/IOutputDataStream.h
+               OutputDataStream/FileOutputStream/CFileOutputStream.cpp
+               OutputDataStream/FileOutputStream/CFileOutputStream.h
+               OutputDataStream/MemoryOutputStream/CMemoryOutputStream.cpp
+               OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h
+               InputDataStream/IInputDataStream.h
+               OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.cpp
+               OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h
+               OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
+               OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h
+               InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.cpp
+               InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h
+               InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.cpp
+               InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.h)

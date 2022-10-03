@@ -4860,7 +4860,7 @@ namespace Catch {
             id value = performOptionalSelector( cls, sel );
             if( value )
                 return [(NSString*)value UTF8String];
-            return "";
+            return {};
         }
     }
 
@@ -17615,4 +17615,3 @@ using Catch::Detail::Approx;
 // end catch_reenable_warnings.h
 // end catch.hpp
 #endif // TWOBLUECUBES_SINGLE_INCLUDE_CATCH_HPP_INCLUDED
-

@@ -11,6 +11,8 @@ public:
 
 	void RegisterObserver(ObserverType& observer, unsigned priority) override
 	{
+		// NOTE: observers with the same priority will be called in order of registering
+		// https://en.cppreference.com/w/cpp/container/multimap
 		m_observers.emplace(priority, &observer);
 	}
 

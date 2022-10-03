@@ -1,7 +1,7 @@
 #include "CStatsDisplay.h"
 #include <iostream>
 
-void CStatsDisplay::Update(const WeatherInfo& data)
+void CStatsDisplay::Update(WeatherInfo const& data)
 {
 	m_temperatureMonitor.Update(data.temperature);
 	m_humidityMonitor.Update(data.humidity);
@@ -12,7 +12,7 @@ void CStatsDisplay::Update(const WeatherInfo& data)
 	PrintStats("Pressure", m_pressureMonitor.GetStats());
 }
 
-void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats) const
+void CStatsDisplay::PrintStats(std::string const& header, Stats const& stats)
 {
 	std::cout << "[" << header << "]\n"
 			  << "Max " << stats.max << "\n"
