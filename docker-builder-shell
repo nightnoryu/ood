@@ -1,0 +1,10 @@
+# /bin/sh
+
+docker build -t ood-builder .
+
+mkdir -p cmake-build
+
+docker run -t -i \
+  -v ${PWD}:/app/src \
+  -v ${PWD}/cmake-build:/app/build \
+  ood-builder
