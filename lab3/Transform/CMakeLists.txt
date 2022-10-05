@@ -12,9 +12,11 @@ add_executable(Transform
                InputDataStream/FileInputStream/CFileInputStream.h
                InputDataStreamDecorator/CInputDataStreamDecorator.cpp
                InputDataStreamDecorator/CInputDataStreamDecorator.h
-               InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.cpp
-               InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.h
-               OutputDataStreamDecorator/COutputDataStreamDecorator.cpp
-               OutputDataStreamDecorator/COutputDataStreamDecorator.h
-               OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.cpp
-               OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h)
+               InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.cpp
+               InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h
+               InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.cpp
+               InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h
+               OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.cpp
+               OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h
+               OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
+               OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h)

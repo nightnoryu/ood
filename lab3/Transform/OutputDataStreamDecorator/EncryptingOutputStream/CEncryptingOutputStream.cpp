@@ -2,7 +2,7 @@
 #include <random>
 
 CEncryptingOutputStream::CEncryptingOutputStream(IOutputDataStreamPtr&& stream, int key)
-	: COutputDataStreamDecorator(std::move(stream))
+	: m_stream(std::move(stream))
 {
 	InitializeEncryptionTable(key);
 }

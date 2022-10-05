@@ -1,11 +1,10 @@
 #pragma once
 
 #include "../../OutputDataStream/IOutputDataStream.h"
-#include "../COutputDataStreamDecorator.h"
 #include <memory>
 #include <vector>
 
-class CEncryptingOutputStream : public COutputDataStreamDecorator
+class CEncryptingOutputStream : public IOutputDataStream
 {
 public:
 	explicit CEncryptingOutputStream(IOutputDataStreamPtr&& stream, int key);
@@ -17,5 +16,6 @@ private:
 	void InitializeEncryptionTable(int key);
 	std::uint8_t EncryptByte(std::uint8_t byte) const;
 
+	IOutputDataStreamPtr m_stream;
 	std::vector<std::uint8_t> m_encryptionTable;
 };

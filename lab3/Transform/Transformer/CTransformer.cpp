@@ -1,8 +1,10 @@
 #include "CTransformer.h"
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
-#include "../InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.h"
+#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
+#include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
-#include "../OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h"
+#include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
+#include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
 
 CTransformer::CTransformer(Args const& args)
 	: m_input(std::make_unique<CFileInputStream>(args.inputFilename))
@@ -29,5 +31,15 @@ void CTransformer::AddDecorators(Args const& args)
 	for (auto const key : args.decryptionKeys)
 	{
 		m_input = std::move(m_input) << MakeDecorator<CDecryptingInputStream>(key);
+	}
+
+	if (args.compress)
+	{
+		m_output = std::move(m_output) << MakeDecorator<CCompressingOutputStream>();
+	}
+
+	if (args.decompress)
+	{
+		m_input = std::move(m_input) << MakeDecorator<CDecompressingInputStream>();
 	}
 }
