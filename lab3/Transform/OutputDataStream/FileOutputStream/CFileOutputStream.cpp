@@ -3,6 +3,10 @@
 CFileOutputStream::CFileOutputStream(std::string const& filename)
 	: m_file(filename, std::ios::out | std::ios::binary)
 {
+	if (!m_file.is_open())
+	{
+		throw std::runtime_error("failed to open file for writing");
+	}
 }
 
 void CFileOutputStream::WriteByte(std::uint8_t data)
