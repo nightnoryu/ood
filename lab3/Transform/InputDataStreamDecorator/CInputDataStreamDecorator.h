@@ -5,7 +5,7 @@
 
 using IInputDataStreamPtr = std::unique_ptr<IInputDataStream>;
 
-class CInputDataStreamDecorator : IInputDataStream
+class CInputDataStreamDecorator : public IInputDataStream
 {
 public:
 	bool IsEOF() const override;

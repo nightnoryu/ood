@@ -5,7 +5,7 @@
 
 using IOutputDataStreamPtr = std::unique_ptr<IOutputDataStream>;
 
-class COutputDataStreamDecorator : IOutputDataStream
+class COutputDataStreamDecorator : public IOutputDataStream
 {
 protected:
 	explicit COutputDataStreamDecorator(IOutputDataStreamPtr&& stream);

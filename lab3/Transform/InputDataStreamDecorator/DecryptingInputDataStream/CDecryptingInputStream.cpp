@@ -1,6 +1,6 @@
 #include "CDecryptingInputStream.h"
 
-CDecryptingInputStream::CDecryptingInputStream(IInputDataStreamPtr&& stream)
+CDecryptingInputStream::CDecryptingInputStream(IInputDataStreamPtr&& stream, int key)
 	: CInputDataStreamDecorator(std::move(stream))
 {
 }
