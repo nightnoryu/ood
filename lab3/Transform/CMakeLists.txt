@@ -1,9 +1,9 @@
 add_executable(Transform
                main.cpp
-               CArgumentParser.cpp
-               CArgumentParser.h
-               CTransformer.cpp
-               CTransformer.h
+               ArgumentParser/CArgumentParser.cpp
+               ArgumentParser/CArgumentParser.h
+               Transformer/CTransformer.cpp
+               Transformer/CTransformer.h
                OutputDataStream/IOutputDataStream.h
                OutputDataStream/FileOutputStream/CFileOutputStream.cpp
                OutputDataStream/FileOutputStream/CFileOutputStream.h

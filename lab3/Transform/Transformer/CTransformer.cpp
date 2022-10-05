@@ -1,8 +1,8 @@
 #include "CTransformer.h"
-#include "InputDataStream/FileInputStream/CFileInputStream.h"
-#include "InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.h"
-#include "OutputDataStream/FileOutputStream/CFileOutputStream.h"
-#include "OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h"
+#include "../InputDataStream/FileInputStream/CFileInputStream.h"
+#include "../InputDataStreamDecorator/DecryptingInputDataStream/CDecryptingInputStream.h"
+#include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
+#include "../OutputDataStreamDecorator/EncryptingOutputDataStream/CEncryptingOutputStream.h"
 
 CTransformer::CTransformer(Args const& args)
 	: m_input(std::make_unique<CFileInputStream>(args.inputFilename))

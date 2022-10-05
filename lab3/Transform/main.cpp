@@ -1,5 +1,5 @@
-#include "CArgumentParser.h"
-#include "CTransformer.h"
+#include "ArgumentParser/CArgumentParser.h"
+#include "Transformer/CTransformer.h"
 #include <iostream>
 
 int main(int argc, char const** argv)

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "./InputDataStream/IInputDataStream.h"
-#include "CArgumentParser.h"
-#include "OutputDataStream/IOutputDataStream.h"
+#include "../ArgumentParser/CArgumentParser.h"
+#include "../InputDataStream/IInputDataStream.h"
+#include "../OutputDataStream/IOutputDataStream.h"
 #include <memory>
 
 class CTransformer
