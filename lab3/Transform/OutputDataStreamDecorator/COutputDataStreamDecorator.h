@@ -3,8 +3,6 @@
 #include "../OutputDataStream/IOutputDataStream.h"
 #include <memory>
 
-using IOutputDataStreamPtr = std::unique_ptr<IOutputDataStream>;
-
 class COutputDataStreamDecorator : public IOutputDataStream
 {
 protected:

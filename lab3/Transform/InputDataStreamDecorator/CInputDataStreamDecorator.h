@@ -3,8 +3,6 @@
 #include "../InputDataStream/IInputDataStream.h"
 #include <memory>
 
-using IInputDataStreamPtr = std::unique_ptr<IInputDataStream>;
-
 class CInputDataStreamDecorator : public IInputDataStream
 {
 public:
