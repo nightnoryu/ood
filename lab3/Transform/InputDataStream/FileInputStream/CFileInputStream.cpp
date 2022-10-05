@@ -17,8 +17,9 @@ bool CFileInputStream::IsEOF() const
 uint8_t CFileInputStream::ReadByte()
 {
 	char byte;
+	m_file.get(byte);
 
-	if (!m_file.get(byte))
+	if (m_file.bad())
 	{
 		throw std::ios_base::failure("failed to read from file");
 	}
@@ -28,7 +29,9 @@ uint8_t CFileInputStream::ReadByte()
 
 std::streamsize CFileInputStream::ReadBlock(void* dstBuffer, std::streamsize size)
 {
-	if (!m_file.read(static_cast<char*>(dstBuffer), size))
+	m_file.read(static_cast<char*>(dstBuffer), size);
+
+	if (m_file.bad())
 	{
 		throw std::ios_base::failure("failed to read from file");
 	}

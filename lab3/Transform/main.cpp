@@ -15,6 +15,7 @@ int main(int argc, char const** argv)
 	catch (std::exception const& e)
 	{
 		std::cerr << e.what() << std::endl;
+		return EXIT_FAILURE;
 	}
 
 	return EXIT_SUCCESS;
