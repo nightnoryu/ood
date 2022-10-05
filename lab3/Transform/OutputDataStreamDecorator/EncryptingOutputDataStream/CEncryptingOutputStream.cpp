@@ -1,7 +1,7 @@
 #include "CEncryptingOutputStream.h"
 
-CEncryptingOutputStream::CEncryptingOutputStream(std::unique_ptr<IOutputDataStream>&& stream, int key)
-	: m_stream(std::move(stream))
+CEncryptingOutputStream::CEncryptingOutputStream(IOutputDataStreamPtr&& stream, int key)
+	: COutputDataStreamDecorator(std::move(stream))
 {
 }
 

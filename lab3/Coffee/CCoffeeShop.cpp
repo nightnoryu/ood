@@ -50,7 +50,7 @@ void CCoffeeShop::Start()
 	}
 
 	std::cout << "I guess that's all for now. Here's your beverage, enjoy!\n"
-			  << m_beverage->GetDescription() << ", cost: " << m_beverage->GetCost() << "RUB\n"
+			  << m_beverage->GetDescription() << ", cost: " << m_beverage->GetCost() << " RUB\n"
 			  << "Visit us again!" << std::endl;
 }
 

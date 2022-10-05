@@ -47,6 +47,8 @@ Args CArgumentParser::Parse() const
 			args.outputFilename = *it;
 			continue;
 		}
+
+		throw std::invalid_argument("unsupported option: " + std::string(*it));
 	}
 
 	return args;
@@ -59,11 +61,11 @@ int CArgumentParser::StringViewToInt(std::string_view const& view)
 
 	if (result.ec == std::errc::invalid_argument)
 	{
-		throw std::invalid_argument("invalid number value");
+		throw std::invalid_argument("invalid number value: " + std::string(view));
 	}
 	if (result.ec == std::errc::result_out_of_range)
 	{
-		throw std::out_of_range("number out of range");
+		throw std::out_of_range("number out of range: " + std::string(view));
 	}
 
 	return value;
