@@ -1,5 +1,6 @@
 #include "CEncryptingOutputStream.h"
 #include <random>
+#include <algorithm>
 
 CEncryptingOutputStream::CEncryptingOutputStream(IOutputDataStreamPtr&& stream, int key)
 	: m_stream(std::move(stream))

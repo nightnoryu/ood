@@ -1,5 +1,6 @@
 #include "CDecryptingInputStream.h"
 #include <random>
+#include <algorithm>
 
 CDecryptingInputStream::CDecryptingInputStream(IInputDataStreamPtr&& stream, int key)
 	: CInputDataStreamDecorator(std::move(stream))
