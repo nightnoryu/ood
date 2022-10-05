@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ios>
+#include <memory>
 
 class IOutputDataStream
 {
@@ -10,3 +11,5 @@ public:
 
 	virtual ~IOutputDataStream() = default;
 };
+
+using IOutputDataStreamPtr = std::unique_ptr<IOutputDataStream>;

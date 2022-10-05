@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ios>
+#include <memory>
 
 class IInputDataStream
 {
@@ -11,3 +12,5 @@ public:
 
 	virtual ~IInputDataStream() = default;
 };
+
+using IInputDataStreamPtr = std::unique_ptr<IInputDataStream>;
