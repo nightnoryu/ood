@@ -11,10 +11,7 @@ CFileOutputStream::CFileOutputStream(std::string const& filename)
 
 void CFileOutputStream::WriteByte(std::uint8_t data)
 {
-	if (!m_file.write(reinterpret_cast<char const*>(&data), 1))
-	{
-		throw std::ios_base::failure("failed to write to file");
-	}
+    WriteBlock(&data, 1);
 }
 
 void CFileOutputStream::WriteBlock(void const* srcData, std::streamsize size)

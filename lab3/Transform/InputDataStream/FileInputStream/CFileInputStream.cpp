@@ -16,15 +16,11 @@ bool CFileInputStream::IsEOF() const
 
 uint8_t CFileInputStream::ReadByte()
 {
-	char byte;
-	m_file.get(byte);
+	std::uint8_t byte;
+    ReadBlock(&byte, 1);
+    m_file.peek(); // Peeking to set EOF flag
 
-	if (m_file.bad())
-	{
-		throw std::ios_base::failure("failed to read from file");
-	}
-
-	return static_cast<std::uint8_t>(byte);
+    return byte;
 }
 
 std::streamsize CFileInputStream::ReadBlock(void* dstBuffer, std::streamsize size)
