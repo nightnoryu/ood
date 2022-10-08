@@ -12,9 +12,10 @@ void CMemoryOutputStream::WriteByte(std::uint8_t data)
 
 void CMemoryOutputStream::WriteBlock(const void* srcData, std::streamsize size)
 {
-	auto charBuffer = static_cast<std::uint8_t const*>(srcData);
+	auto bytes = static_cast<std::uint8_t const*>(srcData);
+
 	for (std::streamsize i = 0; i < size; ++i)
 	{
-		WriteByte(*(charBuffer++));
+		WriteByte(*(bytes++));
 	}
 }

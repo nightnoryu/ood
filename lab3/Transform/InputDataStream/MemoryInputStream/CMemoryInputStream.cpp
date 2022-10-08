@@ -22,14 +22,14 @@ uint8_t CMemoryInputStream::ReadByte()
 
 std::streamsize CMemoryInputStream::ReadBlock(void* dstBuffer, std::streamsize size)
 {
-	auto readSize = std::min(static_cast<std::size_t>(size), m_data.size() - m_currentPosition);
-	auto charBuffer = static_cast<std::uint8_t*>(dstBuffer);
+	auto bytes = static_cast<std::uint8_t*>(dstBuffer);
+	auto readSize = std::min(
+		size,
+		static_cast<std::streamsize>(m_data.size() - m_currentPosition));
 
-	for (std::size_t i = 0; i < readSize; ++i)
+	for (std::streamsize i = 0; i < readSize; ++i)
 	{
-		*charBuffer = m_data[m_currentPosition];
-		++charBuffer;
-		++m_currentPosition;
+		*(bytes++) = ReadByte();
 	}
 
 	return static_cast<std::streamsize>(readSize);

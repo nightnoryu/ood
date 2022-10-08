@@ -18,9 +18,9 @@ bool CFileInputStream::IsEOF() const
 uint8_t CFileInputStream::ReadByte()
 {
 	std::uint8_t byte;
-    ReadBlock(&byte, 1);
+	ReadBlock(&byte, 1);
 
-    return byte;
+	return byte;
 }
 
 std::streamsize CFileInputStream::ReadBlock(void* dstBuffer, std::streamsize size)
