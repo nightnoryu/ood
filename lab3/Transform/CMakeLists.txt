@@ -24,3 +24,5 @@ add_executable(Transform
                OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h
                OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
                OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h)
+
+add_subdirectory(tests)
