@@ -12,23 +12,23 @@ CCompressingOutputStream::~CCompressingOutputStream()
 
 void CCompressingOutputStream::WriteByte(std::uint8_t data)
 {
-	if (m_currentSequence.size == 0)
+	if (m_currentBlock.size == 0)
 	{
-		m_currentSequence = {
+		m_currentBlock = {
 			.byte = data,
 			.size = 1,
 		};
 		return;
 	}
 
-	if (m_currentSequence.byte == data)
+	if (m_currentBlock.byte == data)
 	{
-		++m_currentSequence.size;
+		++m_currentBlock.size;
 		return;
 	}
 
 	Flush();
-	m_currentSequence = {
+	m_currentBlock = {
 		.byte = data,
 		.size = 1,
 	};
@@ -36,21 +36,16 @@ void CCompressingOutputStream::WriteByte(std::uint8_t data)
 
 void CCompressingOutputStream::WriteBlock(const void* srcData, std::streamsize size)
 {
+	auto bytes = static_cast<std::uint8_t const*>(srcData);
+
 	for (std::streamsize i = 0; i < size; ++i)
 	{
-		WriteByte(*(static_cast<std::uint8_t const*>(srcData) + i));
+		WriteByte(*(bytes + i));
 	}
-
-	m_stream->WriteBlock(srcData, size);
 }
 
 void CCompressingOutputStream::Flush()
 {
-	m_stream->WriteByte(m_currentSequence.size);
-	m_stream->WriteByte(m_currentSequence.byte);
-
-	m_currentSequence = {
-		.byte = 0,
-		.size = 0,
-	};
+	m_stream->WriteByte(m_currentBlock.size);
+	m_stream->WriteByte(m_currentBlock.byte);
 }

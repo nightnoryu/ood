@@ -15,6 +15,7 @@ public:
 
 private:
 	void InitializeDecryptionTable(int key);
+	static std::vector<std::uint8_t> InitializeEncryptionTable(int key);
 	std::uint8_t DecryptByte(std::uint8_t byte) const;
 
 	std::vector<std::uint8_t> m_decryptionTable;

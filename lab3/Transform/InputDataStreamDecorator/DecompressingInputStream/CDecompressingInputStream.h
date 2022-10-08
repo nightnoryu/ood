@@ -11,11 +11,11 @@ public:
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
-	struct Sequence
+	struct Block
 	{
 		std::uint8_t byte = 0;
 		std::streamsize size = 0;
 	};
 
-	Sequence m_currentSequence;
+	Block m_currentBlock;
 };

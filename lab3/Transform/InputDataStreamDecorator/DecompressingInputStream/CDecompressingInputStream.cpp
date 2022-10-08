@@ -7,31 +7,25 @@ CDecompressingInputStream::CDecompressingInputStream(IInputDataStreamPtr&& strea
 
 uint8_t CDecompressingInputStream::ReadByte()
 {
-	if (m_currentSequence.size == 0)
+	if (m_currentBlock.size == 0)
 	{
-		m_currentSequence.size = m_stream->ReadByte();
-		m_currentSequence.byte = m_stream->ReadByte();
+		m_currentBlock.size = m_stream->ReadByte();
+		m_currentBlock.byte = m_stream->ReadByte();
 	}
 
-	--m_currentSequence.size;
-	return m_currentSequence.byte;
+	--m_currentBlock.size;
+	return m_currentBlock.byte;
 }
 
 std::streamsize CDecompressingInputStream::ReadBlock(void* dstBuffer, std::streamsize size)
 {
-	auto dstBufferByte = static_cast<std::uint8_t*>(dstBuffer);
+	auto bytes = static_cast<std::uint8_t*>(dstBuffer);
 
-	for (std::streamsize i = 0; i < size; ++i)
+	std::streamsize i;
+	for (i = 1; i <= size && !IsEOF(); ++i)
 	{
-		try
-		{
-			*(dstBufferByte + i) = ReadByte();
-		}
-		catch (std::exception const&)
-		{
-			continue;
-		}
+		*(bytes + i) = ReadByte();
 	}
 
-	return size;
+	return i + 1;
 }

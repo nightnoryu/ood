@@ -1,6 +1,6 @@
 #include "CEncryptingOutputStream.h"
-#include <random>
 #include <algorithm>
+#include <random>
 
 CEncryptingOutputStream::CEncryptingOutputStream(IOutputDataStreamPtr&& stream, int key)
 	: m_stream(std::move(stream))
@@ -15,12 +15,12 @@ void CEncryptingOutputStream::WriteByte(std::uint8_t data)
 
 void CEncryptingOutputStream::WriteBlock(void const* srcData, std::streamsize size)
 {
+	auto bytes = static_cast<std::uint8_t const*>(srcData);
+
 	for (std::streamsize i = 0; i < size; ++i)
 	{
-		WriteByte(*(static_cast<std::uint8_t const*>(srcData) + i));
+		WriteByte(*(bytes + i));
 	}
-
-	m_stream->WriteBlock(srcData, size);
 }
 
 void CEncryptingOutputStream::InitializeEncryptionTable(int key)
