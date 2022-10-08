@@ -7,9 +7,13 @@ add_executable(Transform
                OutputDataStream/IOutputDataStream.h
                OutputDataStream/FileOutputStream/CFileOutputStream.cpp
                OutputDataStream/FileOutputStream/CFileOutputStream.h
+               OutputDataStream/MemoryOutputStream/CMemoryOutputStream.cpp
+               OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h
                InputDataStream/IInputDataStream.h
                InputDataStream/FileInputStream/CFileInputStream.cpp
                InputDataStream/FileInputStream/CFileInputStream.h
+               InputDataStream/MemoryInputStream/CMemoryInputStream.cpp
+               InputDataStream/MemoryInputStream/CMemoryInputStream.h
                InputDataStreamDecorator/CInputDataStreamDecorator.cpp
                InputDataStreamDecorator/CInputDataStreamDecorator.h
                InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.cpp
