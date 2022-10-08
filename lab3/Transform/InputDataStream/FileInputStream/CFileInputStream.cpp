@@ -11,6 +11,7 @@ CFileInputStream::CFileInputStream(const std::string& filename)
 
 bool CFileInputStream::IsEOF() const
 {
+	m_file.peek(); // Peeking to set EOF flag
 	return m_file.eof();
 }
 
@@ -18,7 +19,6 @@ uint8_t CFileInputStream::ReadByte()
 {
 	std::uint8_t byte;
     ReadBlock(&byte, 1);
-    m_file.peek(); // Peeking to set EOF flag
 
     return byte;
 }
