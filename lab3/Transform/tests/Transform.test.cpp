@@ -344,9 +344,18 @@ SCENARIO("Memory output stream")
 
 			THEN("data vector becomes populated with these bytes")
 			{
-				REQUIRE(data[0] == 'a');
-				REQUIRE(data[1] == 'b');
-				REQUIRE(data[2] == 'c');
+				REQUIRE(data == std::vector<std::uint8_t>{ 'a', 'b', 'c' });
+			}
+
+			AND_WHEN("writing a subsequent block of bytes")
+			{
+				std::vector<std::uint8_t> bytes = { 'H', 'e', 'l', 'l' };
+				stream.WriteBlock(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+
+				THEN("data vector becomes populated with new bytes")
+				{
+					REQUIRE(data == std::vector<std::uint8_t>{ 'a', 'b', 'c', 'H', 'e', 'l', 'l' });
+				}
 			}
 		}
 
@@ -358,6 +367,17 @@ SCENARIO("Memory output stream")
 			THEN("data vector matches written bytes")
 			{
 				REQUIRE(data == bytes);
+			}
+
+			AND_WHEN("writing some bytes")
+			{
+				stream.WriteByte('a');
+				stream.WriteByte('b');
+
+				THEN("data vector becomes populated with new bytes")
+				{
+					REQUIRE(data == std::vector<std::uint8_t>{ 'H', 'e', 'l', 'l', 'a', 'b' });
+				}
 			}
 		}
 	}
