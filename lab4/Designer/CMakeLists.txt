@@ -1,6 +1,9 @@
 add_executable(Designer
                main.cpp
                Canvas/ICanvas.h
+               Designer/IDesigner.h
+               Designer/CPictureDraft.cpp
+               Designer/CPictureDraft.h
                Shapes/CShape.cpp
                Shapes/CShape.h
                Shapes/Ellipse/CEllipse.cpp
