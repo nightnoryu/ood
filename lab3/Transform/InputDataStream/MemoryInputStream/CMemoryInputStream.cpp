@@ -27,6 +27,11 @@ std::streamsize CMemoryInputStream::ReadBlock(void* dstBuffer, std::streamsize s
 		size,
 		static_cast<std::streamsize>(m_data.size() - m_currentPosition));
 
+	if (readSize == 0)
+	{
+		throw std::ios_base::failure("can not read past EOF");
+	}
+
 	for (std::streamsize i = 0; i < readSize; ++i)
 	{
 		*(bytes++) = ReadByte();
