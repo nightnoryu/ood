@@ -2,8 +2,13 @@ add_executable(Designer
                main.cpp
                Canvas/ICanvas.h
                Designer/IDesigner.h
+               Designer/CDesigner.cpp
+               Designer/CDesigner.h
                Designer/CPictureDraft.cpp
                Designer/CPictureDraft.h
+               ShapeFactory/IShapeFactory.h
+               ShapeFactory/CShapeFactory.cpp
+               ShapeFactory/CShapeFactory.h
                Shapes/CShape.cpp
                Shapes/CShape.h
                Shapes/Ellipse/CEllipse.cpp

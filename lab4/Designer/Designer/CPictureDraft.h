@@ -10,6 +10,8 @@ public:
 	using Storage = std::vector<CShapePtr>;
 	using ConstIterator = boost::indirect_iterator<Storage::const_iterator, CShape const&>;
 
+	CPictureDraft() = default;
+
 	CPictureDraft(CPictureDraft&&) = default;
 	CPictureDraft& operator=(CPictureDraft&&) = default;
 
