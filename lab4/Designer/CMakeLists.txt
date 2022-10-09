@@ -1,6 +1,8 @@
 add_executable(Designer
                main.cpp
                Canvas/ICanvas.h
+               Canvas/CCanvas.cpp
+               Canvas/CCanvas.h
                Designer/IDesigner.h
                Designer/CDesigner.cpp
                Designer/CDesigner.h
