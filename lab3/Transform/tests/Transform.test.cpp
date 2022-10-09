@@ -2,6 +2,7 @@
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
 #include "../InputDataStream/MemoryInputStream/CMemoryInputStream.h"
 #include "catch.hpp"
+#include <filesystem>
 
 std::vector<std::uint8_t> GetFileContents(std::string const& filename)
 {
@@ -12,6 +13,15 @@ std::vector<std::uint8_t> GetFileContents(std::string const& filename)
 	std::vector<std::uint8_t> result(begin, end);
 
 	return result;
+}
+
+std::string GetTemporaryFilepath()
+{
+	auto const tempDir = std::filesystem::temp_directory_path();
+	std::filesystem::path tempFilename("output.txt");
+	auto const result = tempDir / tempFilename;
+
+	return result.string();
 }
 
 // https://en.cppreference.com/w/cpp/filesystem/temp_directory_path
