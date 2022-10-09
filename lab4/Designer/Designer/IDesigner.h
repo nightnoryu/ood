@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CPictureDraft.h"
+#include "../PictureDraft/CPictureDraft.h"
 
 class IDesigner
 {
