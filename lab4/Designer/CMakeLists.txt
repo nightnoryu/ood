@@ -1,2 +1,9 @@
 add_executable(Designer
-               main.cpp)
+               main.cpp
+               Canvas/ICanvas.h
+               Shapes/CShape.cpp
+               Shapes/CShape.h
+               Shapes/Ellipse/CEllipse.cpp
+               Shapes/Ellipse/CEllipse.h
+               Shapes/Rectangle/CRectangle.cpp
+               Shapes/Rectangle/CRectangle.h)
