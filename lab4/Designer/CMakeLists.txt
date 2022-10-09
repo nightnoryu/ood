@@ -8,6 +8,8 @@ add_executable(Designer
                Designer/IDesigner.h
                Designer/CDesigner.cpp
                Designer/CDesigner.h
+               Painter/CPainter.cpp
+               Painter/CPainter.h
                ShapeFactory/IShapeFactory.h
                ShapeFactory/CShapeFactory.cpp
                ShapeFactory/CShapeFactory.h
