@@ -1,8 +1,12 @@
 #define CATCH_CONFIG_MAIN
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
 #include "../InputDataStream/MemoryInputStream/CMemoryInputStream.h"
+#include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
 #include "../OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h"
+#include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
+#include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
+#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "catch.hpp"
 #include <filesystem>
 
@@ -432,18 +436,133 @@ SCENARIO("Memory output stream")
 	}
 }
 
-SCENARIO("Encrypting output stream decorator")
+SCENARIO("Encrypting and decrypting streams")
 {
+	GIVEN("a vector for reading and writing")
+	{
+		std::vector<std::uint8_t> data;
+
+		AND_GIVEN("encrypting output stream")
+		{
+			int key = 42;
+			auto cleanOutputStream = std::make_unique<CMemoryOutputStream>(data);
+			auto encryptingStream = std::make_unique<CEncryptingOutputStream>(std::move(cleanOutputStream), key);
+
+			WHEN("encrypting a couple of bytes")
+			{
+				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+				for (auto&& byte : bytes)
+				{
+					encryptingStream->WriteByte(byte);
+				}
+
+				AND_WHEN("reading these bytes with input stream")
+				{
+					auto cleanInputStream = std::make_unique<CMemoryInputStream>(data);
+
+					THEN("they are not equal")
+					{
+						for (auto&& byte : bytes)
+						{
+							REQUIRE(byte != cleanInputStream->ReadByte());
+						}
+					}
+				}
+
+				AND_WHEN("decrypting these bytes with decrypting stream and another key")
+				{
+					auto cleanInputStream = std::make_unique<CMemoryInputStream>(data);
+					auto decryptingStream = std::make_unique<CDecryptingInputStream>(std::move(cleanInputStream), 12);
+
+					THEN("they are not equal")
+					{
+						for (auto&& byte : bytes)
+						{
+							REQUIRE(byte != decryptingStream->ReadByte());
+						}
+					}
+				}
+
+				AND_WHEN("decrypting these bytes with decrypting stream and the same key")
+				{
+					auto cleanInputStream = std::make_unique<CMemoryInputStream>(data);
+					auto decryptingStream = std::make_unique<CDecryptingInputStream>(std::move(cleanInputStream), key);
+
+					THEN("they are equal")
+					{
+						for (auto&& byte : bytes)
+						{
+							REQUIRE(byte == decryptingStream->ReadByte());
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
-SCENARIO("Decrypting input stream decorator")
+SCENARIO("Compressing and decompressing streams")
 {
-}
+	GIVEN("a vector for reading and writing")
+	{
+		std::vector<std::uint8_t> data;
 
-SCENARIO("Compressing output stream decorator")
-{
-}
+		AND_GIVEN("clean output stream")
+		{
+			auto cleanOutputStream = std::make_unique<CMemoryOutputStream>(data);
 
-SCENARIO("Decompressing input stream decorator")
-{
+			WHEN("compressing a couple of bytes")
+			{
+				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+
+				{
+					// Enclosing in order to destroy the stream and flush
+					auto compressingStream = std::make_unique<CCompressingOutputStream>(std::move(cleanOutputStream));
+					for (auto&& byte : bytes)
+					{
+						compressingStream->WriteByte(byte);
+					}
+				}
+
+				THEN("compression works correctly")
+				{
+					REQUIRE(data[0] == 1);
+					REQUIRE(data[1] == 'b');
+					REQUIRE(data[2] == 2);
+					REQUIRE(data[3] == 'o');
+					REQUIRE(data[4] == 1);
+					REQUIRE(data[5] == 'b');
+					REQUIRE(data[6] == 1);
+					REQUIRE(data[7] == 'z');
+				}
+
+				AND_WHEN("reading these bytes with input stream")
+				{
+					auto cleanInputStream = std::make_unique<CMemoryInputStream>(data);
+
+					THEN("they are not equal")
+					{
+						for (auto&& byte : bytes)
+						{
+							REQUIRE(byte != cleanInputStream->ReadByte());
+						}
+					}
+				}
+
+				AND_WHEN("decompressing these bytes with decompressing stream")
+				{
+					auto cleanInputStream = std::make_unique<CMemoryInputStream>(data);
+					auto decompressingStream = std::make_unique<CDecompressingInputStream>(std::move(cleanInputStream));
+
+					THEN("they are equal")
+					{
+						for (auto&& byte : bytes)
+						{
+							REQUIRE(byte == decompressingStream->ReadByte());
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -28,6 +28,7 @@ void CCompressingOutputStream::WriteByte(std::uint8_t data)
 	}
 
 	Flush();
+
 	m_currentBlock = {
 		.byte = data,
 		.size = 1,
