@@ -6,4 +6,8 @@ add_executable(Designer
                Shapes/Ellipse/CEllipse.cpp
                Shapes/Ellipse/CEllipse.h
                Shapes/Rectangle/CRectangle.cpp
-               Shapes/Rectangle/CRectangle.h)
+               Shapes/Rectangle/CRectangle.h
+               Shapes/RegularPolygon/CRegularPolygon.cpp
+               Shapes/RegularPolygon/CRegularPolygon.h
+               Shapes/Triangle/CTriangle.cpp
+               Shapes/Triangle/CTriangle.h)

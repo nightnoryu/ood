@@ -11,7 +11,7 @@ public:
 	int GetHorizontalRadius() const;
 	int GetVerticalRadius() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	Point m_center;

@@ -10,7 +10,7 @@ public:
 	Point GetLeftTop() const;
 	Point GetRightBottom() const;
 
-	void Draw(ICanvas& canvas) override;
+	void Draw(ICanvas& canvas) const override;
 
 private:
 	Point m_leftTopCorner;

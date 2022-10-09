@@ -17,7 +17,7 @@ Point CRectangle::GetRightBottom() const
 	return m_rightBottomCorner;
 }
 
-void CRectangle::Draw(ICanvas& canvas)
+void CRectangle::Draw(ICanvas& canvas) const
 {
 	auto const width = m_rightBottomCorner.x - m_leftTopCorner.x;
 	auto const height = m_rightBottomCorner.y - m_leftTopCorner.y;

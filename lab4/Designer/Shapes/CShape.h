@@ -7,9 +7,9 @@ class CShape
 public:
 	explicit CShape(Color color);
 
-	Color GetColor();
+	Color GetColor() const;
 
-	virtual void Draw(ICanvas& canvas) = 0;
+	virtual void Draw(ICanvas& canvas) const = 0;
 
 private:
 	Color m_color;
