@@ -331,6 +331,36 @@ SCENARIO("Memory input stream")
 
 SCENARIO("Memory output stream")
 {
+	GIVEN("a stream")
+	{
+		std::vector<std::uint8_t> data;
+		CMemoryOutputStream stream(data);
+
+		WHEN("writing a couple of bytes")
+		{
+			stream.WriteByte('a');
+			stream.WriteByte('b');
+			stream.WriteByte('c');
+
+			THEN("data vector becomes populated with these bytes")
+			{
+				REQUIRE(data[0] == 'a');
+				REQUIRE(data[1] == 'b');
+				REQUIRE(data[2] == 'c');
+			}
+		}
+
+		WHEN("writing a block of bytes")
+		{
+			std::vector<std::uint8_t> bytes = { 'H', 'e', 'l', 'l' };
+			stream.WriteBlock(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+
+			THEN("data vector matches written bytes")
+			{
+				REQUIRE(data == bytes);
+			}
+		}
+	}
 }
 
 SCENARIO("Encrypting output stream decorator")
