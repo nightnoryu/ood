@@ -22,4 +22,6 @@ void CFileOutputStream::WriteBlock(void const* srcData, std::streamsize size)
 	{
 		throw std::ios_base::failure("failed to write to file");
 	}
+
+	m_file.flush();
 }

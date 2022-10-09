@@ -26,8 +26,6 @@ std::string GetTemporaryFilepath()
 	return result.string();
 }
 
-// https://en.cppreference.com/w/cpp/filesystem/temp_directory_path
-
 SCENARIO("File input stream")
 {
 	GIVEN("non existing file path")
@@ -188,6 +186,57 @@ SCENARIO("File output stream")
 			THEN("it throws an exception")
 			{
 				REQUIRE_THROWS_AS(CFileOutputStream(path), std::runtime_error);
+			}
+		}
+	}
+
+	GIVEN("a stream")
+	{
+		auto const filepath = GetTemporaryFilepath();
+		CFileOutputStream stream(filepath);
+
+		WHEN("writing a couple of bytes")
+		{
+			stream.WriteByte('a');
+			stream.WriteByte('b');
+			stream.WriteByte('c');
+
+			THEN("data vector becomes populated with these bytes")
+			{
+				REQUIRE(GetFileContents(filepath) == std::vector<std::uint8_t>{ 'a', 'b', 'c' });
+			}
+
+			AND_WHEN("writing a subsequent block of bytes")
+			{
+				std::vector<std::uint8_t> bytes = { 'H', 'e', 'l', 'l' };
+				stream.WriteBlock(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+
+				THEN("data vector becomes populated with new bytes")
+				{
+					REQUIRE(GetFileContents(filepath) == std::vector<std::uint8_t>{ 'a', 'b', 'c', 'H', 'e', 'l', 'l' });
+				}
+			}
+		}
+
+		WHEN("writing a block of bytes")
+		{
+			std::vector<std::uint8_t> bytes = { 'H', 'e', 'l', 'l' };
+			stream.WriteBlock(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+
+			THEN("data vector matches written bytes")
+			{
+				REQUIRE(GetFileContents(filepath) == bytes);
+			}
+
+			AND_WHEN("writing some bytes")
+			{
+				stream.WriteByte('a');
+				stream.WriteByte('b');
+
+				THEN("data vector becomes populated with new bytes")
+				{
+					REQUIRE(GetFileContents(filepath) == std::vector<std::uint8_t>{ 'H', 'e', 'l', 'l', 'a', 'b' });
+				}
 			}
 		}
 	}
