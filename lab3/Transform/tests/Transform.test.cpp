@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_MAIN
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
 #include "../InputDataStream/MemoryInputStream/CMemoryInputStream.h"
+#include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
+#include "../OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h"
 #include "catch.hpp"
 #include <filesystem>
 
@@ -28,6 +30,19 @@ std::string GetTemporaryFilepath()
 
 SCENARIO("File input stream")
 {
+	GIVEN("non existing file path")
+	{
+		std::string const path = "boobz.txt";
+
+		WHEN("creating a stream")
+		{
+			THEN("it throws an exception")
+			{
+				REQUIRE_THROWS_AS(CFileInputStream(path), std::runtime_error);
+			}
+		}
+	}
+
 	GIVEN("a stream with empty data")
 	{
 		auto const data = GetFileContents("empty.txt");
@@ -164,6 +179,18 @@ SCENARIO("File input stream")
 
 SCENARIO("File output stream")
 {
+	GIVEN("unavailable file path")
+	{
+		std::string const path = "Y:\boobz.txt";
+
+		WHEN("creating a stream")
+		{
+			THEN("it throws an exception")
+			{
+				REQUIRE_THROWS_AS(CFileOutputStream(path), std::runtime_error);
+			}
+		}
+	}
 }
 
 SCENARIO("Memory input stream")
