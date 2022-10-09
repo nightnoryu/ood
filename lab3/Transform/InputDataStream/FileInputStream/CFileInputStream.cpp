@@ -17,8 +17,17 @@ bool CFileInputStream::IsEOF() const
 
 uint8_t CFileInputStream::ReadByte()
 {
-	std::uint8_t byte;
-	ReadBlock(&byte, 1);
+	if (IsEOF())
+	{
+		throw std::ios_base::failure("failed to read from file");
+	}
+
+	std::uint8_t byte = m_file.get();
+
+	if (m_file.bad())
+	{
+		throw std::ios_base::failure("failed to read from file");
+	}
 
 	return byte;
 }
