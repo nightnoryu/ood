@@ -19,9 +19,10 @@ Point CRectangle::GetRightBottom() const
 
 void CRectangle::Draw(ICanvas& canvas) const
 {
-	auto const width = m_rightBottomCorner.x - m_leftTopCorner.x;
-	auto const height = m_rightBottomCorner.y - m_leftTopCorner.y;
-
 	canvas.SetColor(GetColor());
-	// TODO
+
+	canvas.DrawLine({ m_leftTopCorner.x, m_leftTopCorner.y }, { m_rightBottomCorner.x, m_leftTopCorner.y });
+	canvas.DrawLine({ m_rightBottomCorner.x, m_leftTopCorner.y }, { m_rightBottomCorner.x, m_rightBottomCorner.y });
+	canvas.DrawLine({ m_rightBottomCorner.x, m_rightBottomCorner.y }, { m_leftTopCorner.x, m_rightBottomCorner.y });
+	canvas.DrawLine({ m_leftTopCorner.x, m_rightBottomCorner.y }, { m_leftTopCorner.x, m_leftTopCorner.y });
 }
