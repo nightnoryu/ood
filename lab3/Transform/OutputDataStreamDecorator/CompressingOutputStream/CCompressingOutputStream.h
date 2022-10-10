@@ -2,6 +2,12 @@
 
 #include "../../OutputDataStream/IOutputDataStream.h"
 
+struct Block
+{
+	std::uint8_t byte = 0;
+	std::streamsize size = 0;
+};
+
 class CCompressingOutputStream : public IOutputDataStream
 {
 public:
@@ -14,12 +20,6 @@ public:
 
 private:
 	void Flush();
-
-	struct Block
-	{
-		std::uint8_t byte = 0;
-		std::streamsize size = 0;
-	};
 
 	Block m_currentBlock;
 	IOutputDataStreamPtr m_stream;
