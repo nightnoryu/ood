@@ -19,7 +19,7 @@ std::streamsize CDecryptingInputStream::ReadBlock(void* dstBuffer, std::streamsi
 
 	for (std::streamsize i = 0; i < readSize; ++i)
 	{
-		*bytes = DecryptByte(*(bytes + i));
+		*(bytes + i) = DecryptByte(*(bytes + i));
 	}
 
 	return readSize;
