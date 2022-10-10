@@ -21,7 +21,7 @@ void CCompressingOutputStream::WriteByte(std::uint8_t data)
 		return;
 	}
 
-	if (m_currentBlock.byte == data)
+	if (m_currentBlock.byte == data && m_currentBlock.size < std::numeric_limits<std::uint8_t>::max())
 	{
 		++m_currentBlock.size;
 		return;

@@ -562,6 +562,29 @@ SCENARIO("Compressing and decompressing streams")
 					}
 				}
 			}
+
+			WHEN("compressing more bytes than streamsize can take")
+			{
+				{
+					// Enclosing in order to destroy the stream and flush
+					auto compressingStream = std::make_unique<CCompressingOutputStream>(std::move(cleanOutputStream));
+					for (std::streamsize i = 0; i < std::numeric_limits<std::uint8_t>::max(); ++i)
+					{
+						compressingStream->WriteByte('a');
+					}
+					compressingStream->WriteByte('a');
+					compressingStream->WriteByte('a');
+					compressingStream->WriteByte('a');
+				}
+
+				THEN("overflowing compression works correctly")
+				{
+					REQUIRE(data[0] == std::numeric_limits<std::uint8_t>::max());
+					REQUIRE(data[1] == 'a');
+					REQUIRE(data[2] == 3);
+					REQUIRE(data[3] == 'a');
+				}
+			}
 		}
 	}
 }

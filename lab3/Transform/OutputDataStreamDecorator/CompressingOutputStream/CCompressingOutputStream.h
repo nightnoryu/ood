@@ -5,7 +5,7 @@
 struct Block
 {
 	std::uint8_t byte = 0;
-	std::streamsize size = 0;
+	std::uint8_t size = 0;
 };
 
 class CCompressingOutputStream : public IOutputDataStream
