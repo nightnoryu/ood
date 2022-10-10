@@ -5,7 +5,6 @@
 #include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
 #include "../OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h"
-#include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
 #include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
 #include "catch.hpp"
 #include <filesystem>
