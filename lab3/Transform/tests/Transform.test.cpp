@@ -24,8 +24,7 @@ std::vector<std::uint8_t> GetFileContents(std::string const& filename)
 std::string GetTemporaryFilepath()
 {
 	auto const tempDir = std::filesystem::temp_directory_path();
-	std::filesystem::path tempFilename("output.txt");
-	auto const result = tempDir / tempFilename;
+	auto const result = tempDir / "output.txt";
 
 	return result.string();
 }
