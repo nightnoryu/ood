@@ -1,12 +1,12 @@
 #define CATCH_CONFIG_MAIN
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
 #include "../InputDataStream/MemoryInputStream/CMemoryInputStream.h"
+#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
 #include "../OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h"
 #include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
 #include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
-#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "catch.hpp"
 #include <filesystem>
 
@@ -182,7 +182,7 @@ SCENARIO("File output stream")
 {
 	GIVEN("unavailable file path")
 	{
-		std::string const path = "Y:\boobz.txt";
+		std::string const path = "Y:\\boobz.txt";
 
 		WHEN("creating a stream")
 		{
@@ -449,7 +449,7 @@ SCENARIO("Encrypting and decrypting streams")
 
 			WHEN("encrypting a couple of bytes")
 			{
-				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+				std::vector<std::uint8_t> bytes = { 'b', 'o', 'o', 'b', 'z' };
 				for (auto&& byte : bytes)
 				{
 					encryptingStream->WriteByte(byte);
@@ -512,7 +512,7 @@ SCENARIO("Compressing and decompressing streams")
 
 			WHEN("compressing a couple of bytes")
 			{
-				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+				std::vector<std::uint8_t> bytes = { 'b', 'o', 'o', 'b', 'z' };
 
 				{
 					// Enclosing in order to destroy the stream and flush
