@@ -563,7 +563,7 @@ SCENARIO("Compressing and decompressing streams")
 				}
 			}
 
-			WHEN("compressing more bytes than streamsize can take")
+			WHEN("compressing more bytes than one size byte can take")
 			{
 				{
 					// Enclosing in order to destroy the stream and flush
