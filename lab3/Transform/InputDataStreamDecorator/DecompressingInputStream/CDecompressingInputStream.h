@@ -11,6 +11,7 @@ public:
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
+	// TODO: extract
 	struct Block
 	{
 		std::uint8_t byte = 0;
