@@ -1,17 +1,18 @@
 #pragma once
 
 #include "../IInputDataStream.h"
-#include <fstream>
+#include <vector>
 
-class CFileInputStream : public IInputDataStream
+class CMemoryInputStream : public IInputDataStream
 {
 public:
-	explicit CFileInputStream(std::string const& filename);
+	explicit CMemoryInputStream(std::vector<std::uint8_t>& data);
 
 	bool IsEOF() const override;
 	uint8_t ReadByte() override;
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
-	mutable std::ifstream m_file;
+	std::vector<std::uint8_t>& m_data;
+	std::size_t m_currentPosition = 0;
 };

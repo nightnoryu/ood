@@ -14,7 +14,6 @@ public:
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
-	void InitializeDecryptionTable(int key);
 	std::uint8_t DecryptByte(std::uint8_t byte) const;
 
 	std::vector<std::uint8_t> m_decryptionTable;

@@ -3,6 +3,7 @@
 CFileInputStream::CFileInputStream(const std::string& filename)
 	: m_file(filename, std::ios_base::in | std::ios_base::binary)
 {
+	m_file.unsetf(std::ios_base::skipws);
 	if (!m_file.is_open())
 	{
 		throw std::runtime_error("failed to open file for reading");
@@ -11,16 +12,25 @@ CFileInputStream::CFileInputStream(const std::string& filename)
 
 bool CFileInputStream::IsEOF() const
 {
+	m_file.peek(); // Peeking to set EOF flag
 	return m_file.eof();
 }
 
 uint8_t CFileInputStream::ReadByte()
 {
-	std::uint8_t byte;
-    ReadBlock(&byte, 1);
-    m_file.peek(); // Peeking to set EOF flag
+	if (IsEOF())
+	{
+		throw std::ios_base::failure("failed to read from file");
+	}
 
-    return byte;
+	std::uint8_t byte = m_file.get();
+
+	if (m_file.bad())
+	{
+		throw std::ios_base::failure("failed to read from file");
+	}
+
+	return byte;
 }
 
 std::streamsize CFileInputStream::ReadBlock(void* dstBuffer, std::streamsize size)

@@ -51,6 +51,16 @@ Args CArgumentParser::Parse() const
 		throw std::invalid_argument("unsupported option: " + std::string(*it));
 	}
 
+	if (args.outputFilename.empty())
+	{
+		throw std::invalid_argument("output file not specified");
+	}
+
+	if (args.inputFilename.empty())
+	{
+		throw std::invalid_argument("input file not specified");
+	}
+
 	return args;
 }
 

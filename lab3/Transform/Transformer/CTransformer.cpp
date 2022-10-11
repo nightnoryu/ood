@@ -3,7 +3,6 @@
 #include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
-#include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
 #include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
 
 CTransformer::CTransformer(Args const& args)

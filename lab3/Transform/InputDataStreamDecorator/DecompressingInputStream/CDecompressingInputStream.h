@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
 #include "../CInputDataStreamDecorator.h"
 
 class CDecompressingInputStream : public CInputDataStreamDecorator
@@ -11,11 +12,5 @@ public:
 	std::streamsize ReadBlock(void* dstBuffer, std::streamsize size) override;
 
 private:
-	struct Sequence
-	{
-		std::uint8_t byte = 0;
-		std::streamsize size = 0;
-	};
-
-	Sequence m_currentSequence;
+	Block m_currentBlock;
 };
