@@ -22,7 +22,7 @@ std::streamsize CDecompressingInputStream::ReadBlock(void* dstBuffer, std::strea
 	auto bytes = static_cast<std::uint8_t*>(dstBuffer);
 
 	std::streamsize i;
-	for (i = 1; i <= size && !IsEOF(); ++i)
+	for (i = 0; i < size && !IsEOF(); ++i)
 	{
 		*(bytes + i) = ReadByte();
 	}

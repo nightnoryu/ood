@@ -1,12 +1,11 @@
 #define CATCH_CONFIG_MAIN
 #include "../InputDataStream/FileInputStream/CFileInputStream.h"
 #include "../InputDataStream/MemoryInputStream/CMemoryInputStream.h"
+#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "../InputDataStreamDecorator/DecryptingInputStream/CDecryptingInputStream.h"
 #include "../OutputDataStream/FileOutputStream/CFileOutputStream.h"
 #include "../OutputDataStream/MemoryOutputStream/CMemoryOutputStream.h"
-#include "../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h"
 #include "../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h"
-#include "../InputDataStreamDecorator/DecompressingInputStream/CDecompressingInputStream.h"
 #include "catch.hpp"
 #include <filesystem>
 
@@ -24,8 +23,7 @@ std::vector<std::uint8_t> GetFileContents(std::string const& filename)
 std::string GetTemporaryFilepath()
 {
 	auto const tempDir = std::filesystem::temp_directory_path();
-	std::filesystem::path tempFilename("output.txt");
-	auto const result = tempDir / tempFilename;
+	auto const result = tempDir / "output.txt";
 
 	return result.string();
 }
@@ -66,11 +64,11 @@ SCENARIO("File input stream")
 		WHEN("reading a block")
 		{
 			std::size_t const size = 10;
-			auto bytes = new std::uint8_t[size];
+			std::vector<std::uint8_t> bytes(size);
 			bytes[0] = '!';
 			bytes[1] = '!';
 			bytes[2] = '!';
-			stream.ReadBlock(bytes, size);
+			stream.ReadBlock(bytes.data(), size);
 
 			THEN("destination buffer is not changed")
 			{
@@ -78,8 +76,6 @@ SCENARIO("File input stream")
 				REQUIRE(bytes[1] == '!');
 				REQUIRE(bytes[2] == '!');
 			}
-
-			delete[] bytes;
 		}
 	}
 
@@ -120,12 +116,12 @@ SCENARIO("File input stream")
 		WHEN("reading some characters by block")
 		{
 			std::size_t const size = 2;
-			auto bytes = new std::uint8_t[size];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(size));
+			std::vector<std::uint8_t> bytes(size);
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(size));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, size) == 0);
+				REQUIRE(std::memcmp(data.data(), bytes.data(), size) == 0);
 			}
 
 			THEN("it is not at EOF")
@@ -137,44 +133,38 @@ SCENARIO("File input stream")
 			{
 				REQUIRE(stream.ReadByte() == data[size]);
 			}
-
-			delete[] bytes;
 		}
 
 		WHEN("reading everything by block")
 		{
-			auto bytes = new std::uint8_t[data.size()];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(data.size()));
+			std::vector<std::uint8_t> bytes(data.size());
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(data.size()));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, data.size()) == 0);
+				REQUIRE(data == bytes);
 			}
 
 			THEN("attempting to read byte throws an exception")
 			{
 				REQUIRE_THROWS_AS(stream.ReadByte(), std::ios_base::failure);
 			}
-
-			delete[] bytes;
 		}
 
 		WHEN("reading more characters than there is in the stream")
 		{
-			auto bytes = new std::uint8_t[data.size()];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(data.size() + 10));
+			std::vector<std::uint8_t> bytes(data.size());
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(data.size() + 10));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, data.size()) == 0);
+				REQUIRE(data == bytes);
 			}
 
 			THEN("attempting to read byte throws an exception")
 			{
 				REQUIRE_THROWS_AS(stream.ReadByte(), std::ios_base::failure);
 			}
-
-			delete[] bytes;
 		}
 	}
 }
@@ -183,7 +173,7 @@ SCENARIO("File output stream")
 {
 	GIVEN("unavailable file path")
 	{
-		std::string const path = "Y:\boobz.txt";
+		std::string const path = "Y:\\boobz.txt";
 
 		WHEN("creating a stream")
 		{
@@ -269,11 +259,11 @@ SCENARIO("Memory input stream")
 		WHEN("reading a block")
 		{
 			std::size_t const size = 10;
-			auto bytes = new std::uint8_t[size];
+			std::vector<std::uint8_t> bytes(size);
 			bytes[0] = '!';
 			bytes[1] = '!';
 			bytes[2] = '!';
-			stream.ReadBlock(bytes, size);
+			stream.ReadBlock(bytes.data(), size);
 
 			THEN("destination buffer is not changed")
 			{
@@ -281,8 +271,6 @@ SCENARIO("Memory input stream")
 				REQUIRE(bytes[1] == '!');
 				REQUIRE(bytes[2] == '!');
 			}
-
-			delete[] bytes;
 		}
 	}
 
@@ -323,12 +311,12 @@ SCENARIO("Memory input stream")
 		WHEN("reading some characters by block")
 		{
 			std::size_t const size = 2;
-			auto bytes = new std::uint8_t[size];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(size));
+			std::vector<std::uint8_t> bytes(size);
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(size));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, size) == 0);
+				REQUIRE(std::memcmp(data.data(), bytes.data(), size) == 0);
 			}
 
 			THEN("it is not at EOF")
@@ -340,44 +328,38 @@ SCENARIO("Memory input stream")
 			{
 				REQUIRE(stream.ReadByte() == data[size]);
 			}
-
-			delete[] bytes;
 		}
 
 		WHEN("reading everything by block")
 		{
-			auto bytes = new std::uint8_t[data.size()];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(data.size()));
+			std::vector<std::uint8_t> bytes(data.size());
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(data.size()));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, data.size()) == 0);
+				REQUIRE(data == bytes);
 			}
 
 			THEN("attempting to read byte throws an exception")
 			{
 				REQUIRE_THROWS_AS(stream.ReadByte(), std::ios_base::failure);
 			}
-
-			delete[] bytes;
 		}
 
 		WHEN("reading more characters than there is in the stream")
 		{
-			auto bytes = new std::uint8_t[data.size()];
-			stream.ReadBlock(bytes, static_cast<std::streamsize>(data.size() + 10));
+			std::vector<std::uint8_t> bytes(data.size());
+			stream.ReadBlock(bytes.data(), static_cast<std::streamsize>(data.size() + 10));
 
 			THEN("data matches initial")
 			{
-				REQUIRE(std::memcmp(data.data(), bytes, data.size()) == 0);
+				REQUIRE(data == bytes);
 			}
 
 			THEN("attempting to read byte throws an exception")
 			{
 				REQUIRE_THROWS_AS(stream.ReadByte(), std::ios_base::failure);
 			}
-
-			delete[] bytes;
 		}
 	}
 }
@@ -450,7 +432,7 @@ SCENARIO("Encrypting and decrypting streams")
 
 			WHEN("encrypting a couple of bytes")
 			{
-				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+				std::vector<std::uint8_t> bytes = { 'b', 'o', 'o', 'b', 'z' };
 				for (auto&& byte : bytes)
 				{
 					encryptingStream->WriteByte(byte);
@@ -513,7 +495,7 @@ SCENARIO("Compressing and decompressing streams")
 
 			WHEN("compressing a couple of bytes")
 			{
-				std::vector<std::uint8_t> bytes = {'b', 'o', 'o', 'b', 'z'};
+				std::vector<std::uint8_t> bytes = { 'b', 'o', 'o', 'b', 'z' };
 
 				{
 					// Enclosing in order to destroy the stream and flush
@@ -561,6 +543,29 @@ SCENARIO("Compressing and decompressing streams")
 							REQUIRE(byte == decompressingStream->ReadByte());
 						}
 					}
+				}
+			}
+
+			WHEN("compressing more bytes than one size byte can take")
+			{
+				{
+					// Enclosing in order to destroy the stream and flush
+					auto compressingStream = std::make_unique<CCompressingOutputStream>(std::move(cleanOutputStream));
+					for (std::streamsize i = 0; i < std::numeric_limits<std::uint8_t>::max(); ++i)
+					{
+						compressingStream->WriteByte('a');
+					}
+					compressingStream->WriteByte('a');
+					compressingStream->WriteByte('a');
+					compressingStream->WriteByte('a');
+				}
+
+				THEN("overflowing compression works correctly")
+				{
+					REQUIRE(data[0] == std::numeric_limits<std::uint8_t>::max());
+					REQUIRE(data[1] == 'a');
+					REQUIRE(data[2] == 3);
+					REQUIRE(data[3] == 'a');
 				}
 			}
 		}

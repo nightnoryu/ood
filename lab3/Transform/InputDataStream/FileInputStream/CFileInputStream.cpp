@@ -3,6 +3,7 @@
 CFileInputStream::CFileInputStream(const std::string& filename)
 	: m_file(filename, std::ios_base::in | std::ios_base::binary)
 {
+	m_file.unsetf(std::ios_base::skipws);
 	if (!m_file.is_open())
 	{
 		throw std::runtime_error("failed to open file for reading");

@@ -19,7 +19,9 @@ add_executable(TransformTest
                ../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.cpp
                ../OutputDataStreamDecorator/EncryptingOutputStream/CEncryptingOutputStream.h
                ../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.cpp
-               ../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h)
+               ../OutputDataStreamDecorator/CompressingOutputStream/CCompressingOutputStream.h
+               ../EncryptionTableBuilder/CEncryptionTableBuilder.cpp
+               ../EncryptionTableBuilder/CEncryptionTableBuilder.h)
 
 target_link_libraries(TransformTest PUBLIC catch2)
 add_test(NAME TransformTest COMMAND TransformTest)
