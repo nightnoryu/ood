@@ -16,5 +16,5 @@ docker run -t -i \
   -v /etc/group:/etc/group:ro \
   -v ${PWD}:/app/src \
   -v ${BUILD_DIRECTORY}:/app/build \
-  ood-builder \
+  cmake-builder \
   $1
