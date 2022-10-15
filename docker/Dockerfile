@@ -1,4 +1,4 @@
-FROM gcc:12.2.0 as builder
+FROM gcc:12.2.0
 
 RUN apt-get update && \
     apt-get install -y \

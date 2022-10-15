@@ -1,19 +1,9 @@
 #!/usr/bin/env bash
 
 if [ -z "$1" ]; then
-<<<<<<< HEAD
   echo "usage: $0 [target name]"
   exit 1
 fi
-=======
-  echo "usage: $0 [cmake target]"
-  exit 1
-fi
-
-BUILD_DIRECTORY="$PWD/cmake-build"
-
-mkdir -p "$BUILD_DIRECTORY"
->>>>>>> d6cd34429f64a7405b51fa40f3f0141e6df66d3e
 
 BUILD_DIRECTORY="$PWD/cmake-build"
 USER_ID=$(id -u)
@@ -26,5 +16,5 @@ docker run -t -i \
   -v /etc/group:/etc/group:ro \
   -v ${PWD}:/app/src \
   -v ${BUILD_DIRECTORY}:/app/build \
-  ood-builder \
+  cmake-builder \
   $1
