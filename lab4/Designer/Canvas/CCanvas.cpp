@@ -1,38 +1,49 @@
 #include "CCanvas.h"
-#include <iostream>
+
+CCanvas::CCanvas(sf::RenderTarget& target)
+	: m_target(target)
+{
+}
 
 void CCanvas::SetColor(Color color)
 {
-	std::cout << "Color: ";
 	switch (color)
 	{
 	case Color::Red:
-		std::cout << "red";
+		m_currentColor = sf::Color::Red;
 	case Color::Green:
-		std::cout << "green";
+		m_currentColor = sf::Color::Green;
 	case Color::Blue:
-		std::cout << "blue";
+		m_currentColor = sf::Color::Blue;
 	case Color::Pink:
-		std::cout << "pink";
+		m_currentColor = sf::Color(0xFF, 0xC0, 0xCB);
 	case Color::Yellow:
-		std::cout << "yellow";
+		m_currentColor = sf::Color::Yellow;
 	case Color::Black:
-		std::cout << "black";
+		m_currentColor = sf::Color::Black;
 	}
-
-	std::cout << '\n';
 }
 
 void CCanvas::DrawLine(const Point& from, const Point& to)
 {
-	std::cout << "Line from ("
-			  << from.x << ", " << from.y << ") to ("
-			  << to.x << ", " << to.y << ")\n";
+	sf::Vertex line[] = {
+		sf::Vertex(sf::Vector2f(static_cast<float>(from.x), static_cast<float>(from.y))),
+		sf::Vertex(sf::Vector2f(static_cast<float>(to.y), static_cast<float>(to.y)))
+	};
+	line[0].color = line[1].color = m_currentColor;
+
+	m_target.draw(line, 2, sf::Lines);
 }
 
-void CCanvas::DrawEllipse(const Point& center, int width, int height)
+void CCanvas::DrawEllipse(const Point& center, int horizontalRadius, int verticalRadius)
 {
-	std::cout << "Ellipse in ("
-			  << center.x << ", " << center.y << ")"
-			  << ", Rh = " << width << ", Rv = " << height << '\n';
+	sf::CircleShape circle(static_cast<float>(horizontalRadius));
+
+	circle.setOrigin(static_cast<float>(horizontalRadius), static_cast<float>(horizontalRadius));
+	circle.move(sf::Vector2f{ static_cast<float>(center.x), static_cast<float>(center.y) });
+	circle.setScale(1, static_cast<float>(verticalRadius) / static_cast<float>(horizontalRadius));
+	circle.setOutlineColor(m_currentColor);
+	circle.setFillColor(sf::Color::White);
+
+	m_target.draw(circle);
 }

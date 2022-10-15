@@ -29,13 +29,13 @@ void CRegularPolygon::Draw(ICanvas& canvas) const
 	canvas.SetColor(GetColor());
 
 	std::vector<Point> vertices;
-	auto vertexAngle = 2 * M_PI / m_vertexCount;
+	auto vertexAngle = 2 * M_PI / static_cast<double>(m_vertexCount);
 
 	for (std::size_t i = 0; i < m_vertexCount; ++i)
 	{
 		vertices.push_back({
-			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * i)),
-			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * i)),
+			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * static_cast<double>(i))),
+			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * static_cast<double>(i))),
 		});
 	}
 

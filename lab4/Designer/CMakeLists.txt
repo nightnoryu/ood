@@ -24,3 +24,13 @@ add_executable(Designer
                Shapes/RegularPolygon/CRegularPolygon.h
                Shapes/Triangle/CTriangle.cpp
                Shapes/Triangle/CTriangle.h)
+
+set(SFML_STATIC_LIBRARIES TRUE)
+find_package(Freetype REQUIRED)
+find_package(JPEG REQUIRED)
+find_package(SFML 2 COMPONENTS window graphics system REQUIRED)
+
+target_compile_definitions(Designer PRIVATE SFML_STATIC)
+
+target_link_libraries(Designer ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} ${JPEG_LIBRARIES} ${FREETYPE_LIBRARIES})
+target_include_directories(Designer PUBLIC ${SFML_INCLUDE_DIR})
