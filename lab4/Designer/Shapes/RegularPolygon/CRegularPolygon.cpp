@@ -1,4 +1,5 @@
 #include "CRegularPolygon.h"
+#include <cmath>
 
 CRegularPolygon::CRegularPolygon(Color color, std::size_t vertexCount, const Point& center, int radius)
 	: CShape(color)
@@ -26,5 +27,21 @@ int CRegularPolygon::GetRadius() const
 void CRegularPolygon::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
-	// TODO
+
+	std::vector<Point> vertices;
+	auto vertexAngle = 2 * M_PI / m_vertexCount;
+
+	for (std::size_t i = 0; i < m_vertexCount; ++i)
+	{
+		vertices.push_back({
+			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * i)),
+			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * i)),
+		});
+	}
+
+	for (std::size_t i = 0; i < vertices.size() - 1; ++i)
+	{
+		canvas.DrawLine(vertices[i], vertices[i + 1]);
+	}
+	canvas.DrawLine(vertices[vertices.size() - 1], vertices[0]);
 }
