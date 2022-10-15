@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Shapes/CShape.h"
-#include <boost/iterator/indirect_iterator.hpp>
 #include <vector>
 
 class CPictureDraft
