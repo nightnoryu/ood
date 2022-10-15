@@ -8,23 +8,12 @@ class CPictureDraft
 {
 public:
 	using Storage = std::vector<CShapePtr>;
-	using ConstIterator = boost::indirect_iterator<Storage::const_iterator, CShape const&>;
-
-	CPictureDraft() = default;
-
-	CPictureDraft(CPictureDraft&&) = default;
-	CPictureDraft& operator=(CPictureDraft&&) = default;
-
-	CPictureDraft(CPictureDraft const&) = delete;
-	CPictureDraft& operator=(CPictureDraft const&) = delete;
-
-	bool IsEmpty() const;
 
 	void AddShape(CShapePtr&& shape);
+	bool IsEmpty() const;
 
-	ConstIterator begin() const;
-
-	ConstIterator end() const;
+	Storage::const_iterator begin() const;
+	Storage::const_iterator end() const;
 
 private:
 	Storage m_shapes;

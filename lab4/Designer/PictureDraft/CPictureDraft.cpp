@@ -10,12 +10,12 @@ void CPictureDraft::AddShape(CShapePtr&& shape)
 	m_shapes.push_back(std::move(shape));
 }
 
-CPictureDraft::ConstIterator CPictureDraft::begin() const
+CPictureDraft::Storage::const_iterator CPictureDraft::begin() const
 {
 	return m_shapes.begin();
 }
 
-CPictureDraft::ConstIterator CPictureDraft::end() const
+CPictureDraft::Storage::const_iterator CPictureDraft::end() const
 {
 	return m_shapes.end();
 }
