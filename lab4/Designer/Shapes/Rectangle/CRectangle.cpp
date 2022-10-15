@@ -1,9 +1,14 @@
 #include "CRectangle.h"
 
-CRectangle::CRectangle(Color color, const Point& leftTopCorner, const Point& rightBottomCorner)
+CRectangle::CRectangle(Color color, Point const& leftTopCorner, Point const& rightBottomCorner)
 	: CShape(color)
 	, m_leftTopCorner(leftTopCorner)
 	, m_rightBottomCorner(rightBottomCorner)
+{
+}
+
+CRectangle::CRectangle(Color color, Point const& leftTopCorner, int width, int height)
+	: CRectangle(color, leftTopCorner, { leftTopCorner.x + width, leftTopCorner.y + height })
 {
 }
 
