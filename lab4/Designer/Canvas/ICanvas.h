@@ -1,22 +1,6 @@
 #pragma once
 
-#include "../Shapes/CShape.h"
-
-enum class Color
-{
-	Red,
-	Green,
-	Blue,
-	Pink,
-	Yellow,
-	Black,
-};
-
-struct Point
-{
-	int x = 0;
-	int y = 0;
-};
+#include "../Shapes/ShapeTypes.h"
 
 class ICanvas
 {

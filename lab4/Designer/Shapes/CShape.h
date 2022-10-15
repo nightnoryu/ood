@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ShapeTypes.h"
 #include "../Canvas/ICanvas.h"
 #include <memory>
 

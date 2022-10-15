@@ -13,6 +13,7 @@ add_executable(Designer
                ShapeFactory/IShapeFactory.h
                ShapeFactory/CShapeFactory.cpp
                ShapeFactory/CShapeFactory.h
+               Shapes/ShapeTypes.h
                Shapes/CShape.cpp
                Shapes/CShape.h
                Shapes/Ellipse/CEllipse.cpp
