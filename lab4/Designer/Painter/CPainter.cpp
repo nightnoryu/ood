@@ -1,6 +1,9 @@
 #include "CPainter.h"
 
-void CPainter::DrawPicture(const CPictureDraft& draft, ICanvas& canvas)
+void CPainter::DrawPicture(CPictureDraft const& draft, ICanvas& canvas)
 {
-	// TODO
+	for (auto&& shape : draft)
+	{
+		shape->Draw(canvas);
+	}
 }
