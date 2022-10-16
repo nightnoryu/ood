@@ -1,7 +1,9 @@
 #define CATCH_CONFIG_MAIN
+#include "../ShapeFactory/CShapeFactory.h"
 #include "../Shapes/Ellipse/CEllipse.h"
 #include "../Shapes/Rectangle/CRectangle.h"
 #include "../Shapes/RegularPolygon/CRegularPolygon.h"
+#include "../Shapes/Triangle/CTriangle.h"
 #include "catch.hpp"
 #include "fakeit.hpp"
 
@@ -149,7 +151,7 @@ TEST_CASE("shapes")
 			{
 				THEN("it throws an exception")
 				{
-					REQUIRE_THROWS_AS(CRegularPolygon(Color::Green, vertexCount, {1, 1}, 1), std::invalid_argument);
+					REQUIRE_THROWS_AS(CRegularPolygon(Color::Green, vertexCount, { 1, 1 }, 1), std::invalid_argument);
 				}
 			}
 		}
@@ -160,7 +162,7 @@ TEST_CASE("shapes")
 
 			WHEN("creating a regular polygon")
 			{
-				CRegularPolygon polygon(Color::Green, vertexCount, {1, 1}, 1);
+				CRegularPolygon polygon(Color::Green, vertexCount, { 1, 1 }, 1);
 
 				THEN("it is created all right and has the right vertex count")
 				{
@@ -172,11 +174,194 @@ TEST_CASE("shapes")
 
 	SECTION("triangle")
 	{
+		GIVEN("color and 3 vertices")
+		{
+			auto const color = Color::Red;
+			Point const vertex1 = { 100, 200 };
+			Point const vertex2 = { 150, 250 };
+			Point const vertex3 = { 100, 300 };
+
+			WHEN("creating a triangle")
+			{
+				CTriangle triangle(color, vertex1, vertex2, vertex3);
+
+				THEN("it has correct parameters")
+				{
+					REQUIRE(triangle.GetColor() == color);
+
+					REQUIRE(triangle.GetVertex1() == vertex1);
+					REQUIRE(triangle.GetVertex2() == vertex2);
+					REQUIRE(triangle.GetVertex3() == vertex3);
+				}
+
+				AND_WHEN("drawing the rectangle")
+				{
+					triangle.Draw(canvas);
+
+					THEN("it is drawn correctly")
+					{
+						REQUIRE(fakeit::Verify(Method(canvasMock, SetColor).Using(color)));
+						// TODO: DrawLine
+					}
+				}
+			}
+		}
 	}
 }
 
 TEST_CASE("shape factory")
 {
+	GIVEN("a factory")
+	{
+		CShapeFactory factory;
+
+		AND_GIVEN("valid ellipse description")
+		{
+			std::string const description = "ellipse pink 100 100 50 40";
+
+			WHEN("creating a shape")
+			{
+				auto const shape = factory.CreateShape(description);
+
+				THEN("it is a valid ellipse")
+				{
+					auto const* ellipse = dynamic_cast<CEllipse const*>(shape.get());
+
+					REQUIRE(ellipse != nullptr);
+
+					REQUIRE(ellipse->GetColor() == Color::Pink);
+
+					REQUIRE(ellipse->GetCenter() == Point{ 100, 100 });
+					REQUIRE(ellipse->GetHorizontalRadius() == 50);
+					REQUIRE(ellipse->GetVerticalRadius() == 40);
+				}
+			}
+		}
+
+		AND_GIVEN("valid rectangle description")
+		{
+			std::string const description = "rectangle black 100 100 50 40";
+
+			WHEN("creating a shape")
+			{
+				auto const shape = factory.CreateShape(description);
+
+				THEN("it is a valid rectangle")
+				{
+					auto const* rectangle = dynamic_cast<CRectangle const*>(shape.get());
+
+					REQUIRE(rectangle != nullptr);
+
+					REQUIRE(rectangle->GetColor() == Color::Black);
+
+					REQUIRE(rectangle->GetLeftTop() == Point{ 100, 100 });
+					REQUIRE(rectangle->GetRightBottom() == Point{ 150, 140 });
+				}
+			}
+		}
+
+		AND_GIVEN("valid regular polygon description")
+		{
+			std::string const description = "regular-polygon yellow 4 100 100 50";
+
+			WHEN("creating a shape")
+			{
+				auto const shape = factory.CreateShape(description);
+
+				THEN("it is a valid regular polygon")
+				{
+					auto const* regularPolygon = dynamic_cast<CRegularPolygon const*>(shape.get());
+
+					REQUIRE(regularPolygon != nullptr);
+
+					REQUIRE(regularPolygon->GetColor() == Color::Yellow);
+
+					REQUIRE(regularPolygon->GetVertexCount() == 4);
+					REQUIRE(regularPolygon->GetCenter() == Point{100, 100});
+					REQUIRE(regularPolygon->GetRadius() == 50);
+				}
+			}
+		}
+
+		AND_GIVEN("valid triangle description")
+		{
+			std::string const description = "triangle green 100 200 150 250 100 300";
+
+			WHEN("creating a shape")
+			{
+				auto const shape = factory.CreateShape(description);
+
+				THEN("it is a valid triangle")
+				{
+					auto const* triangle = dynamic_cast<CTriangle const*>(shape.get());
+
+					REQUIRE(triangle != nullptr);
+
+					REQUIRE(triangle->GetColor() == Color::Green);
+
+					REQUIRE(triangle->GetVertex1() == Point{ 100, 200 });
+					REQUIRE(triangle->GetVertex2() == Point{ 150, 250 });
+					REQUIRE(triangle->GetVertex3() == Point{ 100, 300 });
+				}
+			}
+		}
+
+		AND_GIVEN("empty description")
+		{
+			std::string const description;
+
+			WHEN("trying to create a shape")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(factory.CreateShape(description), std::invalid_argument);
+				}
+			}
+		}
+
+		AND_GIVEN("description with invalid shape")
+		{
+			std::string const description = "my-ass red 100 100";
+
+			WHEN("trying to create a shape")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(factory.CreateShape(description), std::invalid_argument);
+				}
+			}
+		}
+
+		AND_GIVEN("description with invalid arguments count")
+		{
+		}
+
+		AND_GIVEN("description with invalid color")
+		{
+			std::string const description = "rectangle bloody 100 100 50 50";
+
+			WHEN("trying to create a shape")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(factory.CreateShape(description), std::invalid_argument);
+				}
+			}
+		}
+
+		AND_GIVEN("description with invalid number")
+		{
+			std::string const description = "rectangle green 1s00 100 50 50";
+
+			WHEN("trying to create a shape")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(factory.CreateShape(description), std::invalid_argument);
+				}
+			}
+		}
+	}
 }
 
 TEST_CASE("picture draft")
