@@ -1,4 +1,5 @@
 #define CATCH_CONFIG_MAIN
+#include "../Canvas/CCanvas.h"
 #include "../Designer/CDesigner.h"
 #include "../PictureDraft/CPictureDraft.h"
 #include "../ShapeFactory/CShapeFactory.h"
@@ -509,4 +510,67 @@ TEST_CASE("painter")
 
 TEST_CASE("canvas")
 {
+	GIVEN("output stream")
+	{
+		std::ostringstream output;
+
+		WHEN("drawing nothing")
+		{
+			{
+				CCanvas canvas(output);
+			}
+
+			THEN("output contains empty SVG")
+			{
+				REQUIRE(output.str() == "<svg viewBox=\"0 0 800 600\" xmlns=\"http://www.w3.org/2000/svg\">\n</svg>\n");
+			}
+		}
+
+		WHEN("drawing a line with color")
+		{
+			{
+				CCanvas canvas(output);
+				canvas.SetColor(Color::Pink);
+				canvas.DrawLine({ 100, 100 }, { 200, 200 });
+			}
+
+			THEN("output contains SVG with that line")
+			{
+				REQUIRE(output.str() == "<svg viewBox=\"0 0 800 600\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+										"  <line x1=\"100\" y1=\"100\" x2=\"200\" y2=\"200\" stroke=\"pink\" />\n"
+										"</svg>\n");
+			}
+		}
+
+		WHEN("drawing a circle with color")
+		{
+			{
+				CCanvas canvas(output);
+				canvas.SetColor(Color::Yellow);
+				canvas.DrawEllipse({ 100, 100 }, 50, 40);
+			}
+
+			THEN("output contains SVG with that circle")
+			{
+				REQUIRE(output.str() == "<svg viewBox=\"0 0 800 600\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+										"  <ellipse cx=\"100\" cy=\"100\" rx=\"50\" ry=\"40\" stroke=\"yellow\" fill=\"none\" />\n"
+										"</svg>\n");
+			}
+		}
+
+		WHEN("drawing a shape without setting the color")
+		{
+			{
+				CCanvas canvas(output);
+				canvas.DrawLine({ 100, 100 }, { 200, 200 });
+			}
+
+			THEN("black is used as default")
+			{
+				REQUIRE(output.str() == "<svg viewBox=\"0 0 800 600\" xmlns=\"http://www.w3.org/2000/svg\">\n"
+										"  <line x1=\"100\" y1=\"100\" x2=\"200\" y2=\"200\" stroke=\"black\" />\n"
+										"</svg>\n");
+			}
+		}
+	}
 }
