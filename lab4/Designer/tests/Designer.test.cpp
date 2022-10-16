@@ -1,8 +1,6 @@
 #define CATCH_CONFIG_MAIN
 #include "../Canvas/CCanvas.h"
 #include "../Designer/CDesigner.h"
-#include "../PictureDraft/CPictureDraft.h"
-#include "../ShapeFactory/CShapeFactory.h"
 #include "../Shapes/Ellipse/CEllipse.h"
 #include "../Shapes/Rectangle/CRectangle.h"
 #include "../Shapes/RegularPolygon/CRegularPolygon.h"
@@ -502,10 +500,6 @@ TEST_CASE("designer")
 			}
 		}
 	}
-}
-
-TEST_CASE("painter")
-{
 }
 
 TEST_CASE("canvas")
