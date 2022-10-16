@@ -7,6 +7,10 @@ CRegularPolygon::CRegularPolygon(Color color, std::size_t vertexCount, const Poi
 	, m_center(center)
 	, m_radius(radius)
 {
+	if (m_vertexCount < MIN_VERTICES_COUNT)
+	{
+		throw std::invalid_argument("regular polygon must contain at least " + std::to_string(MIN_VERTICES_COUNT) + " vertices");
+	}
 }
 
 std::size_t CRegularPolygon::GetVertexCount() const

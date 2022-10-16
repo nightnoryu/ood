@@ -6,7 +6,7 @@ CDesigner::CDesigner(CShapeFactory& shapeFactory)
 {
 }
 
-CPictureDraft CDesigner::CreateDraft(std::istream& stream)
+CPictureDraft CDesigner::CreateDraft(std::istream& stream, std::ostream& errorStream)
 {
 	CPictureDraft draft;
 	std::string description;
@@ -24,7 +24,7 @@ CPictureDraft CDesigner::CreateDraft(std::istream& stream)
 		}
 		catch (std::exception const& e)
 		{
-			std::cout << "Error: " << e.what() << std::endl;
+			errorStream << "Error: " << e.what() << "\n  Skipping '" << description << "' shape" << std::endl;
 		}
 	}
 

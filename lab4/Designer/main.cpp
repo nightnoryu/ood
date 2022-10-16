@@ -13,7 +13,7 @@ int main()
 	std::ofstream output("output.svg");
 	CCanvas canvas(output);
 
-	auto const pictureDraft = designer.CreateDraft(std::cin);
+	auto const pictureDraft = designer.CreateDraft(std::cin, std::cerr);
 	CPainter::DrawPicture(pictureDraft, canvas);
 
 	return EXIT_SUCCESS;

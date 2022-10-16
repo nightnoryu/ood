@@ -15,6 +15,8 @@ public:
 	void Draw(ICanvas& canvas) const override;
 
 private:
+	static std::size_t const MIN_VERTICES_COUNT = 2;
+
 	std::size_t m_vertexCount;
 	Point m_center;
 	int m_radius;

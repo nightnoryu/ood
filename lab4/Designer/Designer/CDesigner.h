@@ -8,7 +8,7 @@ class CDesigner : public IDesigner
 public:
 	explicit CDesigner(CShapeFactory& shapeFactory);
 
-	CPictureDraft CreateDraft(std::istream& stream) override;
+	CPictureDraft CreateDraft(std::istream& stream, std::ostream& errorStream) override;
 
 private:
 	static char const COMMENT_CHARACTER = '#';
