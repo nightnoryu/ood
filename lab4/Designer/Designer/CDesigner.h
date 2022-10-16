@@ -11,5 +11,7 @@ public:
 	CPictureDraft CreateDraft(std::istream& stream) override;
 
 private:
+	static char const COMMENT_CHARACTER = '#';
+
 	CShapeFactory& m_shapeFactory;
 };

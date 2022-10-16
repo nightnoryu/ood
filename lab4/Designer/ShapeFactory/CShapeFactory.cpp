@@ -58,7 +58,7 @@ CShapePtr CShapeFactory::CreateEllipse(Args const& args)
 {
 	if (args.size() != 6)
 	{
-		throw std::invalid_argument("ellipse expects 6 params");
+		throw std::invalid_argument("ellipse expects 5 params");
 	}
 
 	auto const color = ParseColor(args[1]);
@@ -77,7 +77,7 @@ CShapePtr CShapeFactory::CreateRectangle(Args const& args)
 {
 	if (args.size() != 6)
 	{
-		throw std::invalid_argument("rectangle expects 6 params");
+		throw std::invalid_argument("rectangle expects 5 params");
 	}
 
 	auto const color = ParseColor(args[1]);
@@ -96,7 +96,7 @@ CShapePtr CShapeFactory::CreateRegularPolygon(Args const& args)
 {
 	if (args.size() != 6)
 	{
-		throw std::invalid_argument("rectangle expects 6 params");
+		throw std::invalid_argument("rectangle expects 5 params");
 	}
 
 	auto const color = ParseColor(args[1]);
@@ -115,7 +115,7 @@ CShapePtr CShapeFactory::CreateTriangle(Args const& args)
 {
 	if (args.size() != 8)
 	{
-		throw std::invalid_argument("rectangle expects 6 params");
+		throw std::invalid_argument("rectangle expects 7 params");
 	}
 
 	auto const color = ParseColor(args[1]);

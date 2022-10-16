@@ -13,6 +13,11 @@ CPictureDraft CDesigner::CreateDraft(std::istream& stream)
 
 	while (std::getline(stream, description))
 	{
+		if (description.empty() || description.starts_with(COMMENT_CHARACTER))
+		{
+			continue;
+		}
+
 		try
 		{
 			draft.AddShape(m_shapeFactory.CreateShape(description));
