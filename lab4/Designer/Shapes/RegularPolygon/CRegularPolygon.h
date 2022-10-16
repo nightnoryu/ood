@@ -12,6 +12,8 @@ public:
 	Point GetCenter() const;
 	int GetRadius() const;
 
+	std::vector<Point> CalculateVertices() const;
+
 	void Draw(ICanvas& canvas) const override;
 
 private:

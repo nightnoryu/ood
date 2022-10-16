@@ -32,20 +32,26 @@ void CRegularPolygon::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
 
-	std::vector<Point> vertices;
-	auto vertexAngle = 2 * M_PI / static_cast<double>(m_vertexCount);
-
-	for (std::size_t i = 0; i < m_vertexCount; ++i)
-	{
-		vertices.push_back({
-			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * static_cast<double>(i))),
-			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * static_cast<double>(i))),
-		});
-	}
-
+	auto const vertices = CalculateVertices();
 	for (std::size_t i = 0; i < vertices.size() - 1; ++i)
 	{
 		canvas.DrawLine(vertices[i], vertices[i + 1]);
 	}
 	canvas.DrawLine(vertices[vertices.size() - 1], vertices[0]);
+}
+
+std::vector<Point> CRegularPolygon::CalculateVertices() const
+{
+	std::vector<Point> result;
+	auto vertexAngle = 2 * M_PI / static_cast<double>(m_vertexCount);
+
+	for (std::size_t i = 0; i < m_vertexCount; ++i)
+	{
+		result.push_back({
+			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * static_cast<double>(i))),
+			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * static_cast<double>(i))),
+		});
+	}
+
+	return result;
 }
