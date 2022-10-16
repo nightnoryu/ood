@@ -24,3 +24,5 @@ add_executable(Designer
                Shapes/RegularPolygon/CRegularPolygon.h
                Shapes/Triangle/CTriangle.cpp
                Shapes/Triangle/CTriangle.h)
+
+add_subdirectory(tests)
