@@ -46,8 +46,8 @@ TEST_CASE("shapes")
 
 					THEN("it is drawn correctly")
 					{
-						REQUIRE(fakeit::Verify(Method(canvasMock, SetColor).Using(color)));
-						REQUIRE(fakeit::Verify(Method(canvasMock, DrawEllipse).Using(center, hRadius, vRadius)));
+						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
+						fakeit::Verify(Method(canvasMock, DrawEllipse).Using(center, hRadius, vRadius));
 					}
 				}
 			}
@@ -80,7 +80,7 @@ TEST_CASE("shapes")
 
 					THEN("it is drawn correctly")
 					{
-						REQUIRE(fakeit::Verify(Method(canvasMock, SetColor).Using(color)));
+						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
 						// TODO: DrawLine
 					}
 				}
@@ -137,7 +137,7 @@ TEST_CASE("shapes")
 
 					THEN("it is drawn correctly")
 					{
-						REQUIRE(fakeit::Verify(Method(canvasMock, SetColor).Using(color)));
+						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
 						// TODO: DrawLine
 					}
 				}
@@ -201,7 +201,7 @@ TEST_CASE("shapes")
 
 					THEN("it is drawn correctly")
 					{
-						REQUIRE(fakeit::Verify(Method(canvasMock, SetColor).Using(color)));
+						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
 						// TODO: DrawLine
 					}
 				}
@@ -440,7 +440,7 @@ TEST_CASE("designer")
 
 				THEN("no shapes are created")
 				{
-					REQUIRE(fakeit::VerifyNoOtherInvocations(factoryMock));
+					fakeit::VerifyNoOtherInvocations(factoryMock);
 				}
 
 				THEN("draft is empty")
@@ -456,7 +456,7 @@ TEST_CASE("designer")
 
 				THEN("no shapes are created")
 				{
-					REQUIRE(fakeit::VerifyNoOtherInvocations(factoryMock));
+					fakeit::VerifyNoOtherInvocations(factoryMock);
 				}
 
 				THEN("draft is empty")
