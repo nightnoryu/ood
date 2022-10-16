@@ -8,6 +8,10 @@ set(CMAKE_CXX_STANDARD 20)
 add_library(catch2 INTERFACE)
 target_include_directories(catch2 INTERFACE libs/catch2/)
 
+# fakeit
+add_library(fakeit INTERFACE)
+target_include_directories(fakeit INTERFACE libs/fakeit/)
+
 add_subdirectory(lab1)
 add_subdirectory(lab2)
 add_subdirectory(lab3)
