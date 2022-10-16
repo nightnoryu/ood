@@ -1,4 +1,6 @@
 #define CATCH_CONFIG_MAIN
+#include "../Designer/CDesigner.h"
+#include "../PictureDraft/CPictureDraft.h"
 #include "../ShapeFactory/CShapeFactory.h"
 #include "../Shapes/Ellipse/CEllipse.h"
 #include "../Shapes/Rectangle/CRectangle.h"
@@ -277,7 +279,7 @@ TEST_CASE("shape factory")
 					REQUIRE(regularPolygon->GetColor() == Color::Yellow);
 
 					REQUIRE(regularPolygon->GetVertexCount() == 4);
-					REQUIRE(regularPolygon->GetCenter() == Point{100, 100});
+					REQUIRE(regularPolygon->GetCenter() == Point{ 100, 100 });
 					REQUIRE(regularPolygon->GetRadius() == 50);
 				}
 			}
@@ -366,10 +368,139 @@ TEST_CASE("shape factory")
 
 TEST_CASE("picture draft")
 {
+	GIVEN("a picture draft")
+	{
+		CPictureDraft draft;
+
+		WHEN("it is just created")
+		{
+			THEN("it is empty")
+			{
+				REQUIRE(draft.IsEmpty());
+			}
+		}
+
+		WHEN("adding a couple of shapes")
+		{
+			draft.AddShape(std::make_unique<CEllipse>(Color::Green, Point{ 100, 100 }, 30, 80));
+			draft.AddShape(std::make_unique<CRectangle>(Color::Yellow, Point{ 100, 100 }, 60, 50));
+
+			THEN("it is not empty")
+			{
+				REQUIRE_FALSE(draft.IsEmpty());
+			}
+
+			THEN("it contains exactly 2 shapes")
+			{
+				REQUIRE(draft.begin() + 2 == draft.end());
+			}
+
+			THEN("it contains shapes in the order of addition")
+			{
+				auto const& shape1 = *draft.begin();
+				auto const* ellipse = dynamic_cast<CEllipse const*>(shape1.get());
+				REQUIRE(ellipse != nullptr);
+				REQUIRE(ellipse->GetColor() == Color::Green);
+				REQUIRE(ellipse->GetCenter() == Point{ 100, 100 });
+				REQUIRE(ellipse->GetHorizontalRadius() == 30);
+				REQUIRE(ellipse->GetVerticalRadius() == 80);
+
+				auto const& shape2 = *(draft.begin() + 1);
+				auto const* rectangle = dynamic_cast<CRectangle const*>(shape2.get());
+				REQUIRE(rectangle != nullptr);
+				REQUIRE(rectangle->GetColor() == Color::Yellow);
+				REQUIRE(rectangle->GetLeftTop() == Point{ 100, 100 });
+				REQUIRE(rectangle->GetRightBottom() == Point{ 160, 150 });
+			}
+		}
+	}
 }
 
 TEST_CASE("designer")
 {
+	fakeit::Mock<IShapeFactory> factoryMock;
+	fakeit::When(Method(factoryMock, CreateShape)).AlwaysDo([](std::string const& /* description */) -> CShapePtr {
+		return std::make_unique<CEllipse>(Color::Pink, Point{ 100, 100 }, 12, 13);
+	});
+
+	auto& factory = factoryMock.get();
+
+	GIVEN("input and output streams")
+	{
+		std::istringstream input;
+		std::ostringstream output;
+
+		AND_GIVEN("a designer")
+		{
+			CDesigner designer(factory);
+
+			WHEN("passing empty descriptions")
+			{
+				input.str("\n\n\n");
+				auto const draft = designer.CreateDraft(input, output);
+
+				THEN("no shapes are created")
+				{
+					REQUIRE(fakeit::VerifyNoOtherInvocations(factoryMock));
+				}
+
+				THEN("draft is empty")
+				{
+					REQUIRE(draft.IsEmpty());
+				}
+			}
+
+			WHEN("passing comments")
+			{
+				input.str("# not a shape\n# like, totally, bro\n");
+				auto const draft = designer.CreateDraft(input, output);
+
+				THEN("no shapes are created")
+				{
+					REQUIRE(fakeit::VerifyNoOtherInvocations(factoryMock));
+				}
+
+				THEN("draft is empty")
+				{
+					REQUIRE(draft.IsEmpty());
+				}
+			}
+
+			WHEN("passing a couple of valid descriptions")
+			{
+				input.str("rectangle whatever\nWe can do the tango just for two\n");
+				auto const draft = designer.CreateDraft(input, output);
+
+				THEN("two shapes are created")
+				{
+					// TODO: validate invocations
+				}
+
+				THEN("draft is populated with mock shapes")
+				{
+					REQUIRE_FALSE(draft.IsEmpty());
+					REQUIRE(draft.begin() + 2 == draft.end());
+				}
+			}
+
+			WHEN("shape creation throws an exception")
+			{
+				fakeit::When(Method(factoryMock, CreateShape)).AlwaysThrow(std::invalid_argument("oops"));
+				input.str("If I could only reach you\n");
+				auto const draft = designer.CreateDraft(input, output);
+
+				THEN("error message is written in the output")
+				{
+					REQUIRE(output.str() == "Error: oops\n  Skipping 'If I could only reach you' shape\n");
+				}
+
+				THEN("draft is empty")
+				{
+					REQUIRE(draft.IsEmpty());
+				}
+			}
+		}
+	}
 }
 
 TEST_CASE("painter")
