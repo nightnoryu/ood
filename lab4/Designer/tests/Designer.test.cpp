@@ -11,9 +11,9 @@
 TEST_CASE("shapes")
 {
 	fakeit::Mock<ICanvas> canvasMock;
-	fakeit::When(Method(canvasMock, SetColor)).AlwaysReturn();
-	fakeit::When(Method(canvasMock, DrawLine)).AlwaysReturn();
-	fakeit::When(Method(canvasMock, DrawEllipse)).AlwaysReturn();
+	fakeit::Fake(Method(canvasMock, SetColor));
+	fakeit::Fake(Method(canvasMock, DrawLine));
+	fakeit::Fake(Method(canvasMock, DrawEllipse));
 
 	auto& canvas = canvasMock.get();
 
@@ -81,7 +81,7 @@ TEST_CASE("shapes")
 					THEN("it is drawn correctly")
 					{
 						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
-						// TODO: DrawLine
+						fakeit::Verify(Method(canvasMock, DrawLine)).Exactly(4);
 					}
 				}
 			}
@@ -138,7 +138,7 @@ TEST_CASE("shapes")
 					THEN("it is drawn correctly")
 					{
 						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
-						// TODO: DrawLine
+						fakeit::Verify(Method(canvasMock, DrawLine)).Exactly(vertexCount);
 					}
 				}
 			}
@@ -195,14 +195,14 @@ TEST_CASE("shapes")
 					REQUIRE(triangle.GetVertex3() == vertex3);
 				}
 
-				AND_WHEN("drawing the rectangle")
+				AND_WHEN("drawing the triangle")
 				{
 					triangle.Draw(canvas);
 
 					THEN("it is drawn correctly")
 					{
 						fakeit::Verify(Method(canvasMock, SetColor).Using(color));
-						// TODO: DrawLine
+						fakeit::Verify(Method(canvasMock, DrawLine)).Exactly(3);
 					}
 				}
 			}
@@ -472,7 +472,7 @@ TEST_CASE("designer")
 
 				THEN("two shapes are created")
 				{
-					// TODO: validate invocations
+					fakeit::Verify(Method(factoryMock, CreateShape)).Exactly(2);
 				}
 
 				THEN("draft is populated with mock shapes")
