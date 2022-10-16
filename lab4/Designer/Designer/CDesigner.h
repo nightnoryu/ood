@@ -6,12 +6,12 @@
 class CDesigner : public IDesigner
 {
 public:
-	explicit CDesigner(CShapeFactory& shapeFactory);
+	explicit CDesigner(IShapeFactory& shapeFactory);
 
 	CPictureDraft CreateDraft(std::istream& stream, std::ostream& errorStream) override;
 
 private:
 	static char const COMMENT_CHARACTER = '#';
 
-	CShapeFactory& m_shapeFactory;
+	IShapeFactory& m_shapeFactory;
 };

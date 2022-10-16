@@ -1,7 +1,7 @@
 #include "CDesigner.h"
 #include <iostream>
 
-CDesigner::CDesigner(CShapeFactory& shapeFactory)
+CDesigner::CDesigner(IShapeFactory& shapeFactory)
 	: m_shapeFactory(shapeFactory)
 {
 }
