@@ -28,6 +28,8 @@ private:
 	static ShapeCreator GetShapeCreator(std::string const& shapeArg);
 	static Color ParseColor(std::string const& arg);
 
+	static int StringToInt(std::string const& value);
+
 	static CShapePtr CreateEllipse(Args const& args);
 	static CShapePtr CreateRectangle(Args const& args);
 	static CShapePtr CreateRegularPolygon(Args const& args);
