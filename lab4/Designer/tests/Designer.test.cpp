@@ -1,5 +1,5 @@
 #define CATCH_CONFIG_MAIN
-#include "../Canvas/CCanvas.h"
+#include "../Common/Infrastructure/SVG/CCanvas.h"
 #include "../Designer/CDesigner.h"
 #include "../Shapes/Ellipse/CEllipse.h"
 #include "../Shapes/Rectangle/CRectangle.h"

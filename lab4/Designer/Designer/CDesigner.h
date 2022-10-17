@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../Client/IDesigner.h"
 #include "../ShapeFactory/CShapeFactory.h"
-#include "IDesigner.h"
 
 class CDesigner : public IDesigner
 {

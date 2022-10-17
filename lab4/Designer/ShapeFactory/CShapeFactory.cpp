@@ -24,6 +24,7 @@ CShapeFactory::Args CShapeFactory::ParseArgs(std::string const& description)
 	std::istringstream input(description);
 	std::string argument;
 
+	// TODO: pass stream directly
 	while (input >> argument)
 	{
 		result.push_back(std::move(argument));

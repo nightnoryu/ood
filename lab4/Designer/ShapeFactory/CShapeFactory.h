@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IShapeFactory.h"
+#include "../Designer/IShapeFactory.h"
 #include <functional>
 #include <sstream>
 #include <unordered_map>

@@ -1,14 +1,14 @@
-#include "Canvas/CCanvas.h"
-#include "Designer/CDesigner.h"
-#include "Painter/CPainter.h"
-#include "ShapeFactory/CShapeFactory.h"
+#include "../Common/Infrastructure/SVG/CCanvas.h"
+#include "../Designer/CDesigner.h"
+#include "../Painter/CPainter.h"
+#include "../ShapeFactory/CShapeFactory.h"
 #include <fstream>
 #include <iostream>
 
 int main()
 {
 	CShapeFactory shapeFactory;
-	CDesigner designer(shapeFactory);
+	std::unique_ptr<IDesigner> designer = std::make_unique<CDesigner>(shapeFactory);
 
 	std::ofstream output("output.svg");
 	if (!output.is_open())
@@ -19,7 +19,7 @@ int main()
 
 	CCanvas canvas(output);
 
-	auto const pictureDraft = designer.CreateDraft(std::cin, std::cerr);
+	auto const pictureDraft = designer->CreateDraft(std::cin, std::cerr);
 	CPainter::DrawPicture(pictureDraft, canvas);
 
 	return EXIT_SUCCESS;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ICanvas.h"
+#include "../../App/ICanvas.h"
 #include <iostream>
 
 class CCanvas : public ICanvas

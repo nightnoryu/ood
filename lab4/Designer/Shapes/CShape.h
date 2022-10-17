@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../Common/App/ICanvas.h"
 #include "ShapeTypes.h"
-#include "../Canvas/ICanvas.h"
 #include <memory>
 
 class CShape

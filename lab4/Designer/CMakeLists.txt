@@ -1,16 +1,16 @@
 add_executable(Designer
-               main.cpp
-               Canvas/ICanvas.h
-               Canvas/CCanvas.cpp
-               Canvas/CCanvas.h
+               Client/main.cpp
+               Common/App/ICanvas.h
+               Common/Infrastructure/SVG/CCanvas.cpp
+               Common/Infrastructure/SVG/CCanvas.h
                PictureDraft/CPictureDraft.cpp
                PictureDraft/CPictureDraft.h
-               Designer/IDesigner.h
+               Client/IDesigner.h
                Designer/CDesigner.cpp
                Designer/CDesigner.h
                Painter/CPainter.cpp
                Painter/CPainter.h
-               ShapeFactory/IShapeFactory.h
+               Designer/IShapeFactory.h
                ShapeFactory/CShapeFactory.cpp
                ShapeFactory/CShapeFactory.h
                Shapes/ShapeTypes.h
