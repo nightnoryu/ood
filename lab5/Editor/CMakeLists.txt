@@ -1,2 +1,9 @@
 add_executable(Editor
-               main.cpp)
+               main.cpp
+               Document/IDocument.h
+               Image/IImage.h
+               Paragraph/IParagraph.h
+               DocumentItem/CDocumentItem.cpp
+               DocumentItem/CDocumentItem.h
+               DocumentItem/CConstDocumentItem.cpp
+               DocumentItem/CConstDocumentItem.h)
