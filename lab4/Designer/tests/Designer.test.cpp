@@ -131,16 +131,6 @@ TEST_CASE("shapes")
 					REQUIRE(polygon.GetRadius() == radius);
 				}
 
-				THEN("vertices are calculated correctly")
-				{
-					auto const vertices = polygon.CalculateVertices();
-
-					REQUIRE(vertices.size() == vertexCount);
-					REQUIRE(vertices[0] == Point{ 130, 200 });
-					REQUIRE(vertices[1] == Point{ 85, 225 });
-					REQUIRE(vertices[2] == Point{ 84, 174 });
-				}
-
 				AND_WHEN("drawing the polygon")
 				{
 					polygon.Draw(canvas);

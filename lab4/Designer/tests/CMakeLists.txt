@@ -13,6 +13,7 @@ add_executable(DesignerTest
                ../Designer/IShapeFactory.h
                ../ShapeFactory/CShapeFactory.cpp
                ../ShapeFactory/CShapeFactory.h
+               ../Shapes/ShapeTypes.cpp
                ../Shapes/ShapeTypes.h
                ../Shapes/CShape.cpp
                ../Shapes/CShape.h

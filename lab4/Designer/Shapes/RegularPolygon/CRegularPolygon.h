@@ -12,12 +12,12 @@ public:
 	Point GetCenter() const;
 	double GetRadius() const;
 
-	std::vector<Point> CalculateVertices() const;
-
 	void Draw(ICanvas& canvas) const override;
 
 private:
 	static std::size_t const MIN_VERTICES_COUNT = 2;
+
+	std::vector<Point> CalculateVertices() const;
 
 	std::size_t m_vertexCount;
 	Point m_center;
