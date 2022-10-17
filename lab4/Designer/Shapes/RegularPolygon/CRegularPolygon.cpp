@@ -1,7 +1,7 @@
 #include "CRegularPolygon.h"
 #include <cmath>
 
-CRegularPolygon::CRegularPolygon(Color color, std::size_t vertexCount, const Point& center, int radius)
+CRegularPolygon::CRegularPolygon(Color color, std::size_t vertexCount, const Point& center, double radius)
 	: CShape(color)
 	, m_vertexCount(vertexCount)
 	, m_center(center)
@@ -23,7 +23,7 @@ Point CRegularPolygon::GetCenter() const
 	return m_center;
 }
 
-int CRegularPolygon::GetRadius() const
+double CRegularPolygon::GetRadius() const
 {
 	return m_radius;
 }
@@ -48,8 +48,8 @@ std::vector<Point> CRegularPolygon::CalculateVertices() const
 	for (std::size_t i = 0; i < m_vertexCount; ++i)
 	{
 		result.push_back({
-			static_cast<int>(m_center.x + m_radius * std::cos(vertexAngle * static_cast<double>(i))),
-			static_cast<int>(m_center.y + m_radius * std::sin(vertexAngle * static_cast<double>(i))),
+			m_center.x + m_radius * std::cos(vertexAngle * static_cast<double>(i)),
+			m_center.y + m_radius * std::sin(vertexAngle * static_cast<double>(i)),
 		});
 	}
 

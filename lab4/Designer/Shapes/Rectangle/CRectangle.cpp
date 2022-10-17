@@ -7,8 +7,11 @@ CRectangle::CRectangle(Color color, Point const& leftTopCorner, Point const& rig
 {
 }
 
-CRectangle::CRectangle(Color color, Point const& leftTopCorner, int width, int height)
-	: CRectangle(color, leftTopCorner, { leftTopCorner.x + width, leftTopCorner.y + height })
+CRectangle::CRectangle(Color color, Point const& leftTopCorner, double width, double height)
+	: CRectangle(
+		color,
+		leftTopCorner,
+		{ leftTopCorner.x + width, leftTopCorner.y + height })
 {
 }
 

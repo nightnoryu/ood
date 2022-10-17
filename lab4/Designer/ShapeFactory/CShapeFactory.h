@@ -13,7 +13,7 @@ public:
 
 private:
 	using Args = std::vector<std::string>;
-	using ShapeCreator = std::function<CShapePtr(Args const&)>;
+	using ShapeCreator = std::function<CShapePtr(std::istream&)>;
 
 	static inline const std::unordered_map<std::string, Color> ARG_TO_COLOR_MAP = {
 		{ "red", Color::Red },
@@ -24,14 +24,11 @@ private:
 		{ "black", Color::Black },
 	};
 
-	static Args ParseArgs(std::string const& description);
-	static ShapeCreator GetShapeCreator(std::string const& shapeArg);
-	static Color ParseColor(std::string const& arg);
+	static ShapeCreator GetShapeCreator(std::string const& shapeType);
+	static Color ParseColor(std::istream& stream);
 
-	static int StringToInt(std::string const& value);
-
-	static CShapePtr CreateEllipse(Args const& args);
-	static CShapePtr CreateRectangle(Args const& args);
-	static CShapePtr CreateRegularPolygon(Args const& args);
-	static CShapePtr CreateTriangle(Args const& args);
+	static CShapePtr CreateEllipse(std::istream& args);
+	static CShapePtr CreateRectangle(std::istream& args);
+	static CShapePtr CreateRegularPolygon(std::istream& args);
+	static CShapePtr CreateTriangle(std::istream& args);
 };

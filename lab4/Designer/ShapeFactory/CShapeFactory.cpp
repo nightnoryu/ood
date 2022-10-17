@@ -6,148 +6,120 @@
 
 CShapePtr CShapeFactory::CreateShape(std::string const& description)
 {
-	auto const args = ParseArgs(description);
-	if (args.empty())
-	{
-		throw std::invalid_argument("no arguments provided");
-	}
+	std::istringstream args(description);
 
-	auto const creator = GetShapeCreator(args[0]);
+	std::string shapeType;
+	args >> shapeType;
+
+	auto const creator = GetShapeCreator(shapeType);
 
 	return creator(args);
 }
 
-CShapeFactory::Args CShapeFactory::ParseArgs(std::string const& description)
+CShapeFactory::ShapeCreator CShapeFactory::GetShapeCreator(const std::string& shapeType)
 {
-	Args result;
-
-	std::istringstream input(description);
-	std::string argument;
-
-	// TODO: pass stream directly
-	while (input >> argument)
-	{
-		result.push_back(std::move(argument));
-	}
-
-	return result;
-}
-
-CShapeFactory::ShapeCreator CShapeFactory::GetShapeCreator(const std::string& shapeArg)
-{
-	if (shapeArg == "ellipse")
+	if (shapeType == "ellipse")
 	{
 		return CreateEllipse;
 	}
-	else if (shapeArg == "rectangle")
+	else if (shapeType == "rectangle")
 	{
 		return CreateRectangle;
 	}
-	else if (shapeArg == "regular-polygon")
+	else if (shapeType == "regular-polygon")
 	{
 		return CreateRegularPolygon;
 	}
-	else if (shapeArg == "triangle")
+	else if (shapeType == "triangle")
 	{
 		return CreateTriangle;
 	}
 
-	throw std::invalid_argument("unknown shape: " + shapeArg);
+	throw std::invalid_argument("unknown shape: " + shapeType);
 }
 
-Color CShapeFactory::ParseColor(std::string const& arg)
+Color CShapeFactory::ParseColor(std::istream& stream)
 {
-	auto const color = ARG_TO_COLOR_MAP.find(arg);
+	std::string value;
+	stream >> value;
+
+	auto const color = ARG_TO_COLOR_MAP.find(value);
 	if (color == ARG_TO_COLOR_MAP.end())
 	{
-		throw std::invalid_argument("invalid color: " + arg);
+		throw std::invalid_argument("invalid color: " + value);
 	}
 
 	return color->second;
 }
 
-int CShapeFactory::StringToInt(std::string const& value)
+CShapePtr CShapeFactory::CreateEllipse(std::istream& args)
 {
-	if (!value.empty() && std::all_of(value.begin(), value.end(), isdigit))
+	auto const color = ParseColor(args);
+	double x, y, horizontalRadius, verticalRadius;
+	args >> x >> y >> horizontalRadius >> verticalRadius;
+
+	if (args.bad() || args.fail())
 	{
-		return std::stoi(value);
+		throw std::invalid_argument("invalid arguments for ellipse");
 	}
-
-	throw std::invalid_argument("invalid number: " + value);
-}
-
-CShapePtr CShapeFactory::CreateEllipse(Args const& args)
-{
-	if (args.size() != 6)
-	{
-		throw std::invalid_argument("ellipse expects 5 params");
-	}
-
-	auto const color = ParseColor(args[1]);
-	Point center = { StringToInt(args[2]), StringToInt(args[3]) };
-	auto horizontalRadius = StringToInt(args[4]);
-	auto verticalRadius = StringToInt(args[5]);
 
 	return std::make_unique<CEllipse>(
 		color,
-		center,
+		Point{ x, y },
 		horizontalRadius,
 		verticalRadius);
 }
 
-CShapePtr CShapeFactory::CreateRectangle(Args const& args)
+CShapePtr CShapeFactory::CreateRectangle(std::istream& args)
 {
-	if (args.size() != 6)
-	{
-		throw std::invalid_argument("rectangle expects 5 params");
-	}
+	auto const color = ParseColor(args);
+	double x, y, width, height;
+	args >> x >> y >> width >> height;
 
-	auto const color = ParseColor(args[1]);
-	Point leftTopCorner = { StringToInt(args[2]), StringToInt(args[3]) };
-	auto width = StringToInt(args[4]);
-	auto height = StringToInt(args[5]);
+	if (args.bad() || args.fail())
+	{
+		throw std::invalid_argument("invalid arguments for rectangle");
+	}
 
 	return std::make_unique<CRectangle>(
 		color,
-		leftTopCorner,
+		Point{ x, y },
 		width,
 		height);
 }
 
-CShapePtr CShapeFactory::CreateRegularPolygon(Args const& args)
+CShapePtr CShapeFactory::CreateRegularPolygon(std::istream& args)
 {
-	if (args.size() != 6)
-	{
-		throw std::invalid_argument("rectangle expects 5 params");
-	}
+	auto const color = ParseColor(args);
+	double vertexCount, x, y, radius;
+	args >> vertexCount >> x >> y >> radius;
 
-	auto const color = ParseColor(args[1]);
-	auto vertexCount = StringToInt(args[2]);
-	Point center = { StringToInt(args[3]), StringToInt(args[4]) };
-	auto radius = StringToInt(args[5]);
+	if (args.bad() || args.fail())
+	{
+		throw std::invalid_argument("invalid arguments for regular polygon");
+	}
 
 	return std::make_unique<CRegularPolygon>(
 		color,
 		vertexCount,
-		center,
+		Point{ x, y },
 		radius);
 }
 
-CShapePtr CShapeFactory::CreateTriangle(Args const& args)
+CShapePtr CShapeFactory::CreateTriangle(std::istream& args)
 {
-	if (args.size() != 8)
-	{
-		throw std::invalid_argument("rectangle expects 7 params");
-	}
+	auto const color = ParseColor(args);
+	double x1, y1, x2, y2, x3, y3;
+	args >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
 
-	auto const color = ParseColor(args[1]);
-	Point vertex1 = { StringToInt(args[2]), StringToInt(args[3]) };
-	Point vertex2 = { StringToInt(args[4]), StringToInt(args[5]) };
-	Point vertex3 = { StringToInt(args[6]), StringToInt(args[7]) };
+	if (args.bad() || args.fail())
+	{
+		throw std::invalid_argument("invalid arguments for triangle");
+	}
 
 	return std::make_unique<CTriangle>(
 		color,
-		vertex1,
-		vertex2,
-		vertex3);
+		Point{ x1, y1 },
+		Point{ x2, y2 },
+		Point{ x3, y3 });
 }

@@ -1,6 +1,6 @@
 #include "CEllipse.h"
 
-CEllipse::CEllipse(Color color, Point const& center, int horizontalRadius, int verticalRadius)
+CEllipse::CEllipse(Color color, Point const& center, double horizontalRadius, double verticalRadius)
 	: CShape(color)
 	, m_center(center)
 	, m_horizontalRadius(horizontalRadius)
@@ -13,12 +13,12 @@ Point CEllipse::GetCenter() const
 	return m_center;
 }
 
-int CEllipse::GetHorizontalRadius() const
+double CEllipse::GetHorizontalRadius() const
 {
 	return m_horizontalRadius;
 }
 
-int CEllipse::GetVerticalRadius() const
+double CEllipse::GetVerticalRadius() const
 {
 	return m_verticalRadius;
 }

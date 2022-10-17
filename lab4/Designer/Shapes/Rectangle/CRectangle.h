@@ -6,7 +6,7 @@ class CRectangle : public CShape
 {
 public:
 	CRectangle(Color color, Point const& leftTopCorner, Point const& rightBottomCorner);
-	CRectangle(Color, Point const& leftTopCorner, int width, int height);
+	CRectangle(Color, Point const& leftTopCorner, double width, double height);
 
 	Point GetLeftTop() const;
 	Point GetRightBottom() const;

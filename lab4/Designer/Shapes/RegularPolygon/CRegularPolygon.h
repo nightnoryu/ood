@@ -6,11 +6,11 @@
 class CRegularPolygon : public CShape
 {
 public:
-	CRegularPolygon(Color color, std::size_t vertexCount, Point const& center, int radius);
+	CRegularPolygon(Color color, std::size_t vertexCount, Point const& center, double radius);
 
 	std::size_t GetVertexCount() const;
 	Point GetCenter() const;
-	int GetRadius() const;
+	double GetRadius() const;
 
 	std::vector<Point> CalculateVertices() const;
 
@@ -21,5 +21,5 @@ private:
 
 	std::size_t m_vertexCount;
 	Point m_center;
-	int m_radius;
+	double m_radius;
 };

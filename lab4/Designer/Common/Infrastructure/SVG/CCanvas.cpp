@@ -44,7 +44,7 @@ void CCanvas::DrawLine(const Point& from, const Point& to)
 			 << m_currentColor << "\" />\n";
 }
 
-void CCanvas::DrawEllipse(const Point& center, int horizontalRadius, int verticalRadius)
+void CCanvas::DrawEllipse(const Point& center, double horizontalRadius, double verticalRadius)
 {
 	m_output << "  <ellipse cx=\""
 			 << center.x << "\" cy=\"" << center.y << "\" rx=\""
