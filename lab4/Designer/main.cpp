@@ -11,6 +11,12 @@ int main()
 	CDesigner designer(shapeFactory);
 
 	std::ofstream output("output.svg");
+	if (!output.is_open())
+	{
+		std::cerr << "Failed to create the picture" << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	CCanvas canvas(output);
 
 	auto const pictureDraft = designer.CreateDraft(std::cin, std::cerr);
