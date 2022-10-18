@@ -3,13 +3,12 @@ Language:        Cpp
 # BasedOnStyle:  WebKit
 AccessModifierOffset: -4
 AlignAfterOpenBracket: DontAlign
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
-AlignEscapedNewlinesLeft: false
+AlignConsecutiveAssignments: None
+AlignConsecutiveDeclarations: None
 AlignOperands:   false
 AlignTrailingComments: false
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: false
@@ -17,7 +16,7 @@ AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: false
-AlwaysBreakTemplateDeclarations: false
+AlwaysBreakTemplateDeclarations: Yes
 BinPackArguments: true
 BinPackParameters: true
 BraceWrapping:
@@ -50,7 +49,6 @@ Cpp11BracedListStyle: false
 DerivePointerAlignment: false
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
-# FixNamespaceComments: false
 ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
 IncludeCategories:
   - Regex:           '^"(stdafx|pch|PrecompiledHeader)'
@@ -83,7 +81,7 @@ PenaltyExcessCharacter: 100
 PenaltyReturnTypeOnItsOwnLine: 10000000
 PointerAlignment: Left
 ReflowComments:  true
-SortIncludes:    true
+SortIncludes:    CaseSensitive
 SpaceAfterCStyleCast: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
@@ -95,7 +93,7 @@ SpacesInContainerLiterals: true
 SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
-Standard:        Cpp11
+Standard:        c++20
 TabWidth:        4
 UseTab:          Always
 ...
