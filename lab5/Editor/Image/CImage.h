@@ -24,9 +24,15 @@ private:
 
 	static inline std::set<std::string> const IMAGE_EXTENSIONS = { ".jpg", ".png", ".svg" };
 
+	static inline std::string const BASE_FILENAME = "image_";
+
 	static void ValidateDimensions(int width, int height);
 	static void ValidateImageFormat(std::string const& path);
 	static void ValidateFileExists(std::string const& path);
+
+	static std::string GetNextFilename();
+
+	static std::size_t m_nextImageId;
 
 	std::string m_path;
 	int m_width;

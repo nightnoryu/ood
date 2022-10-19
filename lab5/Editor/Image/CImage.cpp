@@ -5,13 +5,19 @@ namespace fs = std::filesystem;
 
 CImage::CImage(std::string const& path, int width, int height)
 {
+	m_nextImageId = 1;
+
 	ValidateDimensions(width, height);
 	m_width = width;
 	m_height = height;
 
 	ValidateImageFormat(path);
 	ValidateFileExists(path);
-	m_path = path;
+
+	std::string newPath = GetNextFilename() + fs::path(path).extension().string();
+	fs::copy(path, newPath);
+
+	m_path = newPath;
 }
 
 std::string CImage::GetPath() const
@@ -63,4 +69,9 @@ void CImage::ValidateFileExists(std::string const& path)
 	{
 		throw std::runtime_error("image does not exist");
 	}
+}
+
+std::string CImage::GetNextFilename()
+{
+	return BASE_FILENAME + std::to_string(m_nextImageId++);
 }
