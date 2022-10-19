@@ -26,6 +26,7 @@ private:
 
 	static void ValidateDimensions(int width, int height);
 	static void ValidateImageFormat(std::string const& path);
+	static void ValidateFileExists(std::string const& path);
 
 	std::string m_path;
 	int m_width;

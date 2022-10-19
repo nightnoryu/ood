@@ -10,6 +10,8 @@ CImage::CImage(std::string const& path, int width, int height)
 	m_height = height;
 
 	ValidateImageFormat(path);
+	ValidateFileExists(path);
+	m_path = path;
 }
 
 std::string CImage::GetPath() const
@@ -52,5 +54,13 @@ void CImage::ValidateImageFormat(std::string const& path)
 	if (IMAGE_EXTENSIONS.find(filePath.extension().string()) == IMAGE_EXTENSIONS.end())
 	{
 		throw std::invalid_argument("invalid image format");
+	}
+}
+
+void CImage::ValidateFileExists(std::string const& path)
+{
+	if (!fs::exists(path))
+	{
+		throw std::runtime_error("image does not exist");
 	}
 }
