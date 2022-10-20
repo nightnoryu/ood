@@ -14,3 +14,5 @@ add_executable(Editor
                Document/CDocument.h
                Image/CImage.cpp
                Image/CImage.h)
+
+add_subdirectory(tests)
