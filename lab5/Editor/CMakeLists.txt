@@ -17,6 +17,6 @@ add_executable(Editor
                Paragraph/CParagraph.cpp
                Paragraph/CParagraph.h
                Command/SetParagraphTextCommand/CSetParagraphTextCommand.cpp
-               Command/SetParagraphTextCommand/CSetParagraphTextCommand.h)
+               Command/SetParagraphTextCommand/CSetParagraphTextCommand.h Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.cpp Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h Command/ResizeImageCommand/CResizeImageCommand.cpp Command/ResizeImageCommand/CResizeImageCommand.h History/CHistory.cpp History/CHistory.h)
 
 add_subdirectory(tests)

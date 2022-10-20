@@ -15,6 +15,8 @@ public:
 
 	void Resize(int width, int height) override;
 
+	static void ValidateDimensions(int width, int height);
+
 private:
 	static int const MIN_WIDTH = 1;
 	static int const MAX_WIDTH = 5000;
@@ -26,7 +28,6 @@ private:
 
 	static inline std::string const BASE_FILENAME = "image_";
 
-	static void ValidateDimensions(int width, int height);
 	static void ValidateImageFormat(std::string const& path);
 	static void ValidateFileExists(std::string const& path);
 
