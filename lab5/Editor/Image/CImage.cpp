@@ -5,8 +5,6 @@ namespace fs = std::filesystem;
 
 CImage::CImage(std::string const& path, int width, int height)
 {
-	m_nextImageId = 1;
-
 	ValidateDimensions(width, height);
 	m_width = width;
 	m_height = height;
@@ -75,3 +73,6 @@ std::string CImage::GetNextFilename()
 {
 	return BASE_FILENAME + std::to_string(m_nextImageId++);
 }
+
+
+std::size_t CImage::m_nextImageId = 1;
