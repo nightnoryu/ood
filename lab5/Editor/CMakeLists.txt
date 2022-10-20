@@ -13,6 +13,10 @@ add_executable(Editor
                Document/CDocument.cpp
                Document/CDocument.h
                Image/CImage.cpp
-               Image/CImage.h)
+               Image/CImage.h
+               Paragraph/CParagraph.cpp
+               Paragraph/CParagraph.h
+               Command/SetParagraphTextCommand/CSetParagraphTextCommand.cpp
+               Command/SetParagraphTextCommand/CSetParagraphTextCommand.h)
 
 add_subdirectory(tests)
