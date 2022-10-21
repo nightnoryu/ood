@@ -9,6 +9,7 @@ public:
 	void Save(IDocument const& document, std::string const& path) override;
 
 private:
+	static inline std::string_view const IMAGES_DIRECTORY = "html_images";
 	static inline std::unordered_map<char, std::string> const ESCAPE_SEQUENCES = {
 		{ '&', "&amp;" },
 		{ '<', "&lt;" },

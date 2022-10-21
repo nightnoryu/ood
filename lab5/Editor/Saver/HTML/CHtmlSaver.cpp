@@ -1,18 +1,25 @@
 #include "CHtmlSaver.h"
+#include <filesystem>
 #include <fstream>
 #include <numeric>
+
+namespace fs = std::filesystem;
 
 void CHtmlSaver::Save(IDocument const& document, std::string const& path)
 {
 	std::ofstream output(path);
 
+	if (!fs::is_directory(IMAGES_DIRECTORY))
+	{
+		fs::create_directory(IMAGES_DIRECTORY);
+	}
+
 	output << "<html>\n"
 		   << "<head>\n"
 		   << "  <title>" << document.GetTitle() << "</title>\n"
 		   << "</head>\n"
-		   << "<body>\n";
-
-	output << "  <h1>" << document.GetTitle() << "</h1>\n";
+		   << "<body>\n"
+		   << "  <h1>" << document.GetTitle() << "</h1>\n";
 
 	for (std::size_t i = 0; i < document.GetItemsCount(); ++i)
 	{
@@ -20,7 +27,10 @@ void CHtmlSaver::Save(IDocument const& document, std::string const& path)
 
 		if (auto const& image = item.GetImage())
 		{
-			output << "  <img src=\"" << image->GetPath() << "\" "
+			auto imageDestinationPath = fs::path(IMAGES_DIRECTORY) / fs::path(image->GetPath()).filename();
+			fs::copy(image->GetPath(), imageDestinationPath);
+
+			output << "  <img src=\"" << imageDestinationPath.string() << "\" "
 				   << "width=\"" << image->GetWidth() << "\" "
 				   << "height=\"" << image->GetHeight() << "\">";
 		}
