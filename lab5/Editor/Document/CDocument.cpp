@@ -1,5 +1,6 @@
 #include "CDocument.h"
 #include "../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h"
+#include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
 #include "../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.h"
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
@@ -43,7 +44,7 @@ CDocumentItem CDocument::GetItem(std::size_t index)
 
 void CDocument::DeleteItem(std::size_t index)
 {
-	m_items.erase(m_items.begin() + static_cast<int>(index));
+	m_history.AddAndExecuteCommand(std::make_unique<CDeleteItemCommand>(m_items, index));
 }
 
 std::string CDocument::GetTitle() const
