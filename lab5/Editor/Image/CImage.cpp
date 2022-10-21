@@ -18,6 +18,11 @@ CImage::CImage(std::string const& path, int width, int height)
 	m_path = newPath;
 }
 
+CImage::~CImage() noexcept
+{
+	fs::remove(m_path);
+}
+
 std::string CImage::GetPath() const
 {
 	return m_path;

@@ -8,6 +8,8 @@ class CImage : public IImage
 public:
 	CImage(std::string const& path, int width, int height);
 
+	~CImage() noexcept override;
+
 	std::string GetPath() const override;
 
 	int GetWidth() const override;
