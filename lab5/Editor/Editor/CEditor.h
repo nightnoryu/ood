@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../Document/IDocument.h"
+#include "../History/CHistory.h"
+#include <functional>
 #include <iostream>
 
 class CEditor
@@ -11,6 +13,10 @@ public:
 	void Start();
 
 private:
+	using CommandHandler = std::function<void(std::istream&)>;
+
+	CommandHandler GetCommandHandler(std::string const& commandName);
+
 	void InsertParagraph(std::istream& input);
 	void InsertImage(std::istream& input);
 
@@ -19,7 +25,7 @@ private:
 	void List(std::istream& input);
 
 	void ReplaceText(std::istream& input);
-	void ResizeImageText(std::istream& input);
+	void ResizeImage(std::istream& input);
 
 	void DeleteItem(std::istream& input);
 
@@ -30,8 +36,12 @@ private:
 
 	void Save(std::istream& input);
 
+	static std::optional<std::size_t> GetOptionalIndex(std::string const& value);
+	static void TrimString(std::string& str);
+
 	std::istream& m_input;
 	std::ostream& m_output;
 
+	CHistory m_history;
 	std::unique_ptr<IDocument> m_document;
 };

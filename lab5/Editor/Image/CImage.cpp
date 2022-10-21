@@ -35,7 +35,10 @@ int CImage::GetHeight() const
 
 void CImage::Resize(int width, int height)
 {
-	// TODO
+	ValidateDimensions(width, height);
+
+	m_width = width;
+	m_height = height;
 }
 
 void CImage::ValidateDimensions(int width, int height)
@@ -73,6 +76,5 @@ std::string CImage::GetNextFilename()
 {
 	return BASE_FILENAME + std::to_string(m_nextImageId++);
 }
-
 
 std::size_t CImage::m_nextImageId = 1;

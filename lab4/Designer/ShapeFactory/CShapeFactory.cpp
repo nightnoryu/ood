@@ -16,7 +16,7 @@ CShapePtr CShapeFactory::CreateShape(std::string const& description)
 	return creator(args);
 }
 
-CShapeFactory::ShapeCreator CShapeFactory::GetShapeCreator(const std::string& shapeType)
+CShapeFactory::ShapeCreator CShapeFactory::GetShapeCreator(std::string const& shapeType)
 {
 	if (shapeType == "ellipse")
 	{

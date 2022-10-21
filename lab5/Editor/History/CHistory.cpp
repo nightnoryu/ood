@@ -30,7 +30,7 @@ void CHistory::AddAndExecuteCommand(ICommandPtr&& command)
 {
 	command->Execute();
 
-	m_commands.erase(m_commands.begin() + m_currentCommandIndex, m_commands.end());
+	m_commands.erase(m_commands.begin() + static_cast<int>(m_currentCommandIndex), m_commands.end());
 	m_commands.push_back(std::move(command));
 	++m_currentCommandIndex;
 }

@@ -1,13 +1,28 @@
 #include "CDocument.h"
+#include "../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h"
+#include "../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.h"
+#include "../Image/CImage.h"
+#include "../Paragraph/CParagraph.h"
+
+CDocument::CDocument(CHistory& history)
+	: m_history(history)
+{
+}
 
 std::shared_ptr<IParagraph> CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
 {
-	return std::shared_ptr<IParagraph>();
+	auto paragraph = std::make_shared<CParagraph>(text);
+	CDocumentItem item(std::move(paragraph));
+
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, item, position));
 }
 
 std::shared_ptr<IImage> CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
 {
-	return std::shared_ptr<IImage>();
+	auto image = std::make_shared<CImage>(path, width, height);
+	CDocumentItem item(std::move(image));
+
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, item, position));
 }
 
 size_t CDocument::GetItemsCount() const
@@ -27,7 +42,7 @@ CDocumentItem CDocument::GetItem(std::size_t index)
 
 void CDocument::DeleteItem(std::size_t index)
 {
-	// TODO
+	m_items.erase(m_items.begin() + static_cast<int>(index));
 }
 
 std::string CDocument::GetTitle() const
@@ -37,31 +52,27 @@ std::string CDocument::GetTitle() const
 
 void CDocument::SetTitle(std::string const& title)
 {
-	m_title = title;
+	m_history.AddAndExecuteCommand(std::make_unique<CChangeDocumentTitleCommand>(m_title, title));
 }
 
 bool CDocument::CanUndo() const
 {
-	// TODO
-	return false;
+	return m_history.CanUndo();
 }
 
-bool CDocument::Undo()
+void CDocument::Undo()
 {
-	// TODO
-	return false;
+	m_history.Undo();
 }
 
 bool CDocument::CanRedo() const
 {
-	// TODO
-	return false;
+	return m_history.CanRedo();
 }
 
-bool CDocument::Redo()
+void CDocument::Redo()
 {
-	// TODO
-	return false;
+	m_history.Redo();
 }
 
 void CDocument::Save(std::string const& path) const

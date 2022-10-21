@@ -24,10 +24,10 @@ public:
 	virtual void SetTitle(std::string const& title) = 0;
 
 	virtual bool CanUndo() const = 0;
-	virtual bool Undo() = 0;
+	virtual void Undo() = 0;
 
 	virtual bool CanRedo() const = 0;
-	virtual bool Redo() = 0;
+	virtual void Redo() = 0;
 
 	virtual void Save(std::string const& path) const = 0;
 

@@ -5,6 +5,8 @@
 class CParagraph : public IParagraph
 {
 public:
+	CParagraph(std::string const& text);
+
 	std::string GetText() const override;
 
 	void SetText(std::string const& text) override;
