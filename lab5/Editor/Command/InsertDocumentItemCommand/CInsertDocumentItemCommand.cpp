@@ -12,6 +12,7 @@ void CInsertDocumentItemCommand::DoExecute()
 	if (m_index.has_value())
 	{
 		m_items.emplace(m_items.begin() + static_cast<int>(m_index.value()), m_newItem);
+		return;
 	}
 
 	m_items.push_back(m_newItem);
@@ -22,6 +23,7 @@ void CInsertDocumentItemCommand::DoRollback()
 	if (m_index.has_value())
 	{
 		m_items.erase(m_items.begin() + static_cast<int>(m_index.value()));
+		return;
 	}
 
 	m_items.pop_back();
