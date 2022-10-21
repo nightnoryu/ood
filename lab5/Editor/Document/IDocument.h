@@ -10,8 +10,8 @@
 class IDocument
 {
 public:
-	virtual std::shared_ptr<IParagraph> InsertParagraph(std::string const& text, std::optional<std::size_t> position) = 0;
-	virtual std::shared_ptr<IImage> InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) = 0;
+	virtual void InsertParagraph(std::string const& text, std::optional<std::size_t> position) = 0;
+	virtual void InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) = 0;
 
 	virtual std::size_t GetItemsCount() const = 0;
 

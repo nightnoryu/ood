@@ -1,16 +1,17 @@
 #pragma once
 
 #include "../History/CHistory.h"
+#include "../Saver/ISaver.h"
 #include "IDocument.h"
 #include <vector>
 
 class CDocument : public IDocument
 {
 public:
-	explicit CDocument(CHistory& history);
+	explicit CDocument(CHistory& history, ISaver& saver);
 
-	std::shared_ptr<IParagraph> InsertParagraph(std::string const& text, std::optional<std::size_t> position) override;
-	std::shared_ptr<IImage> InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) override;
+	void InsertParagraph(std::string const& text, std::optional<std::size_t> position) override;
+	void InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) override;
 
 	size_t GetItemsCount() const override;
 
@@ -32,6 +33,7 @@ public:
 
 private:
 	CHistory& m_history;
+	ISaver& m_saver;
 
 	std::vector<CDocumentItem> m_items;
 	std::string m_title;

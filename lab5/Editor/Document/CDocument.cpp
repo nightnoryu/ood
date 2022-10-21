@@ -4,12 +4,13 @@
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
 
-CDocument::CDocument(CHistory& history)
+CDocument::CDocument(CHistory& history, ISaver& saver)
 	: m_history(history)
+	, m_saver(saver)
 {
 }
 
-std::shared_ptr<IParagraph> CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
+void CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
 {
 	auto paragraph = std::make_shared<CParagraph>(text);
 	CDocumentItem item(std::move(paragraph));
@@ -17,7 +18,7 @@ std::shared_ptr<IParagraph> CDocument::InsertParagraph(std::string const& text, 
 	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, item, position));
 }
 
-std::shared_ptr<IImage> CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
+void CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
 {
 	auto image = std::make_shared<CImage>(path, width, height);
 	CDocumentItem item(std::move(image));
@@ -77,5 +78,5 @@ void CDocument::Redo()
 
 void CDocument::Save(std::string const& path) const
 {
-	// TODO
+	m_saver.Save(*this, path);
 }

@@ -2,13 +2,14 @@
 
 #include "../Document/IDocument.h"
 #include "../History/CHistory.h"
+#include "../Saver/ISaver.h"
 #include <functional>
 #include <iostream>
 
 class CEditor
 {
 public:
-	CEditor(std::istream& input, std::ostream& output);
+	CEditor(std::istream& input, std::ostream& output, ISaver& saver);
 
 	void Start();
 
@@ -22,17 +23,17 @@ private:
 
 	void SetTitle(std::istream& input);
 
-	void List(std::istream& input);
+	void List();
 
 	void ReplaceText(std::istream& input);
 	void ResizeImage(std::istream& input);
 
 	void DeleteItem(std::istream& input);
 
-	void Help(std::istream& input);
+	void Help();
 
-	void Undo(std::istream& input);
-	void Redo(std::istream& input);
+	void Undo();
+	void Redo();
 
 	void Save(std::istream& input);
 
@@ -43,5 +44,6 @@ private:
 	std::ostream& m_output;
 
 	CHistory m_history;
+	std::unique_ptr<ISaver> m_saver;
 	std::unique_ptr<IDocument> m_document;
 };

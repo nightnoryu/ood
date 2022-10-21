@@ -2,8 +2,8 @@
 #include "../Document/CDocument.h"
 #include <sstream>
 
-CEditor::CEditor(std::istream& input, std::ostream& output)
-	: m_document(std::make_unique<CDocument>(m_history))
+CEditor::CEditor(std::istream& input, std::ostream& output, ISaver& saver)
+	: m_document(std::make_unique<CDocument>(m_history, saver))
 	, m_input(input)
 	, m_output(output)
 {
@@ -54,8 +54,8 @@ CEditor::CommandHandler CEditor::GetCommandHandler(std::string const& commandNam
 	}
 	else if (commandName == "List")
 	{
-		return [this](std::istream& input) {
-			List(input);
+		return [this](std::istream& /* input */) {
+			List();
 		};
 	}
 	else if (commandName == "ReplaceText")
@@ -78,20 +78,20 @@ CEditor::CommandHandler CEditor::GetCommandHandler(std::string const& commandNam
 	}
 	else if (commandName == "Help")
 	{
-		return [this](std::istream& input) {
-			Help(input);
+		return [this](std::istream& /* input */) {
+			Help();
 		};
 	}
 	else if (commandName == "Undo")
 	{
-		return [this](std::istream& input) {
-			Undo(input);
+		return [this](std::istream& /* input */) {
+			Undo();
 		};
 	}
 	else if (commandName == "Redo")
 	{
-		return [this](std::istream& input) {
-			Redo(input);
+		return [this](std::istream& /* input */) {
+			Redo();
 		};
 	}
 	else if (commandName == "Save")
@@ -147,7 +147,7 @@ void CEditor::SetTitle(std::istream& input)
 	m_document->SetTitle(title);
 }
 
-void CEditor::List(std::istream& /* input */)
+void CEditor::List()
 {
 	m_output << "Title: " << m_document->GetTitle() << "\n";
 	for (std::size_t i = 0; i < m_document->GetItemsCount(); ++i)
@@ -220,7 +220,7 @@ void CEditor::DeleteItem(std::istream& input)
 	m_document->DeleteItem(index);
 }
 
-void CEditor::Help(std::istream& /* input */)
+void CEditor::Help()
 {
 	m_output << "Available commands:\n"
 			 << "InsertParagraph <index>|end <text>\n"
@@ -237,7 +237,7 @@ void CEditor::Help(std::istream& /* input */)
 			 << std::endl;
 }
 
-void CEditor::Undo(std::istream& /* input */)
+void CEditor::Undo()
 {
 	if (!m_document->CanUndo())
 	{
@@ -247,7 +247,7 @@ void CEditor::Undo(std::istream& /* input */)
 	m_document->Undo();
 }
 
-void CEditor::Redo(std::istream& /* input */)
+void CEditor::Redo()
 {
 	if (!m_document->CanRedo())
 	{
