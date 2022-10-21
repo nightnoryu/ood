@@ -13,7 +13,7 @@ void CEditor::Start()
 {
 	std::string argsString;
 
-	while ((m_output << "> ") && std::getline(m_input, argsString))
+	while (m_running && (m_output << "> ") && std::getline(m_input, argsString))
 	{
 		std::istringstream args(argsString);
 		std::string commandName;
@@ -30,6 +30,8 @@ void CEditor::Start()
 			m_output << "Error: " << e.what() << std::endl;
 		}
 	}
+
+	m_output << "Bye\n";
 }
 
 CEditor::CommandHandler CEditor::GetCommandHandler(std::string const& commandName)
@@ -98,6 +100,12 @@ CEditor::CommandHandler CEditor::GetCommandHandler(std::string const& commandNam
 	{
 		return [this](std::istream& input) {
 			Save(input);
+		};
+	}
+	else if (commandName == "Exit")
+	{
+		return [this](std::istream& /* input */) {
+			Exit();
 		};
 	}
 
@@ -233,7 +241,8 @@ void CEditor::Help()
 			 << "Help\n"
 			 << "Undo\n"
 			 << "Redo\n"
-			 << "Save <path>"
+			 << "Save <path>\n"
+			 << "Exit"
 			 << std::endl;
 }
 
@@ -268,6 +277,11 @@ void CEditor::Save(std::istream& input)
 
 	TrimString(path);
 	m_document->Save(path);
+}
+
+void CEditor::Exit()
+{
+	m_running = false;
 }
 
 std::optional<std::size_t> CEditor::GetOptionalIndex(std::string const& value)

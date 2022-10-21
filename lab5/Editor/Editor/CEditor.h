@@ -37,11 +37,14 @@ private:
 
 	void Save(std::istream& input);
 
+	void Exit();
+
 	static std::optional<std::size_t> GetOptionalIndex(std::string const& value);
 	static void TrimString(std::string& str);
 
 	std::istream& m_input;
 	std::ostream& m_output;
+	bool m_running = true;
 
 	CHistory m_history;
 	std::unique_ptr<ISaver> m_saver;
