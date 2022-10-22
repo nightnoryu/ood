@@ -17,7 +17,23 @@ add_executable(EditorTest
                ../Paragraph/CParagraph.cpp
                ../Paragraph/CParagraph.h
                ../Command/SetParagraphTextCommand/CSetParagraphTextCommand.cpp
-               ../Command/SetParagraphTextCommand/CSetParagraphTextCommand.h)
+               ../Command/SetParagraphTextCommand/CSetParagraphTextCommand.h
+               ../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.cpp
+               ../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h
+               ../Command/ResizeImageCommand/CResizeImageCommand.cpp
+               ../Command/ResizeImageCommand/CResizeImageCommand.h
+               ../History/CHistory.cpp
+               ../History/CHistory.h
+               ../Editor/CEditor.cpp
+               ../Editor/CEditor.h
+               ../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.cpp
+               ../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.h
+               ../Document/ISaver.h
+               ../Saver/CHtmlSaver.cpp
+               ../Saver/CHtmlSaver.h
+               ../Command/DeleteItemCommand/CDeleteItemCommand.cpp
+               ../Command/DeleteItemCommand/CDeleteItemCommand.h
+               ../Document/IHistory.h)
 
 target_link_libraries(EditorTest PUBLIC catch2 fakeit)
 add_test(NAME EditorTest COMMAND EditorTest)

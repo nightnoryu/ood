@@ -26,7 +26,7 @@ private:
 	static int const MIN_HEIGHT = 1;
 	static int const MAX_HEIGHT = 5000;
 
-	static inline std::set<std::string> const IMAGE_EXTENSIONS = { ".jpg", ".png", ".svg" };
+	static inline std::set<std::string> const IMAGE_EXTENSIONS = { ".jpg", ".png", ".svg", ".gif" };
 
 	static inline std::string const BASE_FILENAME = "image_";
 
