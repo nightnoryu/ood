@@ -39,6 +39,62 @@ TEST_CASE("document model")
 					REQUIRE(document.GetItemsCount() == 0);
 				}
 			}
+
+			WHEN("inserting a paragraph")
+			{
+				document.InsertParagraph("whatever", std::nullopt);
+
+				THEN("it delegates to history")
+				{
+					fakeit::Verify(Method(historyMock, AddAndExecuteCommand)).Exactly(1);
+				}
+			}
+
+			WHEN("inserting an image")
+			{
+				document.InsertImage("image.jpg", 50, 50, std::nullopt);
+
+				THEN("it delegates to history")
+				{
+					fakeit::Verify(Method(historyMock, AddAndExecuteCommand)).Exactly(1);
+				}
+			}
+
+			WHEN("changing the title")
+			{
+				document.SetTitle("whatever");
+
+				THEN("it delegates to history")
+				{
+					fakeit::Verify(Method(historyMock, AddAndExecuteCommand)).Exactly(1);
+				}
+			}
+
+			WHEN("operating with history")
+			{
+				document.CanUndo();
+				document.Undo();
+				document.CanRedo();
+				document.Redo();
+
+				THEN("it delegates to history")
+				{
+					fakeit::Verify(Method(historyMock, CanUndo)).Exactly(1);
+					fakeit::Verify(Method(historyMock, Undo)).Exactly(1);
+					fakeit::Verify(Method(historyMock, CanRedo)).Exactly(1);
+					fakeit::Verify(Method(historyMock, Redo)).Exactly(1);
+				}
+			}
+
+			WHEN("saving the document")
+			{
+				document.Save("whatever");
+
+				THEN("it delegates to saver")
+				{
+					fakeit::Verify(Method(saverMock, Save)).Exactly(1);
+				}
+			}
 		}
 	}
 
