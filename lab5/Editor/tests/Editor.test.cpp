@@ -1,4 +1,9 @@
 #define CATCH_CONFIG_MAIN
+#include "../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h"
+#include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
+#include "../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.h"
+#include "../Command/ResizeImageCommand/CResizeImageCommand.h"
+#include "../Command/SetParagraphTextCommand/CSetParagraphTextCommand.h"
 #include "../Document/CDocument.h"
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
@@ -265,24 +270,209 @@ TEST_CASE("document model")
 
 TEST_CASE("commands")
 {
+	fakeit::Mock<IImage> imageMock;
+	fakeit::Fake(Method(imageMock, GetPath));
+	fakeit::Fake(Method(imageMock, GetWidth));
+	fakeit::Fake(Method(imageMock, GetHeight));
+	fakeit::Fake(Method(imageMock, Resize));
+
+	fakeit::Mock<IParagraph> paragraphMock;
+	fakeit::Fake(Method(paragraphMock, GetText));
+	fakeit::Fake(Method(paragraphMock, SetText));
+
+	auto& paragraph = paragraphMock.get();
+	auto& image = imageMock.get();
+
+	CDocumentItem mockItem1((std::shared_ptr<IParagraph>(&paragraph)));
+	CDocumentItem mockItem2((std::shared_ptr<IImage>(&image)));
+
 	SECTION("change document title")
 	{
+		std::string title = "pretty raw title";
+		std::string const oldTitle = title;
+		std::string const newTitle = "BREAK YOUR FUCKING FACE TONIGHT";
+
+		GIVEN("a change document title command")
+		{
+			CChangeDocumentTitleCommand command(title, newTitle);
+
+			WHEN("executing it")
+			{
+				command.Execute();
+
+				THEN("title changes")
+				{
+					REQUIRE(title == newTitle);
+				}
+
+				AND_WHEN("rolling it back")
+				{
+					command.Rollback();
+
+					THEN("title restores")
+					{
+						REQUIRE(title == oldTitle);
+					}
+				}
+			}
+		}
 	}
 
 	SECTION("delete item")
 	{
+		GIVEN("a vector of items")
+		{
+			std::vector<CDocumentItem> items{ mockItem1, mockItem2 };
+
+			WHEN("trying to create command with invalid index")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(CDeleteItemCommand(items, items.size() + 1), std::invalid_argument);
+					REQUIRE_THROWS_AS(CDeleteItemCommand(items, items.size()), std::invalid_argument);
+				}
+			}
+
+			AND_GIVEN("a valid delete item command")
+			{
+				CDeleteItemCommand command(items, 0);
+
+				WHEN("executing it")
+				{
+					command.Execute();
+
+					THEN("the right item is deleted")
+					{
+						REQUIRE(items.size() == 1);
+						REQUIRE(items.at(0).GetImage() != nullptr);
+					}
+
+					AND_WHEN("rolling it back")
+					{
+						command.Rollback();
+
+						THEN("the item is restored")
+						{
+							REQUIRE(items.size() == 2);
+							REQUIRE(items.at(0).GetParagraph() != nullptr);
+							REQUIRE(items.at(1).GetImage() != nullptr);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	SECTION("insert document item")
 	{
+		GIVEN("a vector with one item")
+		{
+			std::vector<CDocumentItem> items{ mockItem1 };
+
+			WHEN("trying to create command with invalid index")
+			{
+				THEN("it throws an exception")
+				{
+					REQUIRE_THROWS_AS(CInsertDocumentItemCommand(items, std::shared_ptr<CDocumentItem>(&mockItem2), items.size() + 1), std::invalid_argument);
+				}
+			}
+
+			AND_GIVEN("a valid insert item command")
+			{
+				CInsertDocumentItemCommand command(items, std::shared_ptr<CDocumentItem>(&mockItem2), 0);
+
+				WHEN("executing it")
+				{
+					command.Execute();
+
+					THEN("the item is inserted")
+					{
+						REQUIRE(items.size() == 2);
+						REQUIRE(items.at(0).GetImage() != nullptr);
+						REQUIRE(items.at(1).GetParagraph() != nullptr);
+					}
+
+					AND_WHEN("rolling it back")
+					{
+						command.Rollback();
+
+						THEN("the item is removed")
+						{
+							REQUIRE(items.size() == 1);
+							REQUIRE(items.at(0).GetParagraph() != nullptr);
+						}
+					}
+				}
+			}
+		}
 	}
 
 	SECTION("resize image")
 	{
+		GIVEN("a resize image command")
+		{
+			int width = 100;
+			int height = 100;
+			int const oldWidth = width;
+			int const oldHeight = height;
+			int const newWidth = 50;
+			int const newHeight = 50;
+			CResizeImageCommand command(width, height, newWidth, newHeight);
+
+			WHEN("executing it")
+			{
+				command.Execute();
+
+				THEN("values change")
+				{
+					REQUIRE(width == newWidth);
+					REQUIRE(height == newHeight);
+				}
+
+				AND_WHEN("rolling it back")
+				{
+					command.Rollback();
+
+					THEN("values restore")
+					{
+						REQUIRE(width == oldWidth);
+						REQUIRE(height == oldHeight);
+					}
+				}
+			}
+		}
 	}
 
 	SECTION("set paragraph text")
 	{
+		std::string text = "pizza date on skype";
+		std::string const oldText = text;
+		std::string const newText = "I HOPE YOU KNOW I PACK A CHAINSAW";
+
+		GIVEN("a set paragraph text command")
+		{
+			CSetParagraphTextCommand command(text, newText);
+
+			WHEN("executing it")
+			{
+				command.Execute();
+
+				THEN("text changes")
+				{
+					REQUIRE(text == newText);
+				}
+
+				AND_WHEN("rolling it back")
+				{
+					command.Rollback();
+
+					THEN("text restores")
+					{
+						REQUIRE(text == oldText);
+					}
+				}
+			}
+		}
 	}
 }
 
