@@ -8,7 +8,7 @@
 class CInsertDocumentItemCommand : public CAbstractCommand
 {
 public:
-	CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, CDocumentItem& newItem, std::optional<std::size_t> index);
+	CInsertDocumentItemCommand(std::vector<CDocumentItem>& items, std::shared_ptr<CDocumentItem>&& newItem, std::optional<std::size_t> index);
 
 private:
 	void DoExecute() override;
@@ -16,6 +16,6 @@ private:
 
 private:
 	std::vector<CDocumentItem>& m_items;
-	CDocumentItem& m_newItem;
+	std::shared_ptr<CDocumentItem> m_newItem;
 	std::optional<std::size_t> m_index;
 };

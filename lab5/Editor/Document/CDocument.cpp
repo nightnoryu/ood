@@ -14,17 +14,17 @@ CDocument::CDocument(IHistory& history, ISaver& saver)
 void CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
 {
 	auto paragraph = std::make_shared<CParagraph>(text, m_history);
-	CDocumentItem item(std::move(paragraph));
+	auto item = std::make_shared<CDocumentItem>(std::move(paragraph));
 
-	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, item, position));
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, std::move(item), position));
 }
 
 void CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
 {
 	auto image = std::make_shared<CImage>(path, width, height, m_history);
-	CDocumentItem item(std::move(image));
+	auto item = std::make_shared<CDocumentItem>(std::move(image));
 
-	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, item, position));
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, std::move(item), position));
 }
 
 size_t CDocument::GetItemsCount() const
