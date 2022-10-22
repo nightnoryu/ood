@@ -43,7 +43,6 @@ int CImage::GetHeight() const
 void CImage::Resize(int width, int height)
 {
 	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(
-		std::shared_ptr<IImage>(this),
 		m_width,
 		m_height,
 		width,
