@@ -1,9 +1,11 @@
 #include "CImage.h"
+#include "../Command/ResizeImageCommand/CResizeImageCommand.h"
 #include <filesystem>
 
 namespace fs = std::filesystem;
 
-CImage::CImage(std::string const& path, int width, int height)
+CImage::CImage(std::string const& path, int width, int height, IHistory& history)
+	: m_history(history)
 {
 	ValidateDimensions(width, height);
 	m_width = width;
@@ -40,10 +42,12 @@ int CImage::GetHeight() const
 
 void CImage::Resize(int width, int height)
 {
-	ValidateDimensions(width, height);
-
-	m_width = width;
-	m_height = height;
+	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(
+		std::shared_ptr<IImage>(this),
+		m_width,
+		m_height,
+		width,
+		height));
 }
 
 void CImage::ValidateDimensions(int width, int height)
