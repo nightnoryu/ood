@@ -14,10 +14,10 @@ CImage::CImage(std::string const& path, int width, int height, IHistory& history
 	ValidateImageFormat(path);
 	ValidateFileExists(path);
 
-	std::string newPath = GetNextFilename() + fs::path(path).extension().string();
+	auto newPath = fs::temp_directory_path() / (GetNextFilename() + fs::path(path).extension().string());
 	fs::copy(path, newPath);
 
-	m_path = newPath;
+	m_path = newPath.string();
 }
 
 CImage::~CImage() noexcept
