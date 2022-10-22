@@ -2,8 +2,8 @@
 
 #include "../DocumentItem/CConstDocumentItem.h"
 #include "../DocumentItem/CDocumentItem.h"
-#include "../Image/IImage.h"
-#include "../Paragraph/IParagraph.h"
+#include "../DocumentItem/IImage.h"
+#include "../DocumentItem/IParagraph.h"
 #include <memory>
 #include <optional>
 

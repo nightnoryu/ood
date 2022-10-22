@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Image/IImage.h"
-#include "../Paragraph/IParagraph.h"
+#include "IImage.h"
+#include "IParagraph.h"
 #include <memory>
 
 class CConstDocumentItem

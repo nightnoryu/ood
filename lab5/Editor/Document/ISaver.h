@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Document/IDocument.h"
+#include "../Editor/IDocument.h"
 
 class ISaver
 {

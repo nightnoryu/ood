@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Image/IImage.h"
+#include "../../DocumentItem/IImage.h"
 #include "../AbstractCommand/CAbstractCommand.h"
 
 class CResizeImageCommand : public CAbstractCommand

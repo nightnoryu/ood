@@ -5,7 +5,7 @@
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
 
-CDocument::CDocument(CHistory& history, ISaver& saver)
+CDocument::CDocument(IHistory& history, ISaver& saver)
 	: m_history(history)
 	, m_saver(saver)
 {

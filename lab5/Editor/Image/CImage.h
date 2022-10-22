@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IImage.h"
+#include "../DocumentItem/IImage.h"
 #include <set>
 
 class CImage : public IImage

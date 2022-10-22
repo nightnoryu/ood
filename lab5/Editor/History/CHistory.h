@@ -1,18 +1,19 @@
 #pragma once
 
 #include "../Command/ICommand.h"
+#include "../Document/IHistory.h"
 #include <vector>
 
-class CHistory
+class CHistory : public IHistory
 {
 public:
-	bool CanUndo() const;
-	void Undo();
+	bool CanUndo() const override;
+	void Undo() override;
 
-	bool CanRedo() const;
-	void Redo();
+	bool CanRedo() const override;
+	void Redo() override;
 
-	void AddAndExecuteCommand(ICommandPtr&& command);
+	void AddAndExecuteCommand(ICommandPtr&& command) override;
 
 private:
 	std::vector<ICommandPtr> m_commands;

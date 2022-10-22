@@ -1,8 +1,8 @@
 add_executable(EditorTest
                Editor.test.cpp
-               ../Document/IDocument.h
-               ../Image/IImage.h
-               ../Paragraph/IParagraph.h
+               ../Editor/IDocument.h
+               ../DocumentItem/IImage.h
+               ../DocumentItem/IParagraph.h
                ../DocumentItem/CDocumentItem.cpp
                ../DocumentItem/CDocumentItem.h
                ../DocumentItem/CConstDocumentItem.cpp

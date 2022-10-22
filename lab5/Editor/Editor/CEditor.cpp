@@ -2,8 +2,8 @@
 #include "../Document/CDocument.h"
 #include <sstream>
 
-CEditor::CEditor(std::istream& input, std::ostream& output, ISaver& saver)
-	: m_document(std::make_unique<CDocument>(m_history, saver))
+CEditor::CEditor(std::istream& input, std::ostream& output, IHistory& history, ISaver& saver)
+	: m_document(std::make_unique<CDocument>(history, saver))
 	, m_input(input)
 	, m_output(output)
 {

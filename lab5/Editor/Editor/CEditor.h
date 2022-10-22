@@ -1,15 +1,15 @@
 #pragma once
 
-#include "../Document/IDocument.h"
-#include "../History/CHistory.h"
-#include "../Saver/ISaver.h"
+#include "../Document/IHistory.h"
+#include "../Document/ISaver.h"
+#include "IDocument.h"
 #include <functional>
 #include <iostream>
 
 class CEditor
 {
 public:
-	CEditor(std::istream& input, std::ostream& output, ISaver& saver);
+	CEditor(std::istream& input, std::ostream& output, IHistory& history, ISaver& saver);
 
 	void Start();
 
@@ -46,7 +46,6 @@ private:
 	std::ostream& m_output;
 	bool m_running = true;
 
-	CHistory m_history;
 	std::unique_ptr<ISaver> m_saver;
 	std::unique_ptr<IDocument> m_document;
 };
