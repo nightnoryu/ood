@@ -3,12 +3,13 @@
 CDeleteItemCommand::CDeleteItemCommand(std::vector<CDocumentItem>& items, std::size_t index)
 	: m_items(items)
 	, m_index(index)
-	, m_deletedItem(std::make_unique<CDocumentItem>(m_items.at(index)))
 {
 	if (m_index >= items.size())
 	{
 		throw std::invalid_argument("invalid index");
 	}
+
+	m_deletedItem = std::make_unique<CDocumentItem>(m_items.at(index));
 }
 
 void CDeleteItemCommand::DoExecute()
