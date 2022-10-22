@@ -8,6 +8,7 @@ CResizeImageCommand::CResizeImageCommand(std::shared_ptr<IImage>& image, int ima
 	, m_newWidth(newWidth)
 	, m_newHeight(newHeight)
 {
+	CImage::ValidateDimensions(m_newWidth, m_newHeight);
 }
 
 void CResizeImageCommand::DoExecute()

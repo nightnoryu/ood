@@ -5,6 +5,10 @@ CInsertDocumentItemCommand::CInsertDocumentItemCommand(std::vector<CDocumentItem
 	, m_newItem(newItem)
 	, m_index(index)
 {
+	if (m_index.has_value() && m_index.value() > items.size())
+	{
+		throw std::invalid_argument("invalid index");
+	}
 }
 
 void CInsertDocumentItemCommand::DoExecute()

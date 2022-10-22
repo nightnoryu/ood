@@ -281,7 +281,25 @@ TEST_CASE("document model")
 
 TEST_CASE("commands")
 {
-	// TODO
+	SECTION("change document title")
+	{
+	}
+
+	SECTION("delete item")
+	{
+	}
+
+	SECTION("insert document item")
+	{
+	}
+
+	SECTION("resize image")
+	{
+	}
+
+	SECTION("set paragraph text")
+	{
+	}
 }
 
 TEST_CASE("history")
