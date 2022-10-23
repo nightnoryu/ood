@@ -5,6 +5,7 @@
 #include "../Command/ResizeImageCommand/CResizeImageCommand.h"
 #include "../Command/SetParagraphTextCommand/CSetParagraphTextCommand.h"
 #include "../Document/CDocument.h"
+#include "../History/CHistory.h"
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
 #include "catch.hpp"
@@ -478,7 +479,104 @@ TEST_CASE("commands")
 
 TEST_CASE("history")
 {
-	// TODO
+	fakeit::Mock<ICommand> mockCommand1;
+	fakeit::Fake(Method(mockCommand1, Execute));
+	fakeit::Fake(Method(mockCommand1, Rollback));
+	fakeit::Mock<ICommand> mockCommand2;
+	fakeit::Fake(Method(mockCommand2, Execute));
+	fakeit::Fake(Method(mockCommand2, Rollback));
+
+	auto& command1 = mockCommand1.get();
+	auto& command2 = mockCommand2.get();
+
+	GIVEN("a history")
+	{
+		CHistory history;
+
+		WHEN("it is just created")
+		{
+			THEN("it can not undo nor redo")
+			{
+				REQUIRE_FALSE(history.CanUndo());
+				REQUIRE_FALSE(history.CanRedo());
+			}
+		}
+
+		WHEN("adding a command")
+		{
+			history.AddAndExecuteCommand(std::unique_ptr<ICommand>(&command1));
+
+			THEN("command is executed")
+			{
+				fakeit::Verify(Method(mockCommand1, Execute)).Exactly(1);
+			}
+
+			THEN("history can undo")
+			{
+				REQUIRE(history.CanUndo());
+			}
+
+			THEN("history can not redo")
+			{
+				REQUIRE_FALSE(history.CanRedo());
+			}
+
+			AND_WHEN("undoing the command")
+			{
+				history.Undo();
+
+				THEN("command is rolled back")
+				{
+					fakeit::Verify(Method(mockCommand1, Rollback)).Exactly(1);
+				}
+
+				THEN("history can not undo")
+				{
+					REQUIRE_FALSE(history.CanUndo());
+				}
+
+				THEN("history can redo")
+				{
+					REQUIRE(history.CanRedo());
+				}
+
+				AND_WHEN("redoing the command")
+				{
+					history.Redo();
+
+					THEN("command is executed again")
+					{
+						fakeit::Verify(Method(mockCommand1, Execute)).Exactly(2);
+					}
+
+					THEN("history can undo")
+					{
+						REQUIRE(history.CanUndo());
+					}
+
+					THEN("history can not redo")
+					{
+						REQUIRE_FALSE(history.CanRedo());
+					}
+				}
+
+				AND_WHEN("adding another command on top of that")
+				{
+					history.AddAndExecuteCommand(std::unique_ptr<ICommand>(&command2));
+
+					THEN("history can undo")
+					{
+						REQUIRE(history.CanUndo());
+					}
+
+					THEN("history can not redo, because previous command is erased")
+					{
+						REQUIRE_FALSE(history.CanRedo());
+					}
+				}
+			}
+		}
+	}
 }
 
 TEST_CASE("html saver")
