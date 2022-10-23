@@ -19,4 +19,5 @@ private:
 	};
 
 	static std::string Escape(std::string const& result);
+	static std::string GetImagesDirectoryPath(std::string const& documentPath);
 };

@@ -9,9 +9,10 @@ void CHtmlSaver::Save(IDocument const& document, std::string const& path)
 {
 	std::ofstream output(path);
 
-	if (!fs::is_directory(IMAGES_DIRECTORY))
+	auto const imagesDirectoryPath = GetImagesDirectoryPath(path);
+	if (!fs::is_directory(imagesDirectoryPath))
 	{
-		fs::create_directory(IMAGES_DIRECTORY);
+		fs::create_directory(imagesDirectoryPath);
 	}
 
 	output << "<html>\n"
@@ -27,12 +28,12 @@ void CHtmlSaver::Save(IDocument const& document, std::string const& path)
 
 		if (auto const& image = item.GetImage())
 		{
-			auto imageDestinationPath = fs::path(IMAGES_DIRECTORY) / fs::path(image->GetPath()).filename();
+			auto imageDestinationPath = fs::path(imagesDirectoryPath) / fs::path(image->GetPath()).filename();
 			fs::copy(image->GetPath(), imageDestinationPath);
 
 			output << "  <img src=\"" << imageDestinationPath.string() << "\" "
 				   << "width=\"" << image->GetWidth() << "\" "
-				   << "height=\"" << image->GetHeight() << "\">";
+				   << "height=\"" << image->GetHeight() << "\" />";
 		}
 		else if (auto const& paragraph = item.GetParagraph())
 		{
@@ -60,4 +61,12 @@ std::string CHtmlSaver::Escape(std::string const& str)
 			}
 			return result + ch;
 		});
+}
+
+std::string CHtmlSaver::GetImagesDirectoryPath(std::string const& documentPath)
+{
+	auto const documentRootPath = fs::path(documentPath).parent_path();
+	auto const destinationPath = documentRootPath / IMAGES_DIRECTORY;
+
+	return destinationPath.string();
 }
