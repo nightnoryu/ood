@@ -29,7 +29,10 @@ void CHtmlSaver::Save(IDocument const& document, std::string const& path)
 		if (auto const& image = item.GetImage())
 		{
 			auto imageDestinationPath = fs::path(imagesDirectoryPath) / fs::path(image->GetPath()).filename();
-			fs::copy(image->GetPath(), imageDestinationPath);
+			fs::copy(
+				image->GetPath(),
+				imageDestinationPath,
+				fs::copy_options::overwrite_existing);
 
 			output << "  <img src=\"" << imageDestinationPath.string() << "\" "
 				   << "width=\"" << image->GetWidth() << "\" "
