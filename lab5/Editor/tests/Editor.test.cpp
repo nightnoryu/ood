@@ -405,6 +405,34 @@ TEST_CASE("commands")
 					}
 				}
 			}
+
+			AND_GIVEN("a valid insert item command with absent index")
+			{
+				CInsertDocumentItemCommand command(items, std::shared_ptr<CDocumentItem>(&mockItem2), std::nullopt);
+
+				WHEN("executing it")
+				{
+					command.Execute();
+
+					THEN("the item is inserted")
+					{
+						REQUIRE(items.size() == 2);
+						REQUIRE(items.at(0).GetParagraph() != nullptr);
+						REQUIRE(items.at(1).GetImage() != nullptr);
+					}
+
+					AND_WHEN("rolling it back")
+					{
+						command.Rollback();
+
+						THEN("the item is removed")
+						{
+							REQUIRE(items.size() == 1);
+							REQUIRE(items.at(0).GetParagraph() != nullptr);
+						}
+					}
+				}
+			}
 		}
 	}
 
