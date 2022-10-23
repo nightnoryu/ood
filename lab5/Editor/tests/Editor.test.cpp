@@ -8,6 +8,7 @@
 #include "../History/CHistory.h"
 #include "../Image/CImage.h"
 #include "../Paragraph/CParagraph.h"
+#include "../Saver/CHtmlSaver.h"
 #include "catch.hpp"
 #include "fakeit.hpp"
 #include <filesystem>
@@ -609,5 +610,59 @@ TEST_CASE("history")
 
 TEST_CASE("html saver")
 {
-	// TODO
+	fakeit::Mock<IHistory> historyMock;
+	fakeit::When(Method(historyMock, AddAndExecuteCommand)).AlwaysDo([](ICommandPtr const& command) {
+		command->Execute();
+	});
+
+	auto& history = historyMock.get();
+
+	GIVEN("a saver itself")
+	{
+		CHtmlSaver saver;
+
+		AND_GIVEN("a document with a couple of elements")
+		{
+			CDocument document(history, saver);
+			document.SetTitle("Test document");
+			document.InsertParagraph("Fear 'me' you loathsome & lazy creatures", std::nullopt);
+			document.InsertParagraph("I descend upon \"your\" <earth> from the skies", std::nullopt);
+			document.InsertImage("image.jpg", 100, 80, std::nullopt);
+
+			WHEN("saving the document")
+			{
+				auto const path = std::filesystem::temp_directory_path() / "output.html";
+				auto const imagesPath = path.parent_path() / "html_images";
+				document.Save(path.string());
+
+				THEN("the document is saved correctly and text is properly escaped")
+				{
+					std::ifstream file(path.string());
+					std::ostringstream buffer;
+					buffer << file.rdbuf();
+					file.close();
+
+					std::string const result = buffer.str();
+					std::string expected = R"(<html>
+<head>
+  <title>Test document</title>
+</head>
+<body>
+  <h1>Test document</h1>
+  <p>Fear &apos;me&apos; you loathsome &amp; lazy creatures</p>
+  <p>I descend upon &quot;your&quot; &lt;earth&gt; from the skies</p>
+  <img src="path_here" width="100" height="80" />
+</body>
+</html>
+)";
+
+					expected.replace(expected.find("path_here"), 9, (imagesPath / "image_10.jpg").string());
+					std::filesystem::remove(path);
+					std::filesystem::remove_all(imagesPath);
+
+					REQUIRE(result == expected);
+				}
+			}
+		}
+	}
 }
