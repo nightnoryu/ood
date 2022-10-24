@@ -12,4 +12,6 @@ public:
 	virtual void Redo() = 0;
 
 	virtual void AddAndExecuteCommand(ICommandPtr&& command) = 0;
+
+	virtual ~IHistory() = default;
 };
