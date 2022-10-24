@@ -46,6 +46,5 @@ private:
 	std::ostream& m_output;
 	bool m_running = true;
 
-	std::unique_ptr<ISaver> m_saver;
 	std::unique_ptr<IDocument> m_document;
 };
