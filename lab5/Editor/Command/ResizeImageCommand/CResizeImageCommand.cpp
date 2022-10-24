@@ -7,7 +7,6 @@ CResizeImageCommand::CResizeImageCommand(int& imageWidth, int& imageHeight, int 
 	, m_newWidth(newWidth)
 	, m_newHeight(newHeight)
 {
-	CImage::ValidateDimensions(m_newWidth, m_newHeight);
 }
 
 void CResizeImageCommand::DoExecute()

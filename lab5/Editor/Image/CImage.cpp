@@ -42,6 +42,8 @@ int CImage::GetHeight() const
 
 void CImage::Resize(int width, int height)
 {
+	ValidateDimensions(width, height);
+
 	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(
 		m_width,
 		m_height,
