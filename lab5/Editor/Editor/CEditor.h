@@ -40,7 +40,6 @@ private:
 	void Exit();
 
 	static std::optional<std::size_t> GetOptionalIndex(std::string const& value);
-	static void TrimString(std::string& str);
 
 	std::istream& m_input;
 	std::ostream& m_output;

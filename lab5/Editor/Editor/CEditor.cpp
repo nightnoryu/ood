@@ -2,6 +2,12 @@
 #include "../Document/CDocument.h"
 #include <sstream>
 
+static void TrimString(std::string& str)
+{
+	str.erase(0, str.find_first_not_of(' '));
+	str.erase(str.find_last_not_of(' ') + 1);
+}
+
 CEditor::CEditor(std::istream& input, std::ostream& output, IHistory& history, ISaver& saver)
 	: m_document(std::make_unique<CDocument>(history, saver))
 	, m_input(input)
@@ -292,10 +298,4 @@ std::optional<std::size_t> CEditor::GetOptionalIndex(std::string const& value)
 	}
 
 	return std::nullopt;
-}
-
-void CEditor::TrimString(std::string& str)
-{
-	str.erase(0, str.find_first_not_of(' '));
-	str.erase(str.find_last_not_of(' ') + 1);
 }
