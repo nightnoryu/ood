@@ -18,6 +18,13 @@ private:
 		{ '\'', "&apos;" },
 	};
 
-	static std::string Escape(std::string const& result);
+	static std::string CreateImagesDirectory(std::string const& documentPath);
 	static std::string GetImagesDirectoryPath(std::string const& documentPath);
+
+	static void WriteHeader(std::ostream& output, IDocument const& document);
+	static void WriteImage(std::ostream& output, std::shared_ptr<IImage const> const& image, std::string const& imagesDirectoryPath);
+	static void WriteParagraph(std::ostream& output, std::shared_ptr<IParagraph const> const& paragraph);
+	static void WriteFooter(std::ofstream& output);
+
+	static std::string Escape(std::string const& result);
 };
