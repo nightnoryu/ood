@@ -1,7 +1,9 @@
 #include "PaintUtils.h"
 #include "../Libs/graphics_lib/Canvas/CCanvas.h"
+#include "../Libs/modern_graphics_lib/ModernGraphicsRenderer/CModernGraphicsRenderer.h"
 #include "../Libs/shape_drawing_lib/Rectangle/CRectangle.h"
 #include "../Libs/shape_drawing_lib/Triangle/CTriangle.h"
+#include "Adapter/CModernGraphicsRendererCanvasAdapter.h"
 
 void app::PaintPicture(shape_drawing_lib::CCanvasPainter& painter)
 {
@@ -17,4 +19,16 @@ void app::PaintPictureOnCanvas()
 	graphics_lib::CCanvas simpleCanvas;
 	shape_drawing_lib::CCanvasPainter painter(simpleCanvas);
 	PaintPicture(painter);
+}
+
+void app::PaintPictureOnModernGraphicsRenderer()
+{
+	modern_graphics_lib::CModernGraphicsRenderer renderer(std::cout);
+
+	CModernGraphicsRendererCanvasAdapter adapter(renderer);
+	shape_drawing_lib::CCanvasPainter painter(adapter);
+
+	renderer.BeginDraw();
+	PaintPicture(painter);
+	renderer.EndDraw();
 }
