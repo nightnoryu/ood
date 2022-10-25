@@ -13,4 +13,10 @@ add_executable(GraphicsObjectAdapter
                Libs/modern_graphics_lib/ModernGraphicsRenderer/CModernGraphicsRenderer.cpp
                Libs/modern_graphics_lib/ModernGraphicsRenderer/CModernGraphicsRenderer.h
                Libs/modern_graphics_lib/Point/CPoint.cpp
-               Libs/modern_graphics_lib/Point/CPoint.h App/PaintUtils.h App/PaintUtils.cpp App/Adapter/CModernGraphicsRendererCanvasAdapter.cpp App/Adapter/CModernGraphicsRendererCanvasAdapter.h)
+               Libs/modern_graphics_lib/Point/CPoint.h
+               App/PaintUtils.h
+               App/PaintUtils.cpp
+               App/Adapter/CModernGraphicsRendererCanvasAdapter.cpp
+               App/Adapter/CModernGraphicsRendererCanvasAdapter.h)
+
+add_subdirectory(tests)
