@@ -17,6 +17,6 @@ add_executable(GraphicsObjectAdapterWithColors
                App/PaintUtils.h
                App/PaintUtils.cpp
                App/Adapter/CModernGraphicsRendererCanvasAdapter.cpp
-               App/Adapter/CModernGraphicsRendererCanvasAdapter.h)
+               App/Adapter/CModernGraphicsRendererCanvasAdapter.h Libs/modern_graphics_lib/RgbaColor/CRgbaColor.cpp Libs/modern_graphics_lib/RgbaColor/CRgbaColor.h)
 
 add_subdirectory(tests)

@@ -7,8 +7,8 @@
 
 void app::PaintPicture(shape_drawing_lib::CCanvasPainter& painter)
 {
-	shape_drawing_lib::CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 });
-	shape_drawing_lib::CRectangle rectangle({ 30, 40 }, 18, 24);
+	shape_drawing_lib::CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 }, 0xFF1233);
+	shape_drawing_lib::CRectangle rectangle({ 30, 40 }, 18, 24, 0x00FF12);
 
 	painter.Draw(triangle);
 	painter.Draw(rectangle);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Point/CPoint.h"
+#include "../RgbaColor/CRgbaColor.h"
 #include <iostream>
 
 namespace modern_graphics_lib
@@ -11,13 +12,15 @@ class CModernGraphicsRenderer
 public:
 	CModernGraphicsRenderer(std::ostream& output);
 
-	~CModernGraphicsRenderer();
+	~CModernGraphicsRenderer() noexcept;
 
 	void BeginDraw();
-	void DrawLine(CPoint const& start, CPoint const& end);
+	void DrawLine(CPoint const& start, CPoint const& end, CRgbaColor const& color);
 	void EndDraw();
 
 private:
+	void ApplyColor(CRgbaColor const& color);
+
 	std::ostream& m_output;
 	bool m_drawing = false;
 };
