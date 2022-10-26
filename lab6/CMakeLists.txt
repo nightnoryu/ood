@@ -1,1 +1,2 @@
 add_subdirectory(GraphicsObjectAdapter)
+add_subdirectory(GraphicsClassAdapter)
