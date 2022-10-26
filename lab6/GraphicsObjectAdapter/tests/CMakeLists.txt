@@ -20,4 +20,4 @@ add_executable(GraphicsObjectAdapterTest
                ../App/Adapter/CModernGraphicsRendererCanvasAdapter.h)
 
 target_link_libraries(GraphicsObjectAdapterTest PUBLIC catch2)
-add_test(NAME GraphicsObjectAdapterTest COMMAND EditorTest)
+add_test(NAME GraphicsObjectAdapterTest COMMAND GraphicsObjectAdapterTest)
