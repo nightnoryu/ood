@@ -58,7 +58,7 @@ void modern_graphics_lib::CModernGraphicsRenderer::ApplyColor(CRgbaColor const& 
 			 << std::fixed << std::setprecision(1)
 			 << color.r << "\" g=\"" << color.g << "\" b=\"" << color.b
 			 << std::fixed << std::setprecision(2)
-			 << "\" a=\"" << color.a << "\"/>";
+			 << "\" a=\"" << color.a << "\"/>\n";
 
 	m_output.copyfmt(oldState);
 }

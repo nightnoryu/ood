@@ -9,7 +9,7 @@ void app::CModernGraphicsRendererCanvasAdapter::SetColor(graphics_lib::RgbColor 
 {
 	m_color.r = static_cast<float>((color >> 16) & 0xFF) / 255;
 	m_color.g = static_cast<float>((color >> 8) & 0xFF) / 255;
-	m_color.g = static_cast<float>(color & 0xFF) / 255;
+	m_color.b = static_cast<float>(color & 0xFF) / 255;
 }
 
 void app::CModernGraphicsRendererCanvasAdapter::MoveTo(int x, int y)
