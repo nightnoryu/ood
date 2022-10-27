@@ -1,13 +1,30 @@
 #include "CDocument.h"
+#include "../Command/ChangeDocumentTitleCommand/CChangeDocumentTitleCommand.h"
+#include "../Command/DeleteItemCommand/CDeleteItemCommand.h"
+#include "../Command/InsertDocumentItemCommand/CInsertDocumentItemCommand.h"
+#include "../Image/CImage.h"
+#include "../Paragraph/CParagraph.h"
 
-std::shared_ptr<IParagraph> CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
+CDocument::CDocument(IHistory& history, ISaver& saver)
+	: m_history(history)
+	, m_saver(saver)
 {
-	return std::shared_ptr<IParagraph>();
 }
 
-std::shared_ptr<IImage> CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
+void CDocument::InsertParagraph(std::string const& text, std::optional<std::size_t> position)
 {
-	return std::shared_ptr<IImage>();
+	auto paragraph = std::make_shared<CParagraph>(text, m_history);
+	auto item = std::make_shared<CDocumentItem>(std::move(paragraph));
+
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, std::move(item), position));
+}
+
+void CDocument::InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position)
+{
+	auto image = std::make_shared<CImage>(path, width, height, m_history);
+	auto item = std::make_shared<CDocumentItem>(std::move(image));
+
+	m_history.AddAndExecuteCommand(std::make_unique<CInsertDocumentItemCommand>(m_items, std::move(item), position));
 }
 
 size_t CDocument::GetItemsCount() const
@@ -27,7 +44,7 @@ CDocumentItem CDocument::GetItem(std::size_t index)
 
 void CDocument::DeleteItem(std::size_t index)
 {
-	// TODO
+	m_history.AddAndExecuteCommand(std::make_unique<CDeleteItemCommand>(m_items, index));
 }
 
 std::string CDocument::GetTitle() const
@@ -37,34 +54,30 @@ std::string CDocument::GetTitle() const
 
 void CDocument::SetTitle(std::string const& title)
 {
-	m_title = title;
+	m_history.AddAndExecuteCommand(std::make_unique<CChangeDocumentTitleCommand>(m_title, title));
 }
 
 bool CDocument::CanUndo() const
 {
-	// TODO
-	return false;
+	return m_history.CanUndo();
 }
 
-bool CDocument::Undo()
+void CDocument::Undo()
 {
-	// TODO
-	return false;
+	m_history.Undo();
 }
 
 bool CDocument::CanRedo() const
 {
-	// TODO
-	return false;
+	return m_history.CanRedo();
 }
 
-bool CDocument::Redo()
+void CDocument::Redo()
 {
-	// TODO
-	return false;
+	m_history.Redo();
 }
 
 void CDocument::Save(std::string const& path) const
 {
-	// TODO
+	m_saver.Save(*this, path);
 }

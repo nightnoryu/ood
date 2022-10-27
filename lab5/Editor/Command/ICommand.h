@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 class ICommand
 {
 public:
@@ -8,3 +10,5 @@ public:
 
 	virtual ~ICommand() = default;
 };
+
+using ICommandPtr = std::unique_ptr<ICommand>;

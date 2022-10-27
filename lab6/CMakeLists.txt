@@ -1,0 +1,3 @@
+add_subdirectory(GraphicsObjectAdapter)
+add_subdirectory(GraphicsClassAdapter)
+add_subdirectory(GraphicsObjectAdapterWithColors)

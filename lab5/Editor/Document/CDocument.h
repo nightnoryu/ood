@@ -1,13 +1,17 @@
 #pragma once
 
-#include "IDocument.h"
+#include "../Editor/IDocument.h"
+#include "IHistory.h"
+#include "ISaver.h"
 #include <vector>
 
 class CDocument : public IDocument
 {
 public:
-	std::shared_ptr<IParagraph> InsertParagraph(std::string const& text, std::optional<std::size_t> position) override;
-	std::shared_ptr<IImage> InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) override;
+	explicit CDocument(IHistory& history, ISaver& saver);
+
+	void InsertParagraph(std::string const& text, std::optional<std::size_t> position) override;
+	void InsertImage(std::string const& path, int width, int height, std::optional<std::size_t> position) override;
 
 	size_t GetItemsCount() const override;
 
@@ -20,14 +24,17 @@ public:
 	void SetTitle(std::string const& title) override;
 
 	bool CanUndo() const override;
-	bool Undo() override;
+	void Undo() override;
 
 	bool CanRedo() const override;
-	bool Redo() override;
+	void Redo() override;
 
 	void Save(std::string const& path) const override;
 
 private:
+	IHistory& m_history;
+	ISaver& m_saver;
+
 	std::vector<CDocumentItem> m_items;
 	std::string m_title;
 };
