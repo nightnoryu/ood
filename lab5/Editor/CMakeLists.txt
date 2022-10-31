@@ -33,6 +33,7 @@ add_executable(Editor
                Saver/CHtmlSaver.h
                Command/DeleteItemCommand/CDeleteItemCommand.cpp
                Command/DeleteItemCommand/CDeleteItemCommand.h
-               Document/IHistory.h)
+               Document/IHistory.h
+               Document/ICommandExecutor.h)
 
 add_subdirectory(tests)

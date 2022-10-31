@@ -4,8 +4,8 @@
 
 namespace fs = std::filesystem;
 
-CImage::CImage(std::string const& path, int width, int height, IHistory& history)
-	: m_history(history)
+CImage::CImage(std::string const& path, int width, int height, ICommandExecutor& commandExecutor)
+	: m_commandExecutor(commandExecutor)
 {
 	ValidateDimensions(width, height);
 	m_width = width;
@@ -44,7 +44,7 @@ void CImage::Resize(int width, int height)
 {
 	ValidateDimensions(width, height);
 
-	m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(
+	m_commandExecutor.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(
 		m_width,
 		m_height,
 		width,

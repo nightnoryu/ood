@@ -33,7 +33,8 @@ add_executable(EditorTest
                ../Saver/CHtmlSaver.h
                ../Command/DeleteItemCommand/CDeleteItemCommand.cpp
                ../Command/DeleteItemCommand/CDeleteItemCommand.h
-               ../Document/IHistory.h)
+               ../Document/IHistory.h
+               ../Document/ICommandExecutor.h)
 
 target_link_libraries(EditorTest PUBLIC catch2 fakeit)
 add_test(NAME EditorTest COMMAND EditorTest)

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../Document/IHistory.h"
+#include "../Document/ICommandExecutor.h"
 #include "../DocumentItem/IParagraph.h"
 
 class CParagraph : public IParagraph
 {
 public:
-	CParagraph(std::string const& text, IHistory& history);
+	CParagraph(std::string const& text, ICommandExecutor& commandExecutor);
 
 	std::string GetText() const override;
 
@@ -14,5 +14,5 @@ public:
 
 private:
 	std::string m_text;
-	IHistory& m_history;
+	ICommandExecutor& m_commandExecutor;
 };

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "../Document/IHistory.h"
+#include "../Document/ICommandExecutor.h"
 #include "../DocumentItem/IImage.h"
 #include <set>
 
 class CImage : public IImage
 {
 public:
-	CImage(std::string const& path, int width, int height, IHistory& history);
+	CImage(std::string const& path, int width, int height, ICommandExecutor& commandExecutor);
 
 	~CImage() noexcept override;
 
@@ -40,5 +40,5 @@ private:
 	std::string m_path;
 	int m_width;
 	int m_height;
-	IHistory& m_history;
+	ICommandExecutor& m_commandExecutor;
 };
