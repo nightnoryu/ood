@@ -12,7 +12,7 @@ class CModernGraphicsRendererCanvasAdapter : public graphics_lib::ICanvas
 public:
 	CModernGraphicsRendererCanvasAdapter(std::ostream& output);
 
-	~CModernGraphicsRendererCanvasAdapter();
+	~CModernGraphicsRendererCanvasAdapter() override;
 
 	void MoveTo(int x, int y) override;
 	void LineTo(int x, int y) override;
