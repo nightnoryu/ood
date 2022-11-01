@@ -1,2 +1,15 @@
 add_executable(Slides
-               main.cpp)
+               main.cpp
+               Canvas/ICanvas.h
+               Style/IStyle.h
+               Shapes/IDrawable.h
+               Shapes/IShape.h
+               Shapes/IGroupShape.h
+               Shapes/IShapes.h
+               Shapes/SimpleShape/CSimpleShape.cpp
+               Shapes/SimpleShape/CSimpleShape.h
+               Shapes/GroupShape/CGroupShape.cpp
+               Shapes/GroupShape/CGroupShape.h
+               Slide/ISlide.h
+               Slide/CSlide.cpp
+               Slide/CSlide.h)
