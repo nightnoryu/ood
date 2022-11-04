@@ -1,15 +1,15 @@
 add_executable(Slides
                main.cpp
                Canvas/ICanvas.h
-               Style/IStyle.h
+               Shapes/ShapeTypes.h
                Shapes/IDrawable.h
                Shapes/IShape.h
-               Shapes/IGroupShape.h
-               Shapes/IShapes.h
-               Shapes/SimpleShape/CSimpleShape.cpp
-               Shapes/SimpleShape/CSimpleShape.h
-               Shapes/GroupShape/CGroupShape.cpp
-               Shapes/GroupShape/CGroupShape.h
-               Slide/ISlide.h
-               Slide/CSlide.cpp
-               Slide/CSlide.h)
+               Shapes/Shape/CShape.cpp
+               Shapes/Shape/CShape.h
+               Shapes/Rectangle/CRectangle.cpp
+               Shapes/Rectangle/CRectangle.h
+               Shapes/Ellipse/CEllipse.cpp
+               Shapes/Ellipse/CEllipse.h
+               Shapes/Triangle/CTriangle.cpp
+               Shapes/Triangle/CTriangle.h
+               Style/IStyle.h)

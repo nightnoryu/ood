@@ -1,32 +1,27 @@
 #pragma once
 
-#include <cstdint>
-
-using RgbaColor = std::uint32_t;
-
-template <typename T>
-struct Rect
-{
-	T left;
-	T top;
-	T width;
-	T height;
-};
-
-using RectD = Rect<double>;
+#include "../Shapes/ShapeTypes.h"
+#include <optional>
+#include <vector>
 
 class ICanvas
 {
 public:
-	virtual void SetLineColor(RgbaColor color) = 0;
+	virtual void DrawLine(PointD start, PointD end, std::optional<RgbaColor> color) = 0;
 
-	virtual void BeginFill(RgbaColor color) = 0;
-	virtual void EndFill() = 0;
+	virtual void DrawPolygon(
+		std::vector<PointD> const& points,
+		std::optional<RgbaColor> outlineColor,
+		std::optional<RgbaColor> fillColor)
+		= 0;
 
-	virtual void MoveTo(double x, double y) = 0;
-	virtual void LineTo(double x, double y) = 0;
-
-	virtual void DrawEllipse(double left, double top, double width, double height) = 0;
+	virtual void DrawEllipse(
+		PointD center,
+		double horizontalRadius,
+		double verticalRadius,
+		std::optional<RgbaColor> outlineColor,
+		std::optional<RgbaColor> fillColor)
+		= 0;
 
 	virtual ~ICanvas() = 0;
 };
