@@ -30,5 +30,8 @@ public:
 		std::optional<double> outlineThickness) override;
 
 private:
+	static std::string ColorToSvg(RgbaColor color);
+	static std::string PointsToSvg(std::vector<PointD> const& points);
+
 	std::ostream& m_output;
 };
