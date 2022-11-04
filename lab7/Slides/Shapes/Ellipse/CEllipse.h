@@ -9,7 +9,7 @@ public:
 		PointD const& center,
 		double horizontalRadius,
 		double verticalRadius,
-		std::shared_ptr<IStyle> const& outlineStyle,
+		std::shared_ptr<IOutlineStyle> const& outlineStyle,
 		std::shared_ptr<IStyle> const& fillStyle);
 
 	RectD GetFrame() const override;

@@ -4,7 +4,7 @@ CTriangle::CTriangle(
 	PointD const& vertex1,
 	PointD const& vertex2,
 	PointD const& vertex3,
-	std::shared_ptr<IStyle> const& outlineStyle,
+	std::shared_ptr<IOutlineStyle> const& outlineStyle,
 	std::shared_ptr<IStyle> const& fillStyle)
 	: m_vertex1(vertex1)
 	, m_vertex2(vertex2)
@@ -32,5 +32,9 @@ void CTriangle::SetFrame(RectD const& rect)
 
 void CTriangle::Draw(ICanvas& canvas) const
 {
-	canvas.DrawPolygon({ m_vertex1, m_vertex2, m_vertex3 }, GetOutlineColor(), GetFillColor());
+	canvas.DrawPolygon(
+		{ m_vertex1, m_vertex2, m_vertex3 },
+		GetOutlineColor(),
+		GetFillColor(),
+		GetOutlineThickness());
 }

@@ -7,12 +7,18 @@
 class ICanvas
 {
 public:
-	virtual void DrawLine(PointD start, PointD end, std::optional<RgbaColor> color) = 0;
+	virtual void DrawLine(
+		PointD start,
+		PointD end,
+		std::optional<RgbaColor> color,
+		std::optional<double> thickness)
+		= 0;
 
 	virtual void DrawPolygon(
 		std::vector<PointD> const& points,
 		std::optional<RgbaColor> outlineColor,
-		std::optional<RgbaColor> fillColor)
+		std::optional<RgbaColor> fillColor,
+		std::optional<double> outlineThickness)
 		= 0;
 
 	virtual void DrawEllipse(
@@ -20,7 +26,8 @@ public:
 		double horizontalRadius,
 		double verticalRadius,
 		std::optional<RgbaColor> outlineColor,
-		std::optional<RgbaColor> fillColor)
+		std::optional<RgbaColor> fillColor,
+		std::optional<double> outlineThickness)
 		= 0;
 
 	virtual ~ICanvas() = 0;

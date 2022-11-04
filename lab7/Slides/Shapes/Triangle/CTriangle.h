@@ -9,7 +9,7 @@ public:
 		PointD const& vertex1,
 		PointD const& vertex2,
 		PointD const& vertex3,
-		std::shared_ptr<IStyle> const& outlineStyle,
+		std::shared_ptr<IOutlineStyle> const& outlineStyle,
 		std::shared_ptr<IStyle> const& fillStyle);
 
 	RectD GetFrame() const override;

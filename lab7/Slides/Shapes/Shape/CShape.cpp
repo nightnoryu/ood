@@ -1,17 +1,17 @@
 #include "CShape.h"
 
-CShape::CShape(std::shared_ptr<IStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle)
+CShape::CShape(std::shared_ptr<IOutlineStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle)
 	: m_outlineStyle(outlineStyle)
 	, m_fillStyle(fillStyle)
 {
 }
 
-std::shared_ptr<IStyle> CShape::GetOutlineStyle()
+std::shared_ptr<IOutlineStyle> CShape::GetOutlineStyle()
 {
 	return m_outlineStyle;
 }
 
-std::shared_ptr<IStyle const> CShape::GetOutlineStyle() const
+std::shared_ptr<IOutlineStyle const> CShape::GetOutlineStyle() const
 {
 	return m_outlineStyle;
 }
@@ -35,6 +35,17 @@ std::optional<RgbaColor> CShape::GetOutlineColor() const
 	}
 
 	return outlineColor;
+}
+
+std::optional<double> CShape::GetOutlineThickness() const
+{
+	std::optional<double> thickness = std::nullopt;
+	if (m_outlineStyle->IsEnabled())
+	{
+		thickness = m_outlineStyle->GetThickness();
+	}
+
+	return thickness;
 }
 
 std::optional<RgbaColor> CShape::GetFillColor() const

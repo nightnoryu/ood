@@ -4,7 +4,7 @@ CRectangle::CRectangle(
 	PointD const& leftTop,
 	double width,
 	double height,
-	std::shared_ptr<IStyle> const& outlineStyle,
+	std::shared_ptr<IOutlineStyle> const& outlineStyle,
 	std::shared_ptr<IStyle> const& fillStyle)
 	: m_leftTop(leftTop)
 	, m_width(width)
@@ -38,5 +38,5 @@ void CRectangle::Draw(ICanvas& canvas) const
 		{ m_leftTop.x, m_leftTop.y + m_height },
 	};
 
-	canvas.DrawPolygon(points, GetOutlineColor(), GetFillColor());
+	canvas.DrawPolygon(points, GetOutlineColor(), GetFillColor(), GetOutlineThickness());
 }
