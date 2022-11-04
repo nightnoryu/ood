@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shapes/ShapeTypes.h"
+#include "../../Shapes/ShapeTypes.h"
 #include <optional>
 #include <vector>
 
@@ -22,7 +22,7 @@ public:
 		= 0;
 
 	virtual void DrawEllipse(
-		PointD center,
+		PointD const& center,
 		double horizontalRadius,
 		double verticalRadius,
 		std::optional<RgbaColor> outlineColor,
@@ -30,5 +30,5 @@ public:
 		std::optional<double> outlineThickness)
 		= 0;
 
-	virtual ~ICanvas() = 0;
+	virtual ~ICanvas() = default;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Canvas/ICanvas.h"
+#include "../Common/App/ICanvas.h"
 
 class IDrawable
 {

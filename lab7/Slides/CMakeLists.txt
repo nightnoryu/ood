@@ -1,6 +1,8 @@
 add_executable(Slides
                main.cpp
-               Canvas/ICanvas.h
+               Common/App/ICanvas.h
+               Common/Infrastructure/SVG/CCanvas.cpp
+               Common/Infrastructure/SVG/CCanvas.h
                Shapes/ShapeTypes.h
                Shapes/IDrawable.h
                Shapes/IShape.h
@@ -12,4 +14,5 @@ add_executable(Slides
                Shapes/Ellipse/CEllipse.h
                Shapes/Triangle/CTriangle.cpp
                Shapes/Triangle/CTriangle.h
-               Style/IStyle.h Style/IOutlineStyle.h)
+               Style/IStyle.h
+               Style/IOutlineStyle.h)
