@@ -15,4 +15,4 @@ add_executable(Slides
                Shapes/Triangle/CTriangle.cpp
                Shapes/Triangle/CTriangle.h
                Style/IStyle.h
-               Style/IOutlineStyle.h)
+               Style/IOutlineStyle.h ShapeGroup/IShapeGroup.h ShapeGroup/CShapeGroup.cpp ShapeGroup/CShapeGroup.h)
