@@ -1,8 +1,9 @@
 #pragma once
 
+#include "../Slide/CShapeCollectionImpl.h"
 #include "IShapeGroup.h"
 
-class CShapeGroup : public IShapeGroup
+class CShapeGroup : public CShapeCollectionImpl<IShapeGroup>
 {
 public:
 	CShapeGroup();
@@ -18,13 +19,7 @@ public:
 
 	void Draw(ICanvas& canvas) const override;
 
-	size_t GetShapesCount() const override;
-	std::shared_ptr<IShape> GetShapeAtIndex(std::size_t index) override;
-	void InsertShape(std::shared_ptr<IShape> const& shape, std::size_t index) override;
-	void RemoveShapeAtIndex(std::size_t index) override;
-
 private:
-	std::vector<std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<IOutlineStyle> m_outlineStyle;
 	std::shared_ptr<IStyle> m_fillStyle;
 };

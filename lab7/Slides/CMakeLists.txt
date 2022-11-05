@@ -5,7 +5,7 @@ add_executable(Slides
                Common/Infrastructure/SVG/CCanvas.h
                Shapes/ShapeTypes.h
                Common/App/IDrawable.h
-               Shapes/IShape.h
+               Slide/IShape.h
                Shapes/Shape/CShape.cpp
                Shapes/Shape/CShape.h
                Shapes/Rectangle/CRectangle.cpp
@@ -16,16 +16,16 @@ add_executable(Slides
                Shapes/Triangle/CTriangle.h
                Shapes/IStyle.h
                Shapes/IOutlineStyle.h
-               Style/CStyleImpl.h
-               Style/FillStyle/CFillStyle.h
-               Style/OutlineStyle/COutlineStyle.cpp
-               Style/OutlineStyle/COutlineStyle.h
-               Style/GroupStyles/GroupFillStyle/CGroupFillStyle.cpp
-               Style/GroupStyles/GroupFillStyle/CGroupFillStyle.h
-               Style/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.cpp
-               Style/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h
+               Styles/CStyleImpl.h
+               Styles/FillStyle/CFillStyle.h
+               Styles/OutlineStyle/COutlineStyle.cpp
+               Styles/OutlineStyle/COutlineStyle.h
+               Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.cpp
+               Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.h
+               Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.cpp
+               Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h
                ShapeGroup/IShapeGroup.h
                ShapeGroup/CShapeGroup.cpp
-               ShapeGroup/CShapeGroup.h)
+               ShapeGroup/CShapeGroup.h Slide/ISlide.h Slide/IShapeCollection.h Slide/Slide/CSlide.cpp Slide/Slide/CSlide.h Slide/ShapeCollection/CShapeCollection.h Slide/CShapeCollectionImpl.h)
 
 add_subdirectory(tests)
