@@ -27,3 +27,5 @@ add_executable(Slides
                ShapeGroup/IShapeGroup.h
                ShapeGroup/CShapeGroup.cpp
                ShapeGroup/CShapeGroup.h)
+
+add_subdirectory(tests)
