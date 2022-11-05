@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../IStyle.h"
+#include "../../../Shapes/IStyle.h"
 #include <functional>
 
 using IStyleCallback = std::function<void(IStyle&)>;

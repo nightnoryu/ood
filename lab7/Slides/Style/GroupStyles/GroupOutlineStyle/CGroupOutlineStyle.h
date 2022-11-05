@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../IOutlineStyle.h"
+#include "../../../Shapes/IOutlineStyle.h"
 #include <functional>
 
 using IOutlineStyleCallback = std::function<void(IOutlineStyle&)>;

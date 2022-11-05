@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Common/App/IDrawable.h"
-#include "../Style/IOutlineStyle.h"
+#include "IOutlineStyle.h"
 #include <memory>
 
 class IShape : public IDrawable
