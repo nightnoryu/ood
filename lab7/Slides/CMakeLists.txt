@@ -20,12 +20,18 @@ add_executable(Slides
                Styles/FillStyle/CFillStyle.h
                Styles/OutlineStyle/COutlineStyle.cpp
                Styles/OutlineStyle/COutlineStyle.h
-               Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.cpp
+               Styles/GroupStyles/CGroupStyleImpl.h
                Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.h
                Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.cpp
                Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h
                ShapeGroup/IShapeGroup.h
                ShapeGroup/CShapeGroup.cpp
-               ShapeGroup/CShapeGroup.h Slide/ISlide.h Slide/IShapeCollection.h Slide/Slide/CSlide.cpp Slide/Slide/CSlide.h Slide/ShapeCollection/CShapeCollection.h Slide/CShapeCollectionImpl.h)
+               ShapeGroup/CShapeGroup.h
+               Slide/ISlide.h
+               Slide/IShapeCollection.h
+               Slide/Slide/CSlide.cpp
+               Slide/Slide/CSlide.h
+               Slide/ShapeCollection/CShapeCollection.h
+               Slide/CShapeCollectionImpl.h)
 
 add_subdirectory(tests)
