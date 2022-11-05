@@ -105,7 +105,7 @@ void CCanvas::DrawEllipse(
 std::string CCanvas::ColorToSvg(RgbaColor color)
 {
 	std::ostringstream stream;
-	stream << std::hex << std::uppercase << std::setw(6) << color;
+	stream << "#" << std::hex << std::uppercase << std::setw(6) << std::setfill('0') << color;
 
 	return stream.str();
 }
