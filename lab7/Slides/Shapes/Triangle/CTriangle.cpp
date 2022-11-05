@@ -1,15 +1,9 @@
 #include "CTriangle.h"
 
-CTriangle::CTriangle(
-	PointD const& vertex1,
-	PointD const& vertex2,
-	PointD const& vertex3,
-	std::shared_ptr<IOutlineStyle> const& outlineStyle,
-	std::shared_ptr<IStyle> const& fillStyle)
+CTriangle::CTriangle(PointD const& vertex1, PointD const& vertex2, PointD const& vertex3)
 	: m_vertex1(vertex1)
 	, m_vertex2(vertex2)
 	, m_vertex3(vertex3)
-	, CShape(outlineStyle, fillStyle)
 {
 }
 

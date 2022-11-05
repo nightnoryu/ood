@@ -1,8 +1,10 @@
 #include "CShape.h"
+#include "../../Style/FillStyle/CFillStyle.h"
+#include "../../Style/OutlineStyle/COutlineStyle.h"
 
-CShape::CShape(std::shared_ptr<IOutlineStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle)
-	: m_outlineStyle(outlineStyle)
-	, m_fillStyle(fillStyle)
+CShape::CShape()
+	: m_outlineStyle(std::make_shared<COutlineStyle>())
+	, m_fillStyle(std::make_shared<CFillStyle>())
 {
 }
 

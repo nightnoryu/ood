@@ -6,7 +6,7 @@
 class CShape : public IShape
 {
 public:
-	CShape(std::shared_ptr<IOutlineStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle);
+	CShape();
 
 	std::shared_ptr<IOutlineStyle> GetOutlineStyle() final;
 	std::shared_ptr<IOutlineStyle const> GetOutlineStyle() const final;

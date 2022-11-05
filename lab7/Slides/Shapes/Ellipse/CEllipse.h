@@ -5,12 +5,7 @@
 class CEllipse : public CShape
 {
 public:
-	CEllipse(
-		PointD const& center,
-		double horizontalRadius,
-		double verticalRadius,
-		std::shared_ptr<IOutlineStyle> const& outlineStyle,
-		std::shared_ptr<IStyle> const& fillStyle);
+	CEllipse(PointD const& center, double horizontalRadius, double verticalRadius);
 
 	RectD GetFrame() const override;
 	void SetFrame(RectD const& rect) override;

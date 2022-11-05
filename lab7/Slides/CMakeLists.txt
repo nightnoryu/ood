@@ -4,7 +4,7 @@ add_executable(Slides
                Common/Infrastructure/SVG/CCanvas.cpp
                Common/Infrastructure/SVG/CCanvas.h
                Shapes/ShapeTypes.h
-               Shapes/IDrawable.h
+               Common/App/IDrawable.h
                Shapes/IShape.h
                Shapes/Shape/CShape.cpp
                Shapes/Shape/CShape.h

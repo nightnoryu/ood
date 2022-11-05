@@ -5,12 +5,7 @@
 class CTriangle : public CShape
 {
 public:
-	CTriangle(
-		PointD const& vertex1,
-		PointD const& vertex2,
-		PointD const& vertex3,
-		std::shared_ptr<IOutlineStyle> const& outlineStyle,
-		std::shared_ptr<IStyle> const& fillStyle);
+	CTriangle(PointD const& vertex1, PointD const& vertex2, PointD const& vertex3);
 
 	RectD GetFrame() const override;
 	void SetFrame(RectD const& rect) override;

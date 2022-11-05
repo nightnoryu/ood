@@ -1,15 +1,9 @@
 #include "CRectangle.h"
 
-CRectangle::CRectangle(
-	PointD const& leftTop,
-	double width,
-	double height,
-	std::shared_ptr<IOutlineStyle> const& outlineStyle,
-	std::shared_ptr<IStyle> const& fillStyle)
+CRectangle::CRectangle(PointD const& leftTop, double width, double height)
 	: m_leftTop(leftTop)
 	, m_width(width)
 	, m_height(height)
-	, CShape(outlineStyle, fillStyle)
 {
 }
 

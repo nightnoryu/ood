@@ -5,12 +5,7 @@
 class CRectangle : public CShape
 {
 public:
-	CRectangle(
-		PointD const& leftTop,
-		double width,
-		double height,
-		std::shared_ptr<IOutlineStyle> const& outlineStyle,
-		std::shared_ptr<IStyle> const& fillStyle);
+	CRectangle(PointD const& leftTop, double width, double height);
 
 	RectD GetFrame() const override;
 	void SetFrame(RectD const& rect) override;
