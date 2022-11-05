@@ -1,6 +1,6 @@
 #include "COutlineStyle.h"
 
-double COutlineStyle::GetThickness() const
+std::optional<double> COutlineStyle::GetThickness() const
 {
 	return m_thickness;
 }

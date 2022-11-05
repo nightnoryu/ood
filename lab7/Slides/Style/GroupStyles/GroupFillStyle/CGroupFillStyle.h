@@ -15,7 +15,7 @@ public:
 	void Enable() override;
 	void Disable() override;
 
-	RgbaColor GetColor() const override;
+	std::optional<RgbaColor> GetColor() const override;
 	void SetColor(RgbaColor color) override;
 
 private:

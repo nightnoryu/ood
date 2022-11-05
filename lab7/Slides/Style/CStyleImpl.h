@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Shapes/ShapeTypes.h"
+#include <optional>
 
 template <class Base>
 class CStyleImpl : public Base
@@ -21,7 +22,7 @@ public:
 		m_enabled = false;
 	}
 
-	RgbaColor GetColor() const final
+	std::optional<RgbaColor> GetColor() const final
 	{
 		return m_color;
 	}

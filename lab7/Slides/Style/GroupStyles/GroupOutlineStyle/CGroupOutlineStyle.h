@@ -15,10 +15,10 @@ public:
 	void Enable() override;
 	void Disable() override;
 
-	RgbaColor GetColor() const override;
+	std::optional<RgbaColor> GetColor() const override;
 	void SetColor(RgbaColor color) override;
 
-	double GetThickness() const override;
+	std::optional<double> GetThickness() const override;
 	void SetThickness(double thickness) override;
 
 private:

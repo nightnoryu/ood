@@ -5,6 +5,6 @@
 class IOutlineStyle : public IStyle
 {
 public:
-	virtual double GetThickness() const = 0;
+	virtual std::optional<double> GetThickness() const = 0;
 	virtual void SetThickness(double thickness) = 0;
 };

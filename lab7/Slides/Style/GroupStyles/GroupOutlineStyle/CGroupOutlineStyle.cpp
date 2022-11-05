@@ -30,10 +30,10 @@ void CGroupOutlineStyle::Disable()
 	});
 }
 
-RgbaColor CGroupOutlineStyle::GetColor() const
+std::optional<RgbaColor> CGroupOutlineStyle::GetColor() const
 {
 	// TODO: implement with optional
-	return 0;
+	return std::nullopt;
 }
 
 void CGroupOutlineStyle::SetColor(RgbaColor color)
@@ -43,10 +43,10 @@ void CGroupOutlineStyle::SetColor(RgbaColor color)
 	});
 }
 
-double CGroupOutlineStyle::GetThickness() const
+std::optional<double> CGroupOutlineStyle::GetThickness() const
 {
 	// TODO: implement with optional
-	return 0;
+	return std::nullopt;
 }
 
 void CGroupOutlineStyle::SetThickness(double thickness)

@@ -30,10 +30,10 @@ void CGroupFillStyle::Disable()
 	});
 }
 
-RgbaColor CGroupFillStyle::GetColor() const
+std::optional<RgbaColor> CGroupFillStyle::GetColor() const
 {
 	// TODO: implement with optional
-	return 0;
+	return std::nullopt;
 }
 
 void CGroupFillStyle::SetColor(RgbaColor color)

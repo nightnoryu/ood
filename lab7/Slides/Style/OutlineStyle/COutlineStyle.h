@@ -6,7 +6,7 @@
 class COutlineStyle : public CStyleImpl<IOutlineStyle>
 {
 public:
-	double GetThickness() const override;
+	std::optional<double> GetThickness() const override;
 	void SetThickness(double thickness) override;
 
 private:
