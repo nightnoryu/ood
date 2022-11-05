@@ -6,27 +6,27 @@ template <class Base>
 class CStyleImpl : public Base
 {
 public:
-	bool IsEnabled() const override
+	bool IsEnabled() const final
 	{
 		return m_enabled;
 	}
 
-	void Enable() override
+	void Enable() final
 	{
 		m_enabled = true;
 	}
 
-	void Disable() override
+	void Disable() final
 	{
 		m_enabled = false;
 	}
 
-	RgbaColor GetColor() const override
+	RgbaColor GetColor() const final
 	{
 		return m_color;
 	}
 
-	void SetColor(RgbaColor color) override
+	void SetColor(RgbaColor color) final
 	{
 		m_color = color;
 	}
