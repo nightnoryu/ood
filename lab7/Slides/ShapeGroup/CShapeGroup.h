@@ -5,7 +5,7 @@
 class CShapeGroup : public IShapeGroup
 {
 public:
-	CShapeGroup(std::shared_ptr<IOutlineStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle);
+	CShapeGroup();
 
 	RectD GetFrame() const override;
 	void SetFrame(RectD const& rect) override;

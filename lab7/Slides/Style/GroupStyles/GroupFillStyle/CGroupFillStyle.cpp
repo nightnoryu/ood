@@ -1,6 +1,6 @@
 #include "CGroupFillStyle.h"
 
-CGroupFillStyle::CGroupFillStyle(IFillStyleEnumerator const& enumerator)
+CGroupFillStyle::CGroupFillStyle(IStyleEnumerator const& enumerator)
 	: m_enumerator(enumerator)
 {
 }

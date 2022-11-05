@@ -4,12 +4,12 @@
 #include <functional>
 
 using IStyleCallback = std::function<void(IStyle&)>;
-using IFillStyleEnumerator = std::function<void(IStyleCallback const&)>;
+using IStyleEnumerator = std::function<void(IStyleCallback const&)>;
 
 class CGroupFillStyle : public IStyle
 {
 public:
-	explicit CGroupFillStyle(IFillStyleEnumerator const& enumerator);
+	explicit CGroupFillStyle(IStyleEnumerator const& enumerator);
 
 	bool IsEnabled() const override;
 	void Enable() override;
@@ -19,5 +19,5 @@ public:
 	void SetColor(RgbaColor color) override;
 
 private:
-	IFillStyleEnumerator m_enumerator;
+	IStyleEnumerator m_enumerator;
 };

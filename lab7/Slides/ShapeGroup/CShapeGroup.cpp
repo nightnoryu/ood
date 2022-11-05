@@ -1,9 +1,25 @@
 #include "CShapeGroup.h"
+#include "../Style/GroupStyles/GroupFillStyle/CGroupFillStyle.h"
+#include "../Style/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h"
 
-CShapeGroup::CShapeGroup(std::shared_ptr<IOutlineStyle> const& outlineStyle, std::shared_ptr<IStyle> const& fillStyle)
-	: m_outlineStyle(outlineStyle)
-	, m_fillStyle(fillStyle)
+CShapeGroup::CShapeGroup()
 {
+	auto outlineStyleEnumerator = [this](IOutlineStyleCallback const& callback) {
+		for (auto&& shape : m_shapes)
+		{
+			callback(*shape->GetOutlineStyle());
+		}
+	};
+
+	auto fillStyleEnumerator = [this](IStyleCallback const& callback) {
+		for (auto&& shape : m_shapes)
+		{
+			callback(*shape->GetFillStyle());
+		}
+	};
+
+	m_outlineStyle = std::make_shared<CGroupOutlineStyle>(outlineStyleEnumerator);
+	m_fillStyle = std::make_shared<CGroupFillStyle>(fillStyleEnumerator);
 }
 
 RectD CShapeGroup::GetFrame() const
@@ -19,7 +35,6 @@ void CShapeGroup::SetFrame(RectD const& rect)
 
 std::shared_ptr<IOutlineStyle> CShapeGroup::GetOutlineStyle()
 {
-	// TODO: IOutlineStyle implementation taking into account several shapes
 	return m_outlineStyle;
 }
 
@@ -30,7 +45,6 @@ std::shared_ptr<IOutlineStyle const> CShapeGroup::GetOutlineStyle() const
 
 std::shared_ptr<IStyle> CShapeGroup::GetFillStyle()
 {
-	// TODO: IStyle implementation taking into account several shapes
 	return m_fillStyle;
 }
 
