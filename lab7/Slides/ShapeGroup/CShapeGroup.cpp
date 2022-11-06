@@ -64,8 +64,8 @@ void CShapeGroup::SetFrame(RectD const& rect)
 	{
 		auto frame = shape->GetFrame();
 
-		auto newX = frame.leftTop.x + (frame.leftTop.x - currentFrame.leftTop.x) * scaleFactorX;
-		auto newY = frame.leftTop.y + (frame.leftTop.y - currentFrame.leftTop.y) * scaleFactorY;
+		auto newX = rect.leftTop.x + (frame.leftTop.x - currentFrame.leftTop.x) * scaleFactorX;
+		auto newY = rect.leftTop.y + (frame.leftTop.y - currentFrame.leftTop.y) * scaleFactorY;
 		auto newWidth = frame.width * scaleFactorX;
 		auto newHeight = frame.height * scaleFactorY;
 

@@ -9,6 +9,11 @@ struct Point
 {
 	T x;
 	T y;
+
+	bool operator==(Point const& other) const
+	{
+		return x == other.x && y == other.y;
+	}
 };
 
 using PointD = Point<double>;
@@ -39,6 +44,11 @@ struct Rect
 	bool IsEmpty()
 	{
 		return width == 0 && height == 0;
+	}
+
+	bool operator==(Rect const& other) const
+	{
+		return leftTop == other.leftTop && width == other.width && height == other.height;
 	}
 
 	Point<T> leftTop;
