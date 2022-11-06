@@ -21,7 +21,18 @@ RectD CTriangle::GetFrame() const
 
 void CTriangle::SetFrame(RectD const& rect)
 {
-	// TODO: calculate points scaling
+	auto currentFrame = GetFrame();
+	if (currentFrame.IsEmpty())
+	{
+		return;
+	}
+
+	auto scaleFactorX = rect.width / currentFrame.width;
+	auto scaleFactorY = rect.height / currentFrame.height;
+
+	ScalePoint(m_vertex1, currentFrame, rect, scaleFactorX, scaleFactorY);
+	ScalePoint(m_vertex2, currentFrame, rect, scaleFactorX, scaleFactorY);
+	ScalePoint(m_vertex3, currentFrame, rect, scaleFactorX, scaleFactorY);
 }
 
 void CTriangle::Draw(ICanvas& canvas) const
@@ -31,4 +42,15 @@ void CTriangle::Draw(ICanvas& canvas) const
 		GetOutlineColor(),
 		GetFillColor(),
 		GetOutlineThickness());
+}
+
+void CTriangle::ScalePoint(
+	PointD& point,
+	RectD const& initialFrame,
+	RectD const& newFrame,
+	double scaleFactorX,
+	double scaleFactorY)
+{
+	point.x = newFrame.leftTop.x + (point.x - initialFrame.leftTop.x) * scaleFactorX;
+	point.y = newFrame.leftTop.y + (point.y - initialFrame.leftTop.y) * scaleFactorY;
 }

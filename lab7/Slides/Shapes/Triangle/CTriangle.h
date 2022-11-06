@@ -13,6 +13,13 @@ public:
 	void Draw(ICanvas& canvas) const override;
 
 private:
+	static void ScalePoint(
+		PointD& point,
+		RectD const& initialFrame,
+		RectD const& newFrame,
+		double scaleFactorX,
+		double scaleFactorY);
+
 	PointD m_vertex1;
 	PointD m_vertex2;
 	PointD m_vertex3;
