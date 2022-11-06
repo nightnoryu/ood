@@ -24,13 +24,53 @@ CShapeGroup::CShapeGroup()
 
 RectD CShapeGroup::GetFrame() const
 {
-	// TODO: implement
-	return {};
+	if (m_shapes.empty())
+	{
+		return {};
+	}
+
+	double minX, minY;
+	minX = minY = std::numeric_limits<double>::max();
+
+	double maxX, maxY;
+	maxX = maxY = std::numeric_limits<double>::min();
+
+	for (auto&& shape : m_shapes)
+	{
+		auto frame = shape->GetFrame();
+
+		minX = std::min(minX, frame.Left());
+		minY = std::min(minY, frame.Top());
+
+		maxX = std::max(maxX, frame.Right());
+		maxY = std::max(maxY, frame.Bottom());
+	}
+
+	return RectD{ { minX, minY }, maxX - minX, maxY - minY };
 }
 
 void CShapeGroup::SetFrame(RectD const& rect)
 {
-	// TODO: implement
+	auto currentFrame = GetFrame();
+	if (currentFrame.IsEmpty())
+	{
+		return;
+	}
+
+	auto scaleFactorX = rect.width / currentFrame.width;
+	auto scaleFactorY = rect.height / currentFrame.height;
+
+	for (auto&& shape : m_shapes)
+	{
+		auto frame = shape->GetFrame();
+
+		auto newX = frame.leftTop.x + (frame.leftTop.x - currentFrame.leftTop.x) * scaleFactorX;
+		auto newY = frame.leftTop.y + (frame.leftTop.y - currentFrame.leftTop.y) * scaleFactorY;
+		auto newWidth = frame.width * scaleFactorX;
+		auto newHeight = frame.height * scaleFactorY;
+
+		shape->SetFrame({ { newX, newY }, newWidth, newHeight });
+	}
 }
 
 std::shared_ptr<IOutlineStyle> CShapeGroup::GetOutlineStyle()

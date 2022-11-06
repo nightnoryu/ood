@@ -16,6 +16,31 @@ using PointD = Point<double>;
 template <typename T>
 struct Rect
 {
+	T Top()
+	{
+		return leftTop.y;
+	}
+
+	T Right()
+	{
+		return leftTop.x + width;
+	}
+
+	T Bottom()
+	{
+		return leftTop.y + height;
+	}
+
+	T Left()
+	{
+		return leftTop.x;
+	}
+
+	bool IsEmpty()
+	{
+		return width == 0 && height == 0;
+	}
+
 	Point<T> leftTop;
 	T width;
 	T height;
