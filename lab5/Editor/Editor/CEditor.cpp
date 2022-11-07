@@ -1,5 +1,4 @@
 #include "CEditor.h"
-#include "../Document/CDocument.h"
 #include <sstream>
 
 static void TrimString(std::string& str)
@@ -9,7 +8,7 @@ static void TrimString(std::string& str)
 }
 
 CEditor::CEditor(std::istream& input, std::ostream& output, IHistory& history, ISaver& saver)
-	: m_document(std::make_unique<CDocument>(history, saver))
+	: m_document(history, saver)
 	, m_input(input)
 	, m_output(output)
 {
@@ -129,7 +128,7 @@ void CEditor::InsertParagraph(std::istream& input)
 	}
 
 	TrimString(text);
-	m_document->InsertParagraph(text, GetOptionalIndex(index));
+	m_document.InsertParagraph(text, GetOptionalIndex(index));
 }
 
 void CEditor::InsertImage(std::istream& input)
@@ -145,7 +144,7 @@ void CEditor::InsertImage(std::istream& input)
 	}
 
 	TrimString(path);
-	m_document->InsertImage(path, width, height, GetOptionalIndex(index));
+	m_document.InsertImage(path, width, height, GetOptionalIndex(index));
 }
 
 void CEditor::SetTitle(std::istream& input)
@@ -158,16 +157,16 @@ void CEditor::SetTitle(std::istream& input)
 	}
 
 	TrimString(title);
-	m_document->SetTitle(title);
+	m_document.SetTitle(title);
 }
 
 void CEditor::List()
 {
-	m_output << "Title: " << m_document->GetTitle() << "\n";
-	for (std::size_t i = 0; i < m_document->GetItemsCount(); ++i)
+	m_output << "Title: " << m_document.GetTitle() << "\n";
+	for (std::size_t i = 0; i < m_document.GetItemsCount(); ++i)
 	{
 		m_output << std::to_string(i) << ". ";
-		auto item = m_document->GetItem(i);
+		auto item = m_document.GetItem(i);
 
 		if (auto const& image = item.GetImage())
 		{
@@ -192,7 +191,7 @@ void CEditor::ReplaceText(std::istream& input)
 		throw std::invalid_argument("invalid parameters for ReplaceText");
 	}
 
-	auto const& paragraph = m_document->GetItem(index).GetParagraph();
+	auto const& paragraph = m_document.GetItem(index).GetParagraph();
 	if (!paragraph)
 	{
 		throw std::runtime_error("element is not a paragraph");
@@ -213,7 +212,7 @@ void CEditor::ResizeImage(std::istream& input)
 		throw std::invalid_argument("invalid parameters for ResizeImage");
 	}
 
-	auto const& image = m_document->GetItem(index).GetImage();
+	auto const& image = m_document.GetItem(index).GetImage();
 	if (!image)
 	{
 		throw std::runtime_error("element is not a image");
@@ -231,7 +230,7 @@ void CEditor::DeleteItem(std::istream& input)
 		throw std::invalid_argument("invalid parameters for DeleteItem");
 	}
 
-	m_document->DeleteItem(index);
+	m_document.DeleteItem(index);
 }
 
 void CEditor::Help()
@@ -254,22 +253,22 @@ void CEditor::Help()
 
 void CEditor::Undo()
 {
-	if (!m_document->CanUndo())
+	if (!m_document.CanUndo())
 	{
 		throw std::runtime_error("can not undo");
 	}
 
-	m_document->Undo();
+	m_document.Undo();
 }
 
 void CEditor::Redo()
 {
-	if (!m_document->CanRedo())
+	if (!m_document.CanRedo())
 	{
 		throw std::runtime_error("can not redo");
 	}
 
-	m_document->Redo();
+	m_document.Redo();
 }
 
 void CEditor::Save(std::istream& input)
@@ -282,7 +281,7 @@ void CEditor::Save(std::istream& input)
 	}
 
 	TrimString(path);
-	m_document->Save(path);
+	m_document.Save(path);
 }
 
 void CEditor::Exit()

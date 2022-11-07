@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Document/CDocument.h"
 #include "../Document/IHistory.h"
 #include "../Document/ISaver.h"
 #include "IDocument.h"
@@ -45,5 +46,5 @@ private:
 	std::ostream& m_output;
 	bool m_running = true;
 
-	std::unique_ptr<IDocument> m_document;
+	CDocument m_document;
 };
