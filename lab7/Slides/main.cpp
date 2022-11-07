@@ -95,7 +95,7 @@ std::shared_ptr<IShape> CreateHouse()
 {
 	auto house = std::make_shared<CShapeGroup>();
 	house->InsertShape(CreateBuilding(), 0);
-	house->InsertShape(CreateRoof(), 0);
+	house->InsertShape(CreateRoof(), 1);
 
 	return house;
 }
