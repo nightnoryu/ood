@@ -3,15 +3,16 @@
 #include "../../Shapes/ShapeTypes.h"
 #include <optional>
 
-template <class Base, typename IEnumerator>
+template <class Base, typename Enumerator>
 class CGroupStyleImpl : public Base
 {
 public:
-	explicit CGroupStyleImpl(IEnumerator const& enumerator)
+	explicit CGroupStyleImpl(Enumerator const& enumerator)
 		: m_enumerator(enumerator)
 	{
 	}
 
+	// TODO: optional
 	bool IsEnabled() const final
 	{
 		bool enabled = true;
@@ -40,7 +41,7 @@ public:
 	std::optional<RgbaColor> GetColor() const final
 	{
 		std::optional<RgbaColor> color;
-		bool continuous = false;
+		bool continuous = false; // TODO: better naming
 
 		m_enumerator([&color, &continuous](Base& style) {
 			if (!continuous)
@@ -65,5 +66,5 @@ public:
 	}
 
 protected:
-	IEnumerator m_enumerator;
+	Enumerator m_enumerator;
 };

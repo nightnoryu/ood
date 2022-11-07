@@ -29,6 +29,7 @@ RectD CShapeGroup::GetFrame() const
 		return {};
 	}
 
+	// TODO: shape + empty group frame
 	double minX, minY;
 	minX = minY = std::numeric_limits<double>::max();
 
