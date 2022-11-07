@@ -80,6 +80,13 @@ TEST_CASE("shape group")
 				REQUIRE(group.GetFrame() == shape1->GetFrame());
 			}
 
+			THEN("fill and outline properties match")
+			{
+				REQUIRE(group.GetFillStyle()->GetColor() == shape1->GetFillStyle()->GetColor());
+				REQUIRE(group.GetOutlineStyle()->GetColor() == shape1->GetOutlineStyle()->GetColor());
+				REQUIRE(group.GetOutlineStyle()->GetThickness() == shape1->GetOutlineStyle()->GetThickness());
+			}
+
 			AND_WHEN("changing group frame")
 			{
 				group.SetFrame({ { 0, 0 }, 100, 60 });
@@ -133,6 +140,13 @@ TEST_CASE("shape group")
 					REQUIRE(group.GetFrame() == RectD{ { 50, 70 }, 100, 60 });
 				}
 
+				THEN("fill and outline properties match as long as shape ones match")
+				{
+					REQUIRE(group.GetFillStyle()->GetColor() == shape2->GetFillStyle()->GetColor());
+					REQUIRE(group.GetOutlineStyle()->GetColor() == shape2->GetOutlineStyle()->GetColor());
+					REQUIRE(group.GetOutlineStyle()->GetThickness() == shape2->GetOutlineStyle()->GetThickness());
+				}
+
 				AND_WHEN("changing group frame")
 				{
 					group.SetFrame({ { 0, 0 }, 100, 60 });
@@ -140,6 +154,16 @@ TEST_CASE("shape group")
 					THEN("shape frame is moved and scaled accordingly")
 					{
 						REQUIRE(shape2->GetFrame() == RectD{ { 0, 0 }, 100, 60 });
+					}
+				}
+
+				AND_WHEN("changing fill color for one of the shapes")
+				{
+					shape1->GetFillStyle()->SetColor(0xFF0000);
+
+					THEN("groups color becomes null")
+					{
+						REQUIRE(group.GetFillStyle()->GetColor() == std::nullopt);
 					}
 				}
 
