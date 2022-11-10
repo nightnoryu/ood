@@ -4,15 +4,13 @@
 #include "../CGroupStyleImpl.h"
 #include <functional>
 
-// TODO: naming
-using IOutlineStyleCallback = std::function<void(IOutlineStyle&)>;
-using IOutlineStyleEnumerator = std::function<void(IOutlineStyleCallback const&)>;
+using OutlineStyleCallback = std::function<void(IOutlineStyle&)>;
+using OutlineStyleEnumerator = std::function<void(OutlineStyleCallback const&)>;
 
-class CGroupOutlineStyle : public CGroupStyleImpl<IOutlineStyle, IOutlineStyleEnumerator>
+class CGroupOutlineStyle : public CGroupStyleImpl<IOutlineStyle, OutlineStyleEnumerator>
 {
 public:
-	// TODO: add move constructor
-	explicit CGroupOutlineStyle(IOutlineStyleEnumerator const& enumerator);
+	explicit CGroupOutlineStyle(OutlineStyleEnumerator&& enumerator);
 
 	std::optional<double> GetThickness() const override;
 	void SetThickness(double thickness) override;

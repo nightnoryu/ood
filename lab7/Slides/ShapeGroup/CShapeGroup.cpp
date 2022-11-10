@@ -4,22 +4,22 @@
 
 CShapeGroup::CShapeGroup()
 {
-	auto outlineStyleEnumerator = [this](IOutlineStyleCallback const& callback) {
+	auto outlineStyleEnumerator = [this](OutlineStyleCallback const& callback) {
 		for (auto&& shape : m_shapes)
 		{
 			callback(*shape->GetOutlineStyle());
 		}
 	};
 
-	auto fillStyleEnumerator = [this](IStyleCallback const& callback) {
+	auto fillStyleEnumerator = [this](StyleCallback const& callback) {
 		for (auto&& shape : m_shapes)
 		{
 			callback(*shape->GetFillStyle());
 		}
 	};
 
-	m_outlineStyle = std::make_shared<CGroupOutlineStyle>(outlineStyleEnumerator);
-	m_fillStyle = std::make_shared<CGroupFillStyle>(fillStyleEnumerator);
+	m_outlineStyle = std::make_shared<CGroupOutlineStyle>(std::move(outlineStyleEnumerator));
+	m_fillStyle = std::make_shared<CGroupFillStyle>(std::move(fillStyleEnumerator));
 }
 
 RectD CShapeGroup::GetFrame() const

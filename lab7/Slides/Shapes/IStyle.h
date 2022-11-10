@@ -6,7 +6,7 @@
 class IStyle
 {
 public:
-	virtual bool IsEnabled() const = 0;
+	virtual std::optional<bool> IsEnabled() const = 0;
 	virtual void Enable() = 0;
 	virtual void Disable() = 0;
 

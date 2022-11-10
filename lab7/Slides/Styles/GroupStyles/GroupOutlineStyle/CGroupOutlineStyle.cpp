@@ -1,22 +1,23 @@
 #include "CGroupOutlineStyle.h"
 
-CGroupOutlineStyle::CGroupOutlineStyle(IOutlineStyleEnumerator const& enumerator)
-	: CGroupStyleImpl(enumerator)
+CGroupOutlineStyle::CGroupOutlineStyle(OutlineStyleEnumerator&& enumerator)
+	: CGroupStyleImpl(std::move(enumerator))
 {
 }
 
 std::optional<double> CGroupOutlineStyle::GetThickness() const
 {
 	std::optional<double> thickness;
-	bool continuous = false;
+	bool sequential = false;
 
-	m_enumerator([&thickness, &continuous](IOutlineStyle& style) {
-		if (!continuous)
+	m_enumerator([&thickness, &sequential](IOutlineStyle& style) {
+		if (!sequential)
 		{
 			thickness = style.GetThickness();
-			continuous = true;
+			sequential = true;
 		}
-		else if (thickness != style.GetThickness())
+
+		if (thickness != style.GetThickness())
 		{
 			thickness = std::nullopt;
 		}

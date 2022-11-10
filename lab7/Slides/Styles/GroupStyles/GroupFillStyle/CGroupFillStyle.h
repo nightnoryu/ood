@@ -4,7 +4,7 @@
 #include "../CGroupStyleImpl.h"
 #include <functional>
 
-using IStyleCallback = std::function<void(IStyle&)>;
-using IStyleEnumerator = std::function<void(IStyleCallback const&)>;
+using StyleCallback = std::function<void(IStyle&)>;
+using StyleEnumerator = std::function<void(StyleCallback const&)>;
 
-using CGroupFillStyle = CGroupStyleImpl<IStyle, IStyleEnumerator>;
+using CGroupFillStyle = CGroupStyleImpl<IStyle, StyleEnumerator>;

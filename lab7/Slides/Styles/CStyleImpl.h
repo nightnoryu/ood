@@ -7,7 +7,7 @@ template <class Base>
 class CStyleImpl : public Base
 {
 public:
-	bool IsEnabled() const final
+	std::optional<bool> IsEnabled() const final
 	{
 		return m_enabled;
 	}

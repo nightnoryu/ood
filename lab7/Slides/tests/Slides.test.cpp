@@ -36,19 +36,19 @@ TEST_CASE("shape group")
 				REQUIRE(group.GetFrame().IsEmpty());
 			}
 
-			THEN("fill style is enabled and has no color")
+			THEN("fill style is null and has no color")
 			{
 				auto const fillStyle = group.GetFillStyle();
 
-				REQUIRE(fillStyle->IsEnabled());
+				REQUIRE(fillStyle->IsEnabled() == std::nullopt);
 				REQUIRE(fillStyle->GetColor() == std::nullopt);
 			}
 
-			THEN("outline style is enabled and has no color nor thickness")
+			THEN("outline style is null and has no color nor thickness")
 			{
 				auto const outlineStyle = group.GetOutlineStyle();
 
-				REQUIRE(outlineStyle->IsEnabled());
+				REQUIRE(outlineStyle->IsEnabled() == std::nullopt);
 				REQUIRE(outlineStyle->GetColor() == std::nullopt);
 				REQUIRE(outlineStyle->GetThickness() == std::nullopt);
 			}
@@ -145,6 +145,26 @@ TEST_CASE("shape group")
 					REQUIRE(group.GetFillStyle()->GetColor() == shape2->GetFillStyle()->GetColor());
 					REQUIRE(group.GetOutlineStyle()->GetColor() == shape2->GetOutlineStyle()->GetColor());
 					REQUIRE(group.GetOutlineStyle()->GetThickness() == shape2->GetOutlineStyle()->GetThickness());
+				}
+
+				AND_WHEN("changing fill color in one of the shapes")
+				{
+					shape1->GetFillStyle()->SetColor(0x0000FF);
+
+					THEN("group fill color becomes null")
+					{
+						REQUIRE(group.GetFillStyle()->GetColor() == std::nullopt);
+					}
+				}
+
+				AND_WHEN("disabling one of the shapes' style")
+				{
+					shape1->GetOutlineStyle()->Disable();
+
+					THEN("group style status becomes null")
+					{
+						REQUIRE(group.GetOutlineStyle()->IsEnabled() == std::nullopt);
+					}
 				}
 
 				AND_WHEN("changing group frame")
