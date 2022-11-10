@@ -53,6 +53,11 @@ TEST_CASE("shape group")
 				REQUIRE(outlineStyle->GetThickness() == std::nullopt);
 			}
 
+			THEN("shape group pointer is the same as the group")
+			{
+				REQUIRE(group.GetGroup().get() == std::addressof(group));
+			}
+
 			AND_WHEN("trying to draw it")
 			{
 				group.Draw(canvas);
@@ -209,6 +214,14 @@ TEST_CASE("shape group")
 						fakeit::Verify(Method(canvasMock, DrawEllipse)).Once();
 					}
 				}
+			}
+
+			AND_WHEN("adding an empty group at the end")
+			{
+				auto childGroup = std::make_shared<CShapeGroup>();
+				group.InsertShape(childGroup, 1);
+
+				// TODO: frame, others
 			}
 		}
 	}

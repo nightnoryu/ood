@@ -17,6 +17,9 @@ public:
 	std::shared_ptr<IStyle> GetFillStyle() override;
 	std::shared_ptr<IStyle const> GetFillStyle() const override;
 
+	std::shared_ptr<IShapeGroup> GetGroup();
+	std::shared_ptr<IShapeGroup const> GetGroup() const;
+
 	void Draw(ICanvas& canvas) const override;
 
 private:

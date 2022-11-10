@@ -60,3 +60,13 @@ std::optional<RgbaColor> CShape::GetFillColor() const
 
 	return fillColor;
 }
+
+std::shared_ptr<IShapeGroup> CShape::GetGroup()
+{
+	return nullptr;
+}
+
+std::shared_ptr<IShapeGroup const> CShape::GetGroup() const
+{
+	return nullptr;
+}

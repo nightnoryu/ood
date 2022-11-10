@@ -14,6 +14,9 @@ public:
 	std::shared_ptr<IStyle> GetFillStyle() final;
 	std::shared_ptr<IStyle const> GetFillStyle() const final;
 
+	std::shared_ptr<IShapeGroup> GetGroup() final;
+	std::shared_ptr<IShapeGroup const> GetGroup() const final;
+
 protected:
 	std::optional<RgbaColor> GetOutlineColor() const;
 	std::optional<double> GetOutlineThickness() const;

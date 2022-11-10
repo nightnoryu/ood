@@ -94,6 +94,16 @@ std::shared_ptr<IStyle const> CShapeGroup::GetFillStyle() const
 	return m_fillStyle;
 }
 
+std::shared_ptr<IShapeGroup> CShapeGroup::GetGroup()
+{
+	return std::shared_ptr<IShapeGroup>(this);
+}
+
+std::shared_ptr<IShapeGroup const> CShapeGroup::GetGroup() const
+{
+	return std::shared_ptr<IShapeGroup const>(this);
+}
+
 void CShapeGroup::Draw(ICanvas& canvas) const
 {
 	for (auto&& shape : m_shapes)
