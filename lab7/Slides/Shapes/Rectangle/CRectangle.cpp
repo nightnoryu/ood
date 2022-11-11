@@ -7,13 +7,13 @@ CRectangle::CRectangle(PointD const& leftTop, double width, double height)
 {
 }
 
-RectD CRectangle::GetFrame() const
+std::optional<RectD> CRectangle::GetFrame() const
 {
-	return {
+	return { {
 		.leftTop = m_leftTop,
 		.width = m_width,
 		.height = m_height,
-	};
+	} };
 }
 
 void CRectangle::SetFrame(RectD const& rect)

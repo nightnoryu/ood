@@ -7,7 +7,7 @@ class CRectangle : public CShape
 public:
 	CRectangle(PointD const& leftTop, double width, double height);
 
-	RectD GetFrame() const override;
+	std::optional<RectD> GetFrame() const override;
 	void SetFrame(RectD const& rect) override;
 
 	void Draw(ICanvas& canvas) const override;

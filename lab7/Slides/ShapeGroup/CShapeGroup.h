@@ -8,7 +8,7 @@ class CShapeGroup : public CShapeCollectionImpl<IShapeGroup>
 public:
 	CShapeGroup();
 
-	RectD GetFrame() const override;
+	std::optional<RectD> GetFrame() const override;
 	void SetFrame(RectD const& rect) override;
 
 	std::shared_ptr<IOutlineStyle> GetOutlineStyle() override;

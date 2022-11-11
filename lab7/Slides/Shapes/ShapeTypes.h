@@ -21,29 +21,24 @@ using PointD = Point<double>;
 template <typename T>
 struct Rect
 {
-	T Top()
+	T Top() const
 	{
 		return leftTop.y;
 	}
 
-	T Right()
+	T Right() const
 	{
 		return leftTop.x + width;
 	}
 
-	T Bottom()
+	T Bottom() const
 	{
 		return leftTop.y + height;
 	}
 
-	T Left()
+	T Left() const
 	{
 		return leftTop.x;
-	}
-
-	bool IsEmpty()
-	{
-		return width == 0 && height == 0;
 	}
 
 	bool operator==(Rect const& other) const

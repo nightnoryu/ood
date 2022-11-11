@@ -7,13 +7,13 @@ CEllipse::CEllipse(PointD const& center, double horizontalRadius, double vertica
 {
 }
 
-RectD CEllipse::GetFrame() const
+std::optional<RectD> CEllipse::GetFrame() const
 {
-	return {
+	return { {
 		.leftTop = { m_center.x - m_horizontalRadius, m_center.y - m_verticalRadius },
 		.width = m_horizontalRadius * 2,
 		.height = m_verticalRadius * 2,
-	};
+	} };
 }
 
 void CEllipse::SetFrame(RectD const& rect)

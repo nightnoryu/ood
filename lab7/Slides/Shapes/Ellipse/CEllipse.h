@@ -7,7 +7,7 @@ class CEllipse : public CShape
 public:
 	CEllipse(PointD const& center, double horizontalRadius, double verticalRadius);
 
-	RectD GetFrame() const override;
+	std::optional<RectD> GetFrame() const override;
 	void SetFrame(RectD const& rect) override;
 
 	void Draw(ICanvas& canvas) const override;

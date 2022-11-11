@@ -22,14 +22,13 @@ CShapeGroup::CShapeGroup()
 	m_fillStyle = std::make_shared<CGroupFillStyle>(std::move(fillStyleEnumerator));
 }
 
-RectD CShapeGroup::GetFrame() const
+std::optional<RectD> CShapeGroup::GetFrame() const
 {
 	if (m_shapes.empty())
 	{
-		return {};
+		return std::nullopt;
 	}
 
-	// TODO: shape + empty group frame
 	double minX, minY;
 	minX = minY = std::numeric_limits<double>::max();
 
@@ -38,7 +37,12 @@ RectD CShapeGroup::GetFrame() const
 
 	for (auto&& shape : m_shapes)
 	{
-		auto frame = shape->GetFrame();
+		if (!shape->GetFrame().has_value())
+		{
+			return std::nullopt;
+		}
+
+		auto const frame = shape->GetFrame().value();
 
 		minX = std::min(minX, frame.Left());
 		minY = std::min(minY, frame.Top());
@@ -52,18 +56,19 @@ RectD CShapeGroup::GetFrame() const
 
 void CShapeGroup::SetFrame(RectD const& rect)
 {
-	auto currentFrame = GetFrame();
-	if (currentFrame.IsEmpty())
+	if (!GetFrame().has_value())
 	{
 		return;
 	}
+
+	auto currentFrame = GetFrame().value();
 
 	auto scaleFactorX = rect.width / currentFrame.width;
 	auto scaleFactorY = rect.height / currentFrame.height;
 
 	for (auto&& shape : m_shapes)
 	{
-		auto frame = shape->GetFrame();
+		auto frame = shape->GetFrame().value();
 
 		auto newX = rect.leftTop.x + (frame.leftTop.x - currentFrame.leftTop.x) * scaleFactorX;
 		auto newY = rect.leftTop.y + (frame.leftTop.y - currentFrame.leftTop.y) * scaleFactorY;

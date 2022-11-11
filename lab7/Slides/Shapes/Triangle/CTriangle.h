@@ -7,7 +7,7 @@ class CTriangle : public CShape
 public:
 	CTriangle(PointD const& vertex1, PointD const& vertex2, PointD const& vertex3);
 
-	RectD GetFrame() const override;
+	std::optional<RectD> GetFrame() const override;
 	void SetFrame(RectD const& rect) override;
 
 	void Draw(ICanvas& canvas) const override;

@@ -31,26 +31,26 @@ TEST_CASE("shape group")
 				REQUIRE_THROWS_AS(group.RemoveShapeAtIndex(0), std::out_of_range);
 			}
 
-			THEN("the frame is empty")
+			THEN("the frame is null")
 			{
-				REQUIRE(group.GetFrame().IsEmpty());
+				REQUIRE_FALSE(group.GetFrame().has_value());
 			}
 
 			THEN("fill style is null and has no color")
 			{
 				auto const fillStyle = group.GetFillStyle();
 
-				REQUIRE(fillStyle->IsEnabled() == std::nullopt);
-				REQUIRE(fillStyle->GetColor() == std::nullopt);
+				REQUIRE_FALSE(fillStyle->IsEnabled().has_value());
+				REQUIRE_FALSE(fillStyle->GetColor().has_value());
 			}
 
 			THEN("outline style is null and has no color nor thickness")
 			{
 				auto const outlineStyle = group.GetOutlineStyle();
 
-				REQUIRE(outlineStyle->IsEnabled() == std::nullopt);
-				REQUIRE(outlineStyle->GetColor() == std::nullopt);
-				REQUIRE(outlineStyle->GetThickness() == std::nullopt);
+				REQUIRE_FALSE(outlineStyle->IsEnabled().has_value());
+				REQUIRE_FALSE(outlineStyle->GetColor().has_value());
+				REQUIRE_FALSE(outlineStyle->GetThickness().has_value());
 			}
 
 			THEN("shape group pointer is the same as the group")
@@ -158,7 +158,7 @@ TEST_CASE("shape group")
 
 					THEN("group fill color becomes null")
 					{
-						REQUIRE(group.GetFillStyle()->GetColor() == std::nullopt);
+						REQUIRE_FALSE(group.GetFillStyle()->GetColor().has_value());
 					}
 				}
 
@@ -168,7 +168,7 @@ TEST_CASE("shape group")
 
 					THEN("group style status becomes null")
 					{
-						REQUIRE(group.GetOutlineStyle()->IsEnabled() == std::nullopt);
+						REQUIRE_FALSE(group.GetOutlineStyle()->IsEnabled().has_value());
 					}
 				}
 
@@ -188,7 +188,7 @@ TEST_CASE("shape group")
 
 					THEN("groups color becomes null")
 					{
-						REQUIRE(group.GetFillStyle()->GetColor() == std::nullopt);
+						REQUIRE_FALSE(group.GetFillStyle()->GetColor().has_value());
 					}
 				}
 
@@ -221,7 +221,10 @@ TEST_CASE("shape group")
 				auto childGroup = std::make_shared<CShapeGroup>();
 				group.InsertShape(childGroup, 1);
 
-				// TODO: frame, others
+				THEN("frame becomes null")
+				{
+					REQUIRE_FALSE(group.GetFrame().has_value());
+				}
 			}
 		}
 	}
