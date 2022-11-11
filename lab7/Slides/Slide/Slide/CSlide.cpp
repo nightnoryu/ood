@@ -1,5 +1,5 @@
 #include "CSlide.h"
-#include "../ShapeCollection/CShapeCollection.h"
+#include "../../ShapeCollection/CShapeCollection.h"
 
 CSlide::CSlide(double width, double height)
 	: m_width(width)

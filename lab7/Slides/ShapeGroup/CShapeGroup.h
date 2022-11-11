@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Slide/CShapeCollectionImpl.h"
+#include "../ShapeCollection/CShapeCollectionImpl.h"
 #include "IShapeGroup.h"
 
 class CShapeGroup : public CShapeCollectionImpl<IShapeGroup>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IShape.h"
+#include "../Slide/IShape.h"
 
 template <class Base>
 class CShapeCollectionImpl : public Base

@@ -28,10 +28,10 @@ add_executable(Slides
                ShapeGroup/CShapeGroup.cpp
                ShapeGroup/CShapeGroup.h
                Slide/ISlide.h
-               Slide/IShapeCollection.h
+               ShapeCollection/IShapeCollection.h
                Slide/Slide/CSlide.cpp
                Slide/Slide/CSlide.h
-               Slide/ShapeCollection/CShapeCollection.h
-               Slide/CShapeCollectionImpl.h)
+               ShapeCollection/CShapeCollection.h
+               ShapeCollection/CShapeCollectionImpl.h)
 
 add_subdirectory(tests)

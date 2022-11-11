@@ -28,11 +28,11 @@ add_executable(SlidesTest
                ../ShapeGroup/CShapeGroup.cpp
                ../ShapeGroup/CShapeGroup.h
                ../Slide/ISlide.h
-               ../Slide/IShapeCollection.h
+               ../ShapeCollection/IShapeCollection.h
                ../Slide/Slide/CSlide.cpp
                ../Slide/Slide/CSlide.h
-               ../Slide/ShapeCollection/CShapeCollection.h
-               ../Slide/CShapeCollectionImpl.h)
+               ../ShapeCollection/CShapeCollection.h
+               ../ShapeCollection/CShapeCollectionImpl.h)
 
 target_link_libraries(SlidesTest PUBLIC catch2 fakeit)
 add_test(NAME SlidesTest COMMAND SlidesTest)
