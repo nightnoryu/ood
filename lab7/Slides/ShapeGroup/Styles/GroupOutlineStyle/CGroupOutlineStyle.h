@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../Shapes/IOutlineStyle.h"
+#include "../../../Styles/IOutlineStyle.h"
 #include "../CGroupStyleImpl.h"
 #include <functional>
 

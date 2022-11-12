@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Shapes/IOutlineStyle.h"
+#include "../../../Styles/IOutlineStyle.h"
 #include "../CStyleImpl.h"
 
 class COutlineStyle : public CStyleImpl<IOutlineStyle>

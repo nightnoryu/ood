@@ -1,6 +1,6 @@
 #include "CShape.h"
-#include "../../Styles/FillStyle/CFillStyle.h"
-#include "../../Styles/OutlineStyle/COutlineStyle.h"
+#include "../Styles/FillStyle/CFillStyle.h"
+#include "../Styles/OutlineStyle/COutlineStyle.h"
 
 CShape::CShape()
 	: m_outlineStyle(std::make_shared<COutlineStyle>())

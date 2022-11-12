@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ShapeTypes.h"
+#include "../Shapes/ShapeTypes.h"
 #include <optional>
 
 class IStyle

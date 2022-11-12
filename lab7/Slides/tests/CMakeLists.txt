@@ -14,16 +14,16 @@ add_executable(SlidesTest
                ../Shapes/Ellipse/CEllipse.h
                ../Shapes/Triangle/CTriangle.cpp
                ../Shapes/Triangle/CTriangle.h
-               ../Shapes/IStyle.h
-               ../Shapes/IOutlineStyle.h
-               ../Styles/CStyleImpl.h
-               ../Styles/FillStyle/CFillStyle.h
-               ../Styles/OutlineStyle/COutlineStyle.cpp
-               ../Styles/OutlineStyle/COutlineStyle.h
-               ../Styles/GroupStyles/CGroupStyleImpl.h
-               ../Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.h
-               ../Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.cpp
-               ../Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h
+               ../Styles/IStyle.h
+               ../Styles/IOutlineStyle.h
+               ../Shapes/Styles/CStyleImpl.h
+               ../Shapes/Styles/FillStyle/CFillStyle.h
+               ../Shapes/Styles/OutlineStyle/COutlineStyle.cpp
+               ../Shapes/Styles/OutlineStyle/COutlineStyle.h
+               ../ShapeGroup/Styles/CGroupStyleImpl.h
+               ../ShapeGroup/Styles/GroupFillStyle/CGroupFillStyle.h
+               ../ShapeGroup/Styles/GroupOutlineStyle/CGroupOutlineStyle.cpp
+               ../ShapeGroup/Styles/GroupOutlineStyle/CGroupOutlineStyle.h
                ../ShapeGroup/IShapeGroup.h
                ../ShapeGroup/CShapeGroup.cpp
                ../ShapeGroup/CShapeGroup.h

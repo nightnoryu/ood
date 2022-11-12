@@ -1,6 +1,6 @@
 #include "CShapeGroup.h"
-#include "../Styles/GroupStyles/GroupFillStyle/CGroupFillStyle.h"
-#include "../Styles/GroupStyles/GroupOutlineStyle/CGroupOutlineStyle.h"
+#include "Styles/GroupFillStyle/CGroupFillStyle.h"
+#include "Styles/GroupOutlineStyle/CGroupOutlineStyle.h"
 
 CShapeGroup::CShapeGroup()
 {

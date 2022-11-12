@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Shapes/IStyle.h"
+#include "../../../Styles/IStyle.h"
 #include "../CStyleImpl.h"
 
 using CFillStyle = CStyleImpl<IStyle>;

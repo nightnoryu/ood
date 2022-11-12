@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Shapes/ShapeTypes.h"
+#include "../ShapeTypes.h"
 #include <optional>
 
 template <class Base>
