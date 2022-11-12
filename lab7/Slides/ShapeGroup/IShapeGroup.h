@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../ShapeCollection/IShapeCollection.h"
-#include "../Slide/IShape.h"
+#include "../Shapes/IShape.h"
 
 class IShapeGroup : public IShape
 	, public IShapeCollection

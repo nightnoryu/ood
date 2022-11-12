@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Slide/IShape.h"
+#include "../IShape.h"
 #include <functional>
 
 class CShape : public IShape

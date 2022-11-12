@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Slide/IShape.h"
+#include "../Shapes/IShape.h"
 
 class IShapeCollection
 {

@@ -5,7 +5,7 @@ add_executable(SlidesTest
                ../Common/Infrastructure/SVG/CCanvas.h
                ../Shapes/ShapeTypes.h
                ../Common/App/IDrawable.h
-               ../Slide/IShape.h
+               ../Shapes/IShape.h
                ../Shapes/Shape/CShape.cpp
                ../Shapes/Shape/CShape.h
                ../Shapes/Rectangle/CRectangle.cpp
