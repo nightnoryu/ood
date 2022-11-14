@@ -18,6 +18,7 @@ public:
 private:
 	void ReleaseBall() override;
 	unsigned int GetBallCount() const override;
+
 	void SetSoldOutState() override;
 	void SetNoQuarterState() override;
 	void SetSoldState() override;
