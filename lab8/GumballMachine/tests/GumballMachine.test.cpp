@@ -1,6 +1,11 @@
 #define CATCH_CONFIG_MAIN
 #include "../GumballMachine/CGumballMachine.h"
+#include "../State/HasQuarterState/CHasQuarterState.h"
+#include "../State/NoQuarterState/CNoQuarterState.h"
+#include "../State/SoldOutState/CSoldOutState.h"
+#include "../State/SoldState/CSoldState.h"
 #include "catch.hpp"
+#include "fakeit.hpp"
 
 std::string BuildMachineStr(unsigned int expectedBallCount, std::string const& expectedState)
 {
@@ -139,6 +144,101 @@ TEST_CASE("gumball machine")
 					REQUIRE(str == BuildMachineStr(0, "sold out"));
 				}
 			}
+		}
+	}
+}
+
+TEST_CASE("states")
+{
+	fakeit::Mock<IGumballMachine> machineMock;
+	fakeit::Fake(Method(machineMock, SetSoldOutState));
+	fakeit::Fake(Method(machineMock, SetNoQuarterState));
+	fakeit::Fake(Method(machineMock, SetSoldState));
+	fakeit::Fake(Method(machineMock, SetHasQuarterState));
+
+	auto& machine = machineMock.get();
+
+	GIVEN("a sold out state")
+	{
+		CSoldOutState state(machine);
+
+		WHEN("inserting a quarter")
+		{
+		}
+
+		WHEN("ejecting a quarter")
+		{
+		}
+
+		WHEN("turning the crank")
+		{
+		}
+
+		WHEN("dispensing")
+		{
+		}
+	}
+
+	GIVEN("no quarter state")
+	{
+		CNoQuarterState state(machine);
+
+		WHEN("inserting a quarter")
+		{
+		}
+
+		WHEN("ejecting a quarter")
+		{
+		}
+
+		WHEN("turning the crank")
+		{
+		}
+
+		WHEN("dispensing")
+		{
+		}
+	}
+
+	GIVEN("has quarter state")
+	{
+		CHasQuarterState state(machine);
+
+		WHEN("inserting a quarter")
+		{
+		}
+
+		WHEN("ejecting a quarter")
+		{
+		}
+
+		WHEN("turning the crank")
+		{
+		}
+
+		WHEN("dispensing")
+		{
+		}
+	}
+
+	GIVEN("sold state")
+	{
+		CSoldState state(machine);
+
+		WHEN("inserting a quarter")
+		{
+		}
+
+		WHEN("ejecting a quarter")
+		{
+		}
+
+		WHEN("turning the crank")
+		{
+		}
+
+		WHEN("dispensing")
+		{
 		}
 	}
 }

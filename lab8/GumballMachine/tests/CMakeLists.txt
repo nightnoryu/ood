@@ -13,5 +13,5 @@ add_executable(GumballMachineTest
                ../GumballMachine/CGumballMachine.cpp
                ../GumballMachine/CGumballMachine.h)
 
-target_link_libraries(GumballMachineTest PUBLIC catch2)
+target_link_libraries(GumballMachineTest PUBLIC catch2 fakeit)
 add_test(NAME GumballMachineTest COMMAND GumballMachineTest)
