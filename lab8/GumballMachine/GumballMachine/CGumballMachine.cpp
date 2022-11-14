@@ -63,20 +63,20 @@ unsigned int CGumballMachine::GetBallCount() const
 
 void CGumballMachine::SetSoldOutState()
 {
-	m_currentState = std::make_unique<CSoldOutState>(*this);
+	m_currentState = std::make_unique<CSoldOutState>(static_cast<IGumballMachine&>(*this));
 }
 
 void CGumballMachine::SetNoQuarterState()
 {
-	m_currentState = std::make_unique<CNoQuarterState>(*this);
+	m_currentState = std::make_unique<CNoQuarterState>(static_cast<IGumballMachine&>(*this));
 }
 
 void CGumballMachine::SetSoldState()
 {
-	m_currentState = std::make_unique<CSoldState>(*this);
+	m_currentState = std::make_unique<CSoldState>(static_cast<IGumballMachine&>(*this));
 }
 
 void CGumballMachine::SetHasQuarterState()
 {
-	m_currentState = std::make_unique<CHasQuarterState>(*this);
+	m_currentState = std::make_unique<CHasQuarterState>(static_cast<IGumballMachine&>(*this));
 }

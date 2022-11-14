@@ -4,7 +4,7 @@
 #include "IGumballMachine.h"
 #include <memory>
 
-class CGumballMachine : public IGumballMachine
+class CGumballMachine : private IGumballMachine
 {
 public:
 	explicit CGumballMachine(unsigned int ballCount);
