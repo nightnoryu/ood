@@ -15,7 +15,6 @@ void DrawSlide(std::shared_ptr<ISlide> const& slide);
 
 int main()
 {
-	// TODO: organize, remove cyclic dependencies
 	try
 	{
 		auto const slide = CreateSlide();
