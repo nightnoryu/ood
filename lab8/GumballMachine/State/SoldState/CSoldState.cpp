@@ -24,15 +24,24 @@ void CSoldState::TurnCrank()
 void CSoldState::Dispense()
 {
 	m_gumballMachine.ReleaseBall();
+	m_gumballMachine.ReleaseQuarter(1);
+
 	if (m_gumballMachine.GetBallCount() == 0)
 	{
 		std::cout << "Oops, out of gumballs\n";
 		m_gumballMachine.SetSoldOutState();
+		return;
 	}
-	else
+
+	if (m_gumballMachine.GetQuarterCount() == 0)
 	{
+		std::cout << "Out of quarters\n";
 		m_gumballMachine.SetNoQuarterState();
+		return;
 	}
+
+	std::cout << "Still got " << m_gumballMachine.GetQuarterCount() << " quarters\n";
+	m_gumballMachine.SetHasQuarterState();
 }
 
 std::string CSoldState::ToString() const

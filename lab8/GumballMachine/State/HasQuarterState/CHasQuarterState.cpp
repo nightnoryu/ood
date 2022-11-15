@@ -8,12 +8,20 @@ CHasQuarterState::CHasQuarterState(IGumballMachine& gumballMachine)
 
 void CHasQuarterState::InsertQuarter()
 {
-	std::cout << "You can't insert another quarter\n";
+	if (m_gumballMachine.GetQuarterCount() == m_gumballMachine.GetMaxQuarterCount())
+	{
+		std::cout << "You can't insert another quarter\n";
+		return;
+	}
+
+	std::cout << "You inserted a quarter\n";
+	m_gumballMachine.AddQuarter();
 }
 
 void CHasQuarterState::EjectQuarter()
 {
 	std::cout << "Quarter returned\n";
+	m_gumballMachine.ReleaseQuarter(m_gumballMachine.GetQuarterCount());
 	m_gumballMachine.SetNoQuarterState();
 }
 

@@ -16,15 +16,22 @@ public:
 	std::string ToString() const;
 
 private:
+	static constexpr unsigned int MAX_QUARTER_COUNT = 5;
+
 	void ReleaseBall() override;
 	unsigned int GetBallCount() const override;
+
+	void AddQuarter() override;
+	void ReleaseQuarter(unsigned int count) override;
+	unsigned int GetQuarterCount() const override;
+	unsigned int GetMaxQuarterCount() const override;
 
 	void SetSoldOutState() override;
 	void SetNoQuarterState() override;
 	void SetSoldState() override;
 	void SetHasQuarterState() override;
 
-private:
-	unsigned int m_ballCount;
+	unsigned int m_ballCount = 0;
+	unsigned int m_quarterCount = 0;
 	std::unique_ptr<IState> m_currentState;
 };

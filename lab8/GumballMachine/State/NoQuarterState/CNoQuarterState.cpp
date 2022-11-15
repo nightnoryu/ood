@@ -9,6 +9,7 @@ CNoQuarterState::CNoQuarterState(IGumballMachine& gumballMachine)
 void CNoQuarterState::InsertQuarter()
 {
 	std::cout << "You inserted a quarter\n";
+	m_gumballMachine.AddQuarter();
 	m_gumballMachine.SetHasQuarterState();
 }
 

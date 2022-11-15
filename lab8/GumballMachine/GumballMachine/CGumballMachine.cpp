@@ -61,6 +61,29 @@ unsigned int CGumballMachine::GetBallCount() const
 	return m_ballCount;
 }
 
+void CGumballMachine::AddQuarter()
+{
+	++m_quarterCount;
+}
+
+void CGumballMachine::ReleaseQuarter(unsigned int count)
+{
+	if (m_quarterCount != 0)
+	{
+		m_quarterCount -= std::min(m_quarterCount, count);
+	}
+}
+
+unsigned int CGumballMachine::GetQuarterCount() const
+{
+	return m_quarterCount;
+}
+
+unsigned int CGumballMachine::GetMaxQuarterCount() const
+{
+	return MAX_QUARTER_COUNT;
+}
+
 void CGumballMachine::SetSoldOutState()
 {
 	m_currentState = std::make_unique<CSoldOutState>(static_cast<IGumballMachine&>(*this));
