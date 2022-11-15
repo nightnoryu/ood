@@ -12,6 +12,7 @@ public:
 	void EjectQuarter() override;
 	void TurnCrank() override;
 	void Dispense() override;
+
 	std::string ToString() const override;
 
 private:
