@@ -155,6 +155,7 @@ TEST_CASE("states")
 	fakeit::Fake(Method(machineMock, SetNoQuarterState));
 	fakeit::Fake(Method(machineMock, SetSoldState));
 	fakeit::Fake(Method(machineMock, SetHasQuarterState));
+	fakeit::Fake(Method(machineMock, ReleaseBall));
 
 	auto& machine = machineMock.get();
 
@@ -164,18 +165,42 @@ TEST_CASE("states")
 
 		WHEN("inserting a quarter")
 		{
+			state.InsertQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("ejecting a quarter")
 		{
+			state.EjectQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("turning the crank")
 		{
+			state.TurnCrank();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("dispensing")
 		{
+			state.Dispense();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 	}
 
@@ -185,18 +210,42 @@ TEST_CASE("states")
 
 		WHEN("inserting a quarter")
 		{
+			state.InsertQuarter();
+
+			THEN("has quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetHasQuarterState)).Once();
+			}
 		}
 
 		WHEN("ejecting a quarter")
 		{
+			state.EjectQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("turning the crank")
 		{
+			state.TurnCrank();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("dispensing")
 		{
+			state.Dispense();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 	}
 
@@ -206,18 +255,42 @@ TEST_CASE("states")
 
 		WHEN("inserting a quarter")
 		{
+			state.InsertQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("ejecting a quarter")
 		{
+			state.EjectQuarter();
+
+			THEN("no quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetNoQuarterState)).Once();
+			}
 		}
 
 		WHEN("turning the crank")
 		{
+			state.TurnCrank();
+
+			THEN("sold state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetSoldState)).Once();
+			}
 		}
 
 		WHEN("dispensing")
 		{
+			state.Dispense();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 	}
 
@@ -227,18 +300,54 @@ TEST_CASE("states")
 
 		WHEN("inserting a quarter")
 		{
+			state.InsertQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("ejecting a quarter")
 		{
+			state.EjectQuarter();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
 		WHEN("turning the crank")
 		{
+			state.TurnCrank();
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
 		}
 
-		WHEN("dispensing")
+		WHEN("dispensing with filled machine")
 		{
+			fakeit::When(Method(machineMock, GetBallCount)).Return(5);
+			state.Dispense();
+
+			THEN("no quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetNoQuarterState));
+			}
+		}
+
+		WHEN("dispensing with empty machine")
+		{
+			fakeit::When(Method(machineMock, GetBallCount)).Return(0);
+			state.Dispense();
+
+			THEN("sold out state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetSoldOutState));
+			}
 		}
 	}
 }
