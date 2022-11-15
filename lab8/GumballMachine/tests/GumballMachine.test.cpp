@@ -151,11 +151,17 @@ TEST_CASE("gumball machine")
 TEST_CASE("states")
 {
 	fakeit::Mock<IGumballMachine> machineMock;
+
+	fakeit::Fake(Method(machineMock, ReleaseBall));
+
+	fakeit::Fake(Method(machineMock, AddQuarter));
+	fakeit::Fake(Method(machineMock, ReleaseQuarter));
+	fakeit::When(Method(machineMock, GetMaxQuarterCount)).AlwaysReturn(2);
+
 	fakeit::Fake(Method(machineMock, SetSoldOutState));
 	fakeit::Fake(Method(machineMock, SetNoQuarterState));
 	fakeit::Fake(Method(machineMock, SetSoldState));
 	fakeit::Fake(Method(machineMock, SetHasQuarterState));
-	fakeit::Fake(Method(machineMock, ReleaseBall));
 
 	auto& machine = machineMock.get();
 
@@ -206,6 +212,7 @@ TEST_CASE("states")
 
 	GIVEN("no quarter state")
 	{
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(0);
 		CNoQuarterState state(machine);
 
 		WHEN("inserting a quarter")
@@ -251,6 +258,7 @@ TEST_CASE("states")
 
 	GIVEN("has quarter state")
 	{
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(1);
 		CHasQuarterState state(machine);
 
 		WHEN("inserting a quarter")
@@ -331,6 +339,7 @@ TEST_CASE("states")
 		WHEN("dispensing with filled machine")
 		{
 			fakeit::When(Method(machineMock, GetBallCount)).Return(5);
+			fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(1);
 			state.Dispense();
 
 			THEN("no quarter state is set")
