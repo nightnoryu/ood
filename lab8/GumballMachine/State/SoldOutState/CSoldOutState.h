@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../GumballMachine/IGumballMachine.h"
+#include "../IGumballMachine.h"
 #include "../IState.h"
 
 class CSoldOutState : public IState

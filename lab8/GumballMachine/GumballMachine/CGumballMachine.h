@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../State/IGumballMachine.h"
 #include "../State/IState.h"
-#include "IGumballMachine.h"
 #include <memory>
 
 class CGumballMachine : private IGumballMachine

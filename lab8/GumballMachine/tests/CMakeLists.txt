@@ -9,7 +9,7 @@ add_executable(GumballMachineTest
                ../State/HasQuarterState/CHasQuarterState.h
                ../State/NoQuarterState/CNoQuarterState.cpp
                ../State/NoQuarterState/CNoQuarterState.h
-               ../GumballMachine/IGumballMachine.h
+               ../State/IGumballMachine.h
                ../GumballMachine/CGumballMachine.cpp
                ../GumballMachine/CGumballMachine.h)
 
