@@ -42,6 +42,7 @@ std::string CGumballMachine::ToString() const
 	ss << "Mighty Gumball, Inc.\n"
 	   << "C++-enabled Standing Gumball Model #2016 (with state)\n"
 	   << "Inventory: " << m_ballCount << " gumball" << (m_ballCount != 1 ? "s" : "") << "\n"
+	   << "Quarters: " << m_quarterCount << "\n"
 	   << "Machine is " << m_currentState->ToString() << "\n";
 
 	return ss.str();

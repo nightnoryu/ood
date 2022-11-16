@@ -11,6 +11,8 @@ add_executable(GumballMachine
                State/NoQuarterState/CNoQuarterState.h
                State/IGumballMachine.h
                GumballMachine/CGumballMachine.cpp
-               GumballMachine/CGumballMachine.h)
+               GumballMachine/CGumballMachine.h
+               Menu/CMenu.cpp
+               Menu/CMenu.h)
 
 add_subdirectory(tests)

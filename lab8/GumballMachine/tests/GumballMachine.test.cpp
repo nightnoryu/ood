@@ -7,12 +7,13 @@
 #include "catch.hpp"
 #include "fakeit.hpp"
 
-std::string BuildMachineStr(unsigned int expectedBallCount, std::string const& expectedState)
+std::string BuildMachineStr(unsigned int expectedBallCount, unsigned int expectedQuarterCount, std::string const& expectedState)
 {
 	std::ostringstream ss;
 	ss << "Mighty Gumball, Inc.\n"
 	   << "C++-enabled Standing Gumball Model #2016 (with state)\n"
 	   << "Inventory: " << expectedBallCount << " gumball" << (expectedBallCount != 1 ? "s" : "") << "\n"
+	   << "Quarters: " << expectedQuarterCount << "\n"
 	   << "Machine is " << expectedState << "\n";
 
 	return ss.str();
@@ -29,7 +30,7 @@ TEST_CASE("gumball machine")
 			THEN("it contains 2 balls and is in the no quarter state")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(2, "waiting for quarter"));
+				REQUIRE(str == BuildMachineStr(2, 0, "waiting for quarter"));
 			}
 		}
 
@@ -40,7 +41,7 @@ TEST_CASE("gumball machine")
 			THEN("nothing changes")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(2, "waiting for quarter"));
+				REQUIRE(str == BuildMachineStr(2, 0, "waiting for quarter"));
 			}
 		}
 
@@ -51,7 +52,7 @@ TEST_CASE("gumball machine")
 			THEN("nothing changes")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(2, "waiting for quarter"));
+				REQUIRE(str == BuildMachineStr(2, 0, "waiting for quarter"));
 			}
 		}
 
@@ -62,7 +63,7 @@ TEST_CASE("gumball machine")
 			THEN("machine is waiting for the crank")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(2, "waiting for turn of crank"));
+				REQUIRE(str == BuildMachineStr(2, 1, "waiting for turn of crank"));
 			}
 
 			AND_WHEN("inserting another quarter")
@@ -72,7 +73,7 @@ TEST_CASE("gumball machine")
 				THEN("machine is still waiting for the crank")
 				{
 					auto const str = machine.ToString();
-					REQUIRE(str == BuildMachineStr(2, "waiting for turn of crank"));
+					REQUIRE(str == BuildMachineStr(2, 2, "waiting for turn of crank"));
 				}
 			}
 
@@ -83,7 +84,7 @@ TEST_CASE("gumball machine")
 				THEN("machine is waiting for quarter")
 				{
 					auto const str = machine.ToString();
-					REQUIRE(str == BuildMachineStr(2, "waiting for quarter"));
+					REQUIRE(str == BuildMachineStr(2, 0, "waiting for quarter"));
 				}
 			}
 
@@ -94,7 +95,7 @@ TEST_CASE("gumball machine")
 				THEN("a gumball is dispensed and the machine is waiting for quarter")
 				{
 					auto const str = machine.ToString();
-					REQUIRE(str == BuildMachineStr(1, "waiting for quarter"));
+					REQUIRE(str == BuildMachineStr(1, 0, "waiting for quarter"));
 				}
 
 				AND_WHEN("turning the crank again")
@@ -104,7 +105,7 @@ TEST_CASE("gumball machine")
 					THEN("nothing changes")
 					{
 						auto const str = machine.ToString();
-						REQUIRE(str == BuildMachineStr(1, "waiting for quarter"));
+						REQUIRE(str == BuildMachineStr(1, 0, "waiting for quarter"));
 					}
 				}
 			}
@@ -120,7 +121,7 @@ TEST_CASE("gumball machine")
 			THEN("it contains zero balls and is in the sold out state")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(0, "sold out"));
+				REQUIRE(str == BuildMachineStr(0, 0, "sold out"));
 			}
 		}
 
@@ -131,7 +132,7 @@ TEST_CASE("gumball machine")
 			THEN("the machine is still sold out")
 			{
 				auto const str = machine.ToString();
-				REQUIRE(str == BuildMachineStr(0, "sold out"));
+				REQUIRE(str == BuildMachineStr(0, 0, "sold out"));
 			}
 
 			AND_WHEN("turning the crank")
@@ -141,7 +142,7 @@ TEST_CASE("gumball machine")
 				THEN("no balls are dispensed and the machine is still sold out")
 				{
 					auto const str = machine.ToString();
-					REQUIRE(str == BuildMachineStr(0, "sold out"));
+					REQUIRE(str == BuildMachineStr(0, 0, "sold out"));
 				}
 			}
 		}

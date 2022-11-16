@@ -1,38 +1,9 @@
-#include "GumballMachine/CGumballMachine.h"
-#include <iostream>
+#include "Menu/CMenu.h"
 
 int main()
 {
-	CGumballMachine machine(5);
+	CMenu menu(std::cin, std::cout, 5);
+	menu.Start();
 
-	std::cout << machine.ToString() << std::endl;
-
-	machine.InsertQuarter();
-	machine.TurnCrank();
-
-	std::cout << machine.ToString() << std::endl;
-
-	machine.InsertQuarter();
-	machine.EjectQuarter();
-	machine.TurnCrank();
-
-	std::cout << machine.ToString() << std::endl;
-
-	machine.InsertQuarter();
-	machine.TurnCrank();
-	machine.InsertQuarter();
-	machine.TurnCrank();
-	machine.EjectQuarter();
-
-	std::cout << machine.ToString() << std::endl;
-
-	machine.InsertQuarter();
-	machine.InsertQuarter();
-	machine.TurnCrank();
-	machine.InsertQuarter();
-	machine.TurnCrank();
-	machine.InsertQuarter();
-	machine.TurnCrank();
-
-	std::cout << machine.ToString() << std::endl;
+	return EXIT_SUCCESS;
 }
