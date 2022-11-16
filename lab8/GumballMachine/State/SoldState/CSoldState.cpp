@@ -32,7 +32,7 @@ void CSoldState::Dispense()
 
 		if (m_gumballMachine.GetQuarterCount() > 0)
 		{
-			std::cout << "Ejecting " << m_gumballMachine.GetQuarterCount() << " leftover quarters\n";
+			std::cout << "Ejecting leftover quarters: " << m_gumballMachine.GetQuarterCount() << "\n";
 			m_gumballMachine.ReleaseQuarters(m_gumballMachine.GetQuarterCount());
 		}
 
