@@ -265,9 +265,9 @@ TEST_CASE("states")
 		{
 			state.InsertQuarter();
 
-			THEN("nothing happens")
+			THEN("another quarter is added")
 			{
-				fakeit::VerifyNoOtherInvocations(machineMock);
+				fakeit::Verify(Method(machineMock, AddQuarter));
 			}
 		}
 
@@ -339,7 +339,7 @@ TEST_CASE("states")
 		WHEN("dispensing with filled machine")
 		{
 			fakeit::When(Method(machineMock, GetBallCount)).Return(5);
-			fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(1);
+			fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(0);
 			state.Dispense();
 
 			THEN("no quarter state is set")
