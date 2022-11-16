@@ -11,7 +11,7 @@ void CSoldState::InsertQuarter()
 	std::cout << "Please wait, we're already giving you a gumball\n";
 }
 
-void CSoldState::EjectQuarter()
+void CSoldState::EjectQuarters()
 {
 	std::cout << "Sorry you already turned the crank\n";
 }
@@ -24,11 +24,18 @@ void CSoldState::TurnCrank()
 void CSoldState::Dispense()
 {
 	m_gumballMachine.ReleaseBall();
-	m_gumballMachine.ReleaseQuarter(1);
+	m_gumballMachine.ReleaseQuarters(1);
 
 	if (m_gumballMachine.GetBallCount() == 0)
 	{
 		std::cout << "Oops, out of gumballs\n";
+
+		if (m_gumballMachine.GetQuarterCount() > 0)
+		{
+			std::cout << "Ejecting " << m_gumballMachine.GetQuarterCount() << " leftover quarters\n";
+			m_gumballMachine.ReleaseQuarters(m_gumballMachine.GetQuarterCount());
+		}
+
 		m_gumballMachine.SetSoldOutState();
 		return;
 	}

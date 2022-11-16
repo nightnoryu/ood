@@ -9,7 +9,7 @@ public:
 	explicit CNoQuarterState(IGumballMachine& gumballMachine);
 
 	void InsertQuarter() override;
-	void EjectQuarter() override;
+	void EjectQuarters() override;
 	void TurnCrank() override;
 	void Dispense() override;
 

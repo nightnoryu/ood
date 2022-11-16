@@ -155,7 +155,7 @@ TEST_CASE("states")
 	fakeit::Fake(Method(machineMock, ReleaseBall));
 
 	fakeit::Fake(Method(machineMock, AddQuarter));
-	fakeit::Fake(Method(machineMock, ReleaseQuarter));
+	fakeit::Fake(Method(machineMock, ReleaseQuarters));
 	fakeit::When(Method(machineMock, GetMaxQuarterCount)).AlwaysReturn(2);
 
 	fakeit::Fake(Method(machineMock, SetSoldOutState));
@@ -181,7 +181,7 @@ TEST_CASE("states")
 
 		WHEN("ejecting a quarter")
 		{
-			state.EjectQuarter();
+			state.EjectQuarters();
 
 			THEN("nothing happens")
 			{
@@ -227,7 +227,7 @@ TEST_CASE("states")
 
 		WHEN("ejecting a quarter")
 		{
-			state.EjectQuarter();
+			state.EjectQuarters();
 
 			THEN("nothing happens")
 			{
@@ -273,7 +273,7 @@ TEST_CASE("states")
 
 		WHEN("ejecting a quarter")
 		{
-			state.EjectQuarter();
+			state.EjectQuarters();
 
 			THEN("no quarter state is set")
 			{
@@ -318,7 +318,7 @@ TEST_CASE("states")
 
 		WHEN("ejecting a quarter")
 		{
-			state.EjectQuarter();
+			state.EjectQuarters();
 
 			THEN("nothing happens")
 			{
@@ -351,11 +351,182 @@ TEST_CASE("states")
 		WHEN("dispensing with empty machine")
 		{
 			fakeit::When(Method(machineMock, GetBallCount)).Return(0);
+			fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysReturn(0);
 			state.Dispense();
 
 			THEN("sold out state is set")
 			{
 				fakeit::Verify(Method(machineMock, SetSoldOutState));
+			}
+		}
+	}
+}
+
+TEST_CASE("several quarters")
+{
+	fakeit::Mock<IGumballMachine> machineMock;
+
+	fakeit::Fake(Method(machineMock, ReleaseBall));
+
+	fakeit::When(Method(machineMock, GetMaxQuarterCount)).AlwaysReturn(2);
+
+	fakeit::Fake(Method(machineMock, SetSoldOutState));
+	fakeit::Fake(Method(machineMock, SetNoQuarterState));
+	fakeit::Fake(Method(machineMock, SetSoldState));
+	fakeit::Fake(Method(machineMock, SetHasQuarterState));
+
+	auto& machine = machineMock.get();
+
+	GIVEN("has quarter state with 1 quarter and 3 gumballs")
+	{
+		unsigned int quarters = 1;
+		fakeit::When(Method(machineMock, AddQuarter)).AlwaysDo([&quarters]() {
+			++quarters;
+		});
+		fakeit::When(Method(machineMock, ReleaseQuarters)).AlwaysDo([&quarters](unsigned int count) {
+			quarters -= std::min(quarters, count);
+		});
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysDo([&quarters]() {
+			return quarters;
+		});
+		fakeit::When(Method(machineMock, GetBallCount)).AlwaysReturn(3);
+
+		CHasQuarterState state(machine);
+
+		WHEN("turning the crank")
+		{
+			state.TurnCrank();
+
+			THEN("sold state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetSoldState)).Once();
+			}
+		}
+
+		WHEN("inserting a quarter")
+		{
+			state.InsertQuarter();
+
+			THEN("1 quarter is added")
+			{
+				REQUIRE(quarters == 2);
+			}
+
+			AND_WHEN("trying to insert another quarter")
+			{
+				state.InsertQuarter();
+
+				THEN("no quarters are added")
+				{
+					REQUIRE(quarters == 2);
+				}
+			}
+
+			AND_WHEN("ejecting quarters")
+			{
+				state.EjectQuarters();
+
+				THEN("all quarters are ejected")
+				{
+					REQUIRE(quarters == 0);
+				}
+			}
+
+			AND_WHEN("turning the crank")
+			{
+				state.TurnCrank();
+
+				THEN("sold state is set")
+				{
+					fakeit::Verify(Method(machineMock, SetSoldState)).Once();
+				}
+			}
+		}
+	}
+
+	GIVEN("sold state with 2 quarters and 3 gumballs")
+	{
+		unsigned int quarters = 2;
+		fakeit::When(Method(machineMock, ReleaseQuarters)).AlwaysDo([&quarters](unsigned int count) {
+			quarters -= std::min(quarters, count);
+		});
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysDo([&quarters]() {
+			return quarters;
+		});
+		fakeit::When(Method(machineMock, GetBallCount)).AlwaysReturn(3);
+
+		CSoldState state(machine);
+
+		WHEN("dispensing")
+		{
+			state.Dispense();
+
+			THEN("1 quarter is released")
+			{
+				REQUIRE(quarters == 1);
+			}
+
+			THEN("has quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetHasQuarterState)).Once();
+			}
+		}
+	}
+
+	GIVEN("sold state with 1 quarter and 3 gumballs")
+	{
+		unsigned int quarters = 1;
+		fakeit::When(Method(machineMock, ReleaseQuarters)).AlwaysDo([&quarters](unsigned int count) {
+			quarters -= std::min(quarters, count);
+		});
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysDo([&quarters]() {
+			return quarters;
+		});
+		fakeit::When(Method(machineMock, GetBallCount)).AlwaysReturn(3);
+
+		CSoldState state(machine);
+
+		WHEN("dispensing")
+		{
+			state.Dispense();
+
+			THEN("1 quarter is released")
+			{
+				REQUIRE(quarters == 0);
+			}
+
+			THEN("no quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetNoQuarterState)).Once();
+			}
+		}
+	}
+
+	GIVEN("sold state with 3 quarters and no gumballs")
+	{
+		unsigned int quarters = 3;
+		fakeit::When(Method(machineMock, ReleaseQuarters)).AlwaysDo([&quarters](unsigned int count) {
+			quarters -= std::min(quarters, count);
+		});
+		fakeit::When(Method(machineMock, GetQuarterCount)).AlwaysDo([&quarters]() {
+			return quarters;
+		});
+		fakeit::When(Method(machineMock, GetBallCount)).AlwaysReturn(0);
+
+		CSoldState state(machine);
+
+		WHEN("dispensing")
+		{
+			state.Dispense();
+
+			THEN("all quarters are released with 2 being returned")
+			{
+				REQUIRE(quarters == 0);
+			}
+
+			THEN("sold out state is set")
+			{
+				fakeit::Verify(Method(machineMock, SetSoldOutState)).Once();
 			}
 		}
 	}

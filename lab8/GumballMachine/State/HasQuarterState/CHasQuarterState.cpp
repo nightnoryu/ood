@@ -18,10 +18,10 @@ void CHasQuarterState::InsertQuarter()
 	m_gumballMachine.AddQuarter();
 }
 
-void CHasQuarterState::EjectQuarter()
+void CHasQuarterState::EjectQuarters()
 {
 	std::cout << "Quarter returned\n";
-	m_gumballMachine.ReleaseQuarter(m_gumballMachine.GetQuarterCount());
+	m_gumballMachine.ReleaseQuarters(m_gumballMachine.GetQuarterCount());
 	m_gumballMachine.SetNoQuarterState();
 }
 

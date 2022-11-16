@@ -11,7 +11,7 @@ void CSoldOutState::InsertQuarter()
 	std::cout << "You can't insert a quarter, the machine is sold out\n";
 }
 
-void CSoldOutState::EjectQuarter()
+void CSoldOutState::EjectQuarters()
 {
 	std::cout << "You can't eject, you haven't inserted a quarter yet\n";
 }

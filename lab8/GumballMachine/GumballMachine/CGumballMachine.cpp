@@ -22,7 +22,7 @@ CGumballMachine::CGumballMachine(unsigned int ballCount)
 
 void CGumballMachine::EjectQuarter()
 {
-	m_currentState->EjectQuarter();
+	m_currentState->EjectQuarters();
 }
 
 void CGumballMachine::InsertQuarter()
@@ -66,7 +66,7 @@ void CGumballMachine::AddQuarter()
 	++m_quarterCount;
 }
 
-void CGumballMachine::ReleaseQuarter(unsigned int count)
+void CGumballMachine::ReleaseQuarters(unsigned int count)
 {
 	if (m_quarterCount != 0)
 	{

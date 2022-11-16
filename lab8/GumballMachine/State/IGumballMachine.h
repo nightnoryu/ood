@@ -7,7 +7,7 @@ public:
 	virtual unsigned int GetBallCount() const = 0;
 
 	virtual void AddQuarter() = 0;
-	virtual void ReleaseQuarter(unsigned int count) = 0;
+	virtual void ReleaseQuarters(unsigned int count) = 0;
 	virtual unsigned int GetQuarterCount() const = 0;
 	virtual unsigned int GetMaxQuarterCount() const = 0;
 

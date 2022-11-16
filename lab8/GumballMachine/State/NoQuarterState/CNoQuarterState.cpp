@@ -13,7 +13,7 @@ void CNoQuarterState::InsertQuarter()
 	m_gumballMachine.SetHasQuarterState();
 }
 
-void CNoQuarterState::EjectQuarter()
+void CNoQuarterState::EjectQuarters()
 {
 	std::cout << "You haven't inserted a quarter\n";
 }

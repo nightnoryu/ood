@@ -22,7 +22,7 @@ private:
 	unsigned int GetBallCount() const override;
 
 	void AddQuarter() override;
-	void ReleaseQuarter(unsigned int count) override;
+	void ReleaseQuarters(unsigned int count) override;
 	unsigned int GetQuarterCount() const override;
 	unsigned int GetMaxQuarterCount() const override;
 
