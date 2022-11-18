@@ -30,6 +30,14 @@ void CSoldOutState::Refill(unsigned int count)
 {
 	std::cout << "Added " << count << " gumballs\n";
 	m_gumballMachine.AddBalls(count);
+
+	if (m_gumballMachine.GetQuarterCount() == 0)
+	{
+		m_gumballMachine.SetNoQuarterState();
+		return;
+	}
+
+	m_gumballMachine.SetHasQuarterState();
 }
 
 std::string CSoldOutState::ToString() const
