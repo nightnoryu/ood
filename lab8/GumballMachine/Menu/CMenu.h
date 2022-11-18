@@ -19,12 +19,14 @@ private:
 	void InsertQuarter();
 	void EjectQuarter();
 	void TurnCrank();
+	void Refill(std::istream& args);
 
 	void Status();
 	void Exit();
 
 	std::istream& m_input;
 	std::ostream& m_output;
+
 	bool m_running = true;
 	CGumballMachine m_gumballMachine;
 };

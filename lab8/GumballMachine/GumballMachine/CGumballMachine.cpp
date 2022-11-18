@@ -36,6 +36,11 @@ void CGumballMachine::TurnCrank()
 	m_currentState->Dispense();
 }
 
+void CGumballMachine::Refill(unsigned int count)
+{
+	m_currentState->Refill(count);
+}
+
 std::string CGumballMachine::ToString() const
 {
 	std::ostringstream ss;
@@ -60,6 +65,11 @@ void CGumballMachine::ReleaseBall()
 unsigned int CGumballMachine::GetBallCount() const
 {
 	return m_ballCount;
+}
+
+void CGumballMachine::AddBalls(unsigned int count)
+{
+	m_ballCount += count;
 }
 
 void CGumballMachine::AddQuarter()

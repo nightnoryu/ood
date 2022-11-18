@@ -9,6 +9,7 @@ public:
 	virtual void EjectQuarters() = 0;
 	virtual void TurnCrank() = 0;
 	virtual void Dispense() = 0;
+	virtual void Refill(unsigned int count) = 0;
 
 	virtual std::string ToString() const = 0;
 

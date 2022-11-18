@@ -5,6 +5,7 @@ class IGumballMachine
 public:
 	virtual void ReleaseBall() = 0;
 	virtual unsigned int GetBallCount() const = 0;
+	virtual void AddBalls(unsigned int count) = 0;
 
 	virtual void AddQuarter() = 0;
 	virtual void ReleaseQuarters(unsigned int count) = 0;

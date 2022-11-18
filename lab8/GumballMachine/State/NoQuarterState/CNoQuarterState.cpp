@@ -28,6 +28,12 @@ void CNoQuarterState::Dispense()
 	std::cout << "You need to pay first\n";
 }
 
+void CNoQuarterState::Refill(unsigned int count)
+{
+	std::cout << "Added " << count << " gumballs\n";
+	m_gumballMachine.AddBalls(count);
+}
+
 std::string CNoQuarterState::ToString() const
 {
 	return "waiting for quarter";

@@ -52,6 +52,12 @@ CMenu::CommandHandler CMenu::GetCommandHandler(std::string const& commandName)
 			TurnCrank();
 		};
 	}
+	else if (commandName == "Refill")
+	{
+		return [this](std::istream& input) {
+			Refill(input);
+		};
+	}
 	else if (commandName == "Status")
 	{
 		return [this](std::istream& /* input */) {
@@ -81,6 +87,17 @@ void CMenu::EjectQuarter()
 void CMenu::TurnCrank()
 {
 	m_gumballMachine.TurnCrank();
+}
+
+void CMenu::Refill(std::istream& args)
+{
+	unsigned int count;
+	if (!(args >> count))
+	{
+		throw std::invalid_argument("invalid ball count");
+	}
+
+	m_gumballMachine.Refill(count);
 }
 
 void CMenu::Status()

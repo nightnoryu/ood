@@ -51,6 +51,11 @@ void CSoldState::Dispense()
 	m_gumballMachine.SetHasQuarterState();
 }
 
+void CSoldState::Refill(unsigned int count)
+{
+	std::cout << "Can't refill while delivering a gumball\n";
+}
+
 std::string CSoldState::ToString() const
 {
 	return "delivering a gumball";

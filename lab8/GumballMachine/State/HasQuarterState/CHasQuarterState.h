@@ -12,6 +12,7 @@ public:
 	void EjectQuarters() override;
 	void TurnCrank() override;
 	void Dispense() override;
+	void Refill(unsigned int count) override;
 
 	std::string ToString() const override;
 

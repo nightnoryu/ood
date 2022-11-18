@@ -36,6 +36,13 @@ void CHasQuarterState::Dispense()
 	std::cout << "No gumball dispensed\n";
 }
 
+void CHasQuarterState::Refill(unsigned int count)
+{
+	std::cout << "Added " << count << " gumballs. "
+			  << "There are still " << m_gumballMachine.GetQuarterCount() << " quarters left\n";
+	m_gumballMachine.AddBalls(count);
+}
+
 std::string CHasQuarterState::ToString() const
 {
 	return "waiting for turn of crank";

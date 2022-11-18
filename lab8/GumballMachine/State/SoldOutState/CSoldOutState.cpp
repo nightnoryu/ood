@@ -26,6 +26,12 @@ void CSoldOutState::Dispense()
 	std::cout << "No gumball dispensed\n";
 }
 
+void CSoldOutState::Refill(unsigned int count)
+{
+	std::cout << "Added " << count << " gumballs\n";
+	m_gumballMachine.AddBalls(count);
+}
+
 std::string CSoldOutState::ToString() const
 {
 	return "sold out";
