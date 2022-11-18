@@ -56,6 +56,17 @@ TEST_CASE("gumball machine")
 			}
 		}
 
+		WHEN("refilling with 3 balls")
+		{
+			machine.Refill(3);
+
+			THEN("balls are added and state is the same")
+			{
+				auto const str = machine.ToString();
+				REQUIRE(str == BuildMachineStr(5, 0, "waiting for quarter"));
+			}
+		}
+
 		WHEN("inserting a quarter")
 		{
 			machine.InsertQuarter();
@@ -85,6 +96,17 @@ TEST_CASE("gumball machine")
 				{
 					auto const str = machine.ToString();
 					REQUIRE(str == BuildMachineStr(2, 0, "waiting for quarter"));
+				}
+			}
+
+			WHEN("refilling with 3 balls")
+			{
+				machine.Refill(3);
+
+				THEN("balls are added and state is the same")
+				{
+					auto const str = machine.ToString();
+					REQUIRE(str == BuildMachineStr(5, 1, "waiting for turn of crank"));
 				}
 			}
 
@@ -125,6 +147,17 @@ TEST_CASE("gumball machine")
 			}
 		}
 
+		WHEN("refilling with 3 balls")
+		{
+			machine.Refill(3);
+
+			THEN("balls are added and the machine is no longer sold out")
+			{
+				auto const str = machine.ToString();
+				REQUIRE(str == BuildMachineStr(3, 0, "waiting for quarter"));
+			}
+		}
+
 		WHEN("inserting a quarter")
 		{
 			machine.InsertQuarter();
@@ -154,6 +187,7 @@ TEST_CASE("states")
 	fakeit::Mock<IGumballMachine> machineMock;
 
 	fakeit::Fake(Method(machineMock, ReleaseBall));
+	fakeit::Fake(Method(machineMock, AddBalls));
 
 	fakeit::Fake(Method(machineMock, AddQuarter));
 	fakeit::Fake(Method(machineMock, ReleaseQuarters));
@@ -209,6 +243,30 @@ TEST_CASE("states")
 				fakeit::VerifyNoOtherInvocations(machineMock);
 			}
 		}
+
+		WHEN("refilling with 3 balls while having 0 quarters")
+		{
+			fakeit::When(Method(machineMock, GetQuarterCount)).Return(0);
+			state.Refill(3);
+
+			THEN("3 balls are added and no quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, AddBalls).Using(3)).Once();
+				fakeit::Verify(Method(machineMock, SetNoQuarterState)).Once();
+			}
+		}
+
+		WHEN("refilling with 3 balls while having 1 quarter")
+		{
+			fakeit::When(Method(machineMock, GetQuarterCount)).Return(1);
+			state.Refill(3);
+
+			THEN("3 balls are added and has quarter state is set")
+			{
+				fakeit::Verify(Method(machineMock, AddBalls).Using(3)).Once();
+				fakeit::Verify(Method(machineMock, SetHasQuarterState)).Once();
+			}
+		}
 	}
 
 	GIVEN("no quarter state")
@@ -255,6 +313,16 @@ TEST_CASE("states")
 				fakeit::VerifyNoOtherInvocations(machineMock);
 			}
 		}
+
+		WHEN("refilling with 3 balls")
+		{
+			state.Refill(3);
+
+			THEN("3 balls are added")
+			{
+				fakeit::Verify(Method(machineMock, AddBalls).Using(3)).Once();
+			}
+		}
 	}
 
 	GIVEN("has quarter state")
@@ -299,6 +367,16 @@ TEST_CASE("states")
 			THEN("nothing happens")
 			{
 				fakeit::VerifyNoOtherInvocations(machineMock);
+			}
+		}
+
+		WHEN("refilling with 3 balls")
+		{
+			state.Refill(3);
+
+			THEN("3 balls are added")
+			{
+				fakeit::Verify(Method(machineMock, AddBalls).Using(3)).Once();
 			}
 		}
 	}
@@ -358,6 +436,16 @@ TEST_CASE("states")
 			THEN("sold out state is set")
 			{
 				fakeit::Verify(Method(machineMock, SetSoldOutState));
+			}
+		}
+
+		WHEN("refilling with 3 balls")
+		{
+			state.Refill(3);
+
+			THEN("nothing happens")
+			{
+				fakeit::VerifyNoOtherInvocations(machineMock);
 			}
 		}
 	}
