@@ -7,7 +7,7 @@
 class CMenu
 {
 public:
-	CMenu(std::istream& input, std::ostream& output, unsigned int initialBallCount);
+	CMenu(std::istream& input, std::ostream& output, CGumballMachine& gumballMachine);
 
 	void Start();
 
@@ -28,5 +28,5 @@ private:
 	std::ostream& m_output;
 
 	bool m_running = true;
-	CGumballMachine m_gumballMachine;
+	CGumballMachine& m_gumballMachine;
 };

@@ -255,18 +255,6 @@ TEST_CASE("states")
 				fakeit::Verify(Method(machineMock, SetNoQuarterState)).Once();
 			}
 		}
-
-		WHEN("refilling with 3 balls while having 1 quarter")
-		{
-			fakeit::When(Method(machineMock, GetQuarterCount)).Return(1);
-			state.Refill(3);
-
-			THEN("3 balls are added and has quarter state is set")
-			{
-				fakeit::Verify(Method(machineMock, AddBalls).Using(3)).Once();
-				fakeit::Verify(Method(machineMock, SetHasQuarterState)).Once();
-			}
-		}
 	}
 
 	GIVEN("no quarter state")

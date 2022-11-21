@@ -2,7 +2,8 @@
 
 int main()
 {
-	CMenu menu(std::cin, std::cout, 5);
+	CGumballMachine gumballMachine(5);
+	CMenu menu(std::cin, std::cout, gumballMachine);
 	menu.Start();
 
 	return EXIT_SUCCESS;

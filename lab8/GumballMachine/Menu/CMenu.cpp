@@ -1,10 +1,10 @@
 #include "CMenu.h"
 #include <sstream>
 
-CMenu::CMenu(std::istream& input, std::ostream& output, unsigned int initialBallCount)
+CMenu::CMenu(std::istream& input, std::ostream& output, CGumballMachine& gumballMachine)
 	: m_input(input)
 	, m_output(output)
-	, m_gumballMachine(initialBallCount)
+	, m_gumballMachine(gumballMachine)
 {
 }
 
