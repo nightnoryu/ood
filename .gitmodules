@@ -2,3 +2,6 @@
 	path = course
 	url = https://github.com/alexey-malov/ood
 	ignore = dirty
+[submodule "course_work"]
+	path = course_work
+	url = git@github.com:m3tro1d/shapes-mvc.git
