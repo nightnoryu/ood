@@ -1,0 +1,9 @@
+add_executable(Exam
+               main.cpp
+               Observer/CObservable.hpp
+               Observer/IObservable.h
+               Observer/IObserver.h
+               Cat/CCat.cpp
+               Cat/CCat.h
+               Feeder/CFeeder.cpp
+               Feeder/CFeeder.h)
