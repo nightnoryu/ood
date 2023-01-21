@@ -20,5 +20,5 @@ int main()
 		cat.PlayAround();
 	}
 
-	return EXIT_SUCCESS;
+	return 0;
 }

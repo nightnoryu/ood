@@ -1,4 +1,4 @@
-#include "CosxWindowImpl.h"
+#include "COSXWindowImpl.h"
 #include <iostream>
 
 void COSXWindowImpl::SetTitle(std::string const& title)

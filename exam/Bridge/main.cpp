@@ -1,7 +1,7 @@
 #include "Window/CWindow.h"
 #include "Window/Modal/CModalWindow.h"
 #include "Window/Popup/CPopupWindow.h"
-#include "WindowImpl/OSX/CosxWindowImpl.h"
+#include "WindowImpl/OSX/COSXWindowImpl.h"
 #include "WindowImpl/Win32/CWin32WindowImpl.h"
 #include <iostream>
 
@@ -21,5 +21,5 @@ int main()
 	std::cout << std::endl;
 	WorkWithWindow(osxModal);
 
-	return EXIT_SUCCESS;
+	return 0;
 }

@@ -21,5 +21,4 @@ add_subdirectory(lab6)
 add_subdirectory(lab7)
 add_subdirectory(lab8)
 
-add_subdirectory(Exam)
-add_subdirectory(Exam2)
+add_subdirectory(exam)

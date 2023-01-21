@@ -1,4 +1,4 @@
-add_executable(Exam
+add_executable(ExamObserver
                main.cpp
                Observer/CObservable.hpp
                Observer/IObservable.h
